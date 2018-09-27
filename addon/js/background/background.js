@@ -1,6 +1,5 @@
 /* Copyright 2015, Brad McDermott, All rights reserved. */
 'use strict';
-
 let isOn = false;
 let version = util.getVersion();
 let NEW_INSTALL = util.getSavedVersion() === undefined;
@@ -21,6 +20,8 @@ function init() {
 	util.addListener("updateIsOn", toggleOnOff);
 	util.addListener("showOptions", showOptions);
 	util.addListener("addToList", addToList);
+	//my test savecsvtofile
+	util.addListener("downloadcsv", callUtilDownload);
 	util.init();
 
 	util.addActionListener(toggleOnOff);
@@ -28,6 +29,16 @@ function init() {
 
 
 // Listener callbacks
+
+function callUtilDownload(tab,data) {
+
+	console.log('about to call util download');
+	// util.download()
+
+
+
+
+}
 
 function handleLookup(tab, data) {
 	const found = dictionary.lookupWords(data.text);
@@ -48,6 +59,7 @@ function sendScriptData(tab, data) {
 }
 
 function showOptions(tab, data) {
+
 	util.openTab("options.html", tab.id);
 }
 

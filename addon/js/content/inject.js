@@ -26,6 +26,9 @@ if (window.browser == null) {
 	let $lock;
 	let $notification;
 
+	// my global obj for saving csv to file
+	let SAVED_VOCAB_LIST = [];
+
 	function displayDef (defArray) {
 		// Finds longest word in array of results for highlighting
 		const longestMatch = defArray[defArray.length - 1].word;
@@ -170,8 +173,29 @@ if (window.browser == null) {
 
 			if (ekeyCode ==83){
 				console.log("pressed 's' ");
+				// browser.sendMessage({ name: "downloadcsv" });
+				// console.log("completed  sendMessage 'downloadcsv' ");
+				
+				SAVED_VOCAB_LIST.push(['a','b'])
+				var dummydata = 
+					[
+						['Foo', 'programmer'],
+						['Bar', 'bus driver'],
+						['Moo', 'Reindeer Hunter']
+					 ];
+
+				console.log('current saved vocab list:') 
+				console.log(SAVED_VOCAB_LIST)
+				console.log(dummydata)
 			}
-			alert('keypress event\n\n' + 'key: ' + ekeyName+ '  key code:' +ekeyCode + 'isOn var: '+ isOn) ;
+			else if (ekeyCode ==88){
+				console.log("pressed 'x', saving ");
+				// console.log('about to call util download');
+				// util.download()
+
+				browser.downloadCSVFile(SAVED_VOCAB_LIST);
+			}
+			//alert('keypress event\n\n' + 'key: ' + ekeyName+ '  key code:' +ekeyCode + 'isOn var: '+ isOn) ;
 
 		});
 

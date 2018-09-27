@@ -57,4 +57,25 @@ if (window.browser == null) {
 	browser.getImageUrl = function (filename) {
 		return browser.extension.getURL("images/" + filename);
 	}
+
+	browser.downloadCSVFile = function (data) {
+
+	
+		//Anki don't have header for csv. so don't use this. var csv = 'Name,Title\n';
+		var csv = '';
+		 data.forEach(function(row) {
+				 csv += row.join(',');
+				 csv += "\n";
+		 });
+	  
+		 console.log(csv);
+		 var hiddenElement = document.createElement('a');
+		 hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+		 hiddenElement.target = '_blank';
+		 hiddenElement.download = 'people.csv';
+		 document.body.appendChild(hiddenElement);
+		 hiddenElement.click();
+		 document.body.removeChild(hiddenElement);
+
+	}
 })(window, browser);
