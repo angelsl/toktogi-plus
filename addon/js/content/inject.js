@@ -57,6 +57,16 @@ if (window.browser == null) {
 			const selection = window.getSelection();
 			selection.removeAllRanges();
 			selection.addRange(wordRange);
+			/*
+			// @MY SCRIPT@
+			console.log("at highlightMatch. Length:" + length + "   word range:" + wordRange);
+			console.log("@highlightMatch Current node content:" + currentNode.data);
+			var nodeParagraph = currentNode.data
+			var nodeSentence = nodeParagraph.replace(/(((?![.!?]['"]?\s).)*[.!?]['"]?)(\s|$)/g, '$1');
+			// console.log("@highlightMatch Current node Sentence:"  + typeof sentence);
+			alert(nodeSentence);
+			console.log("@highlightMatch Current node Sentence:");
+			*/
 		}
 	}
 
@@ -111,6 +121,7 @@ if (window.browser == null) {
 
 	function getCurrentNodeContents() {
 		if (currentNode.nodeType === 3) {
+			//console.log("Current node content\n\n" + currentNode.data)
 			return currentNode.data;
 		} else {
 			return currentNode.value;
@@ -149,7 +160,21 @@ if (window.browser == null) {
 		}
 	}
 
+
 	function startListeners () {
+		// @savetofile feature
+		$(document).on("keydown", function (event) {
+
+			const ekeyName = event.key;
+			var ekeyCode = event.keyCode;
+
+			if (ekeyCode ==83){
+				console.log("pressed 's' ");
+			}
+			alert('keypress event\n\n' + 'key: ' + ekeyName+ '  key code:' +ekeyCode + 'isOn var: '+ isOn) ;
+
+		});
+
 		$(document).on("mousemove", function (event) {
 			clearTimeout(lookupTimeout);
 
@@ -195,6 +220,7 @@ if (window.browser == null) {
 
 	function stopListeners() {
 		$(document).off("mousemove");
+		$(document).off("keydown");
 		$lock.off("click");
 	}
 
