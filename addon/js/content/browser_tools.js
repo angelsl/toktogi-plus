@@ -58,21 +58,21 @@ if (window.browser == null) {
 		return browser.extension.getURL("images/" + filename);
 	}
 
-	browser.downloadCSVFile = function (data) {
+	browser.downloadTSVFile = function (data) {
 
 	
-		//Anki don't have header for csv. so don't use this. var csv = 'Name,Title\n';
-		var csv = '';
+		//Anki don't have header for tsv. so don't use this. var tsv = 'Name,Title\n';
+		var tsv = '';
 		 data.forEach(function(row) {
-				 csv += row.join(',');
-				 csv += "\n";
+				 tsv += row.join('\t');
+				 tsv += "\n";
 		 });
 	  
-		 console.log(csv);
+		 console.log(tsv);
 		 var hiddenElement = document.createElement('a');
-		 hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+		 hiddenElement.href = 'data:text/tsv;charset=utf-8,' + encodeURI(tsv);
 		 hiddenElement.target = '_blank';
-		 hiddenElement.download = 'Toktogi_SavedVocabList.csv';
+		 hiddenElement.download = 'Toktogi_SavedVocabList.tsv';
 		 document.body.appendChild(hiddenElement);
 		 hiddenElement.click();
 		 document.body.removeChild(hiddenElement);

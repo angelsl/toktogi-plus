@@ -1,6 +1,20 @@
 /* Copyright 2015, Brad McDermott, All rights reserved. */
 "use strict";
+//TODO  Use actual sentence token instead of Paragraph when saving to TSV
+//TODO  Hanja in its own  column when saving to TSV
+//TODO  Toggle Sanseido-like mode for KR-Eng. Maybe naver Dict. Search the manually highlighted keyword.
+//TODO escape tab character when saving to TSV
+//TODO Intergrate real-time import to Anki with Anki Connect
 
+//TODO Choose populated Dict entry to save. Currently only able to save the first longest match entry.
+//        - Either save with KeyDown 1,2,3,4. Or add the save icon to populated Dict Box. 
+
+//TODO Figure out how to share global SAVED_VOCAB_LIST. Currently they all are for each individual Tab
+
+//TODO More Field Option for SAVED_VOCAB_LIST. Full column should be  1.highlighted Hanguel 2.Hanja 3.Def   4. Sentence Token
+//									5.Index No   6. Source URL  7.Web Page Title  8. User Specified Tag
+
+//TODO Add persistent local storage for SAVED_VOCAB_LIST , and perhaps for User-specified SAVED_VOCAB_LIST Field option
 if (window.browser == null) {
 	window.browser = chrome;
 }
@@ -204,7 +218,7 @@ if (window.browser == null) {
 			else if (ekeyCode ==88){
 				console.log("pressed 'x', saving ");
 
-				browser.downloadCSVFile(SAVED_VOCAB_LIST);
+				browser.downloadTSVFile(SAVED_VOCAB_LIST);
 			}
 			//alert('keypress event\n\n' + 'key: ' + ekeyName+ '  key code:' +ekeyCode + 'isOn var: '+ isOn) ;
 
