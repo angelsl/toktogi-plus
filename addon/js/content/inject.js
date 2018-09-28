@@ -12,7 +12,10 @@ if (window.browser == null) {
 	let isOn;
 	let savedX;
 	let savedY;
-	let highlightedvocab
+	let highlightedvocabObj = {};
+	highlightedvocabObj.word;
+	highlightedvocabObj.root;
+	highlightedvocabObj.defs;
 	// Box state and variables
 	let lookupTimeout;
 	let isShowing;
@@ -61,7 +64,7 @@ if (window.browser == null) {
 			const selection = window.getSelection();
 			selection.removeAllRanges();
 			selection.addRange(wordRange);
-			highlightedvocab = wordRange
+			//highlightedvocabObj = wordRange
 			/*
 			// @MY SCRIPT@
 			console.log("at highlightMatch. Length:" + length + "   word range:" + wordRange);
@@ -77,7 +80,15 @@ if (window.browser == null) {
 
 	// Clear dict box, fill with results, longest word on top
 	function populateDictBox(defArray) {
+		//console.log("@populateDictBox:" +defArray);
 		$dictInner.empty();
+
+		highlightedvocabObj.word = defArray[defArray.length - 1].word;
+		if (defArray[defArray.length - 1].root) { 
+			highlightedvocabObj.root  = defArray[defArray.length - 1].root;
+		}
+		highlightedvocabObj.defs = '';
+		
 		for (let i = defArray.length - 1; i >= 0; i--) {
 			if (i !== defArray.length - 1) {
 				$dictInner.append($("<div>", { class: 'divider' }));
@@ -101,6 +112,10 @@ if (window.browser == null) {
 				$dictInner.append(
 					$("<span>", { class: 'dict-def' }).text( defArray[i].defs[j])
 				);
+
+				if (i == defArray.length - 1){
+					highlightedvocabObj.defs = highlightedvocabObj.defs + '|' + defArray[i].defs[j];
+				}
 			}
 		}
 	}
@@ -179,10 +194,12 @@ if (window.browser == null) {
 				
 				// Only save when definition found and text highlighted
 				if (isShowing & currentNode.nodeType === 3){
-					console.log("definition found and text highlighted");
-					SAVED_VOCAB_LIST.push([highlightedvocab,currentNode.data])
+					console.log("Def found. Saving...\n" +highlightedvocabObj.word + " | " + highlightedvocabObj.defs + " | " + currentNode.data );
+					SAVED_VOCAB_LIST.push([highlightedvocabObj.word,highlightedvocabObj.defs,currentNode.data]);
+
+					showSaveVocabSuccessNotification();
 				}
-				
+
 			}
 			else if (ekeyCode ==88){
 				console.log("pressed 'x', saving ");
@@ -241,6 +258,21 @@ if (window.browser == null) {
 		$(document).off("keydown");
 		$lock.off("click");
 	}
+
+	function showSaveVocabSuccessNotification() {
+		const $SaveVocabSuccessNotification	=	$("<div>", { id: 'SaveVocabSuccess-notification' })
+		.text("Vocab Saved: " + highlightedvocabObj.word)
+		.addClass("card-panel grey lighten-4")
+		.appendTo("body");
+
+		$SaveVocabSuccessNotification.show();
+
+		setTimeout(function () {
+			$SaveVocabSuccessNotification.hide();
+		}, 1000);
+
+	}
+
 
 	function showUpdateNotification() {
 		const $update = $("<div>", { id: 'update-notification' }).appendTo("body");
