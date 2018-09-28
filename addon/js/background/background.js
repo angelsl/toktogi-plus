@@ -20,8 +20,6 @@ function init() {
 	util.addListener("updateIsOn", toggleOnOff);
 	util.addListener("showOptions", showOptions);
 	util.addListener("addToList", addToList);
-	//my test savecsvtofile
-	util.addListener("downloadcsv", callUtilDownload);
 	util.init();
 
 	util.addActionListener(toggleOnOff);
@@ -30,15 +28,6 @@ function init() {
 
 // Listener callbacks
 
-function callUtilDownload(tab,data) {
-
-	console.log('about to call util download');
-	// util.download()
-
-
-
-
-}
 
 function handleLookup(tab, data) {
 	const found = dictionary.lookupWords(data.text);

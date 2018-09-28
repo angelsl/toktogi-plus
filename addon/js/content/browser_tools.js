@@ -72,7 +72,7 @@ if (window.browser == null) {
 		 var hiddenElement = document.createElement('a');
 		 hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
 		 hiddenElement.target = '_blank';
-		 hiddenElement.download = 'people.csv';
+		 hiddenElement.download = 'Toktogi_SavedVocabList.csv';
 		 document.body.appendChild(hiddenElement);
 		 hiddenElement.click();
 		 document.body.removeChild(hiddenElement);

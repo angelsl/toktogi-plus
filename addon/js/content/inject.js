@@ -12,6 +12,7 @@ if (window.browser == null) {
 	let isOn;
 	let savedX;
 	let savedY;
+	let highlightedvocab
 	// Box state and variables
 	let lookupTimeout;
 	let isShowing;
@@ -60,6 +61,7 @@ if (window.browser == null) {
 			const selection = window.getSelection();
 			selection.removeAllRanges();
 			selection.addRange(wordRange);
+			highlightedvocab = wordRange
 			/*
 			// @MY SCRIPT@
 			console.log("at highlightMatch. Length:" + length + "   word range:" + wordRange);
@@ -174,24 +176,16 @@ if (window.browser == null) {
 			if (ekeyCode ==83){
 				console.log("pressed 's' ");
 				// browser.sendMessage({ name: "downloadcsv" });
-				// console.log("completed  sendMessage 'downloadcsv' ");
 				
-				SAVED_VOCAB_LIST.push(['a','b'])
-				var dummydata = 
-					[
-						['Foo', 'programmer'],
-						['Bar', 'bus driver'],
-						['Moo', 'Reindeer Hunter']
-					 ];
-
-				console.log('current saved vocab list:') 
-				console.log(SAVED_VOCAB_LIST)
-				console.log(dummydata)
+				// Only save when definition found and text highlighted
+				if (isShowing & currentNode.nodeType === 3){
+					console.log("definition found and text highlighted");
+					SAVED_VOCAB_LIST.push([highlightedvocab,currentNode.data])
+				}
+				
 			}
 			else if (ekeyCode ==88){
 				console.log("pressed 'x', saving ");
-				// console.log('about to call util download');
-				// util.download()
 
 				browser.downloadCSVFile(SAVED_VOCAB_LIST);
 			}
