@@ -22,5 +22,7 @@ Installing unsigned addons permanently requires a special version of Firefox; se
 - [x] Convert to WebExtension API
 - [x] Toolbar button toggles on/off with one click
 - [x] Pop-up works for text in `<textarea>`/`<input>`
+**- [x] Press 's' to save highlighted vocab + its context sentence into internal vocab list**
+**- [x] Press 'x' to export saved vocab list to Tsv (So you can later import them into Anki SRS program) **
 - [ ] Handle frames correctly
 - [ ] Grammar?
