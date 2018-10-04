@@ -27,9 +27,12 @@ if (window.browser == null) {
 	let savedX;
 	let savedY;
 	let highlightedvocabObj = {};
-	highlightedvocabObj.word;
-	highlightedvocabObj.root;
-	highlightedvocabObj.defs;
+	let highlightedvocabObjMaxLength;
+	let highlightedvocabObjFirstIndex;
+	let highlightedvocab_CurrentSentence;
+	//highlightedvocabObj.word;
+	//highlightedvocabObj.root;
+	//highlightedvocabObj.defs;
 	// Box state and variables
 	let lookupTimeout;
 	let isShowing;
@@ -43,16 +46,48 @@ if (window.browser == null) {
 	let $dictInner;
 	let $lock;
 	let $notification;
+	//let $plus = $("<img>", { id: 'toktogi-plus', class: 'toktogi-icon', src: browser.getImageUrl("plus.png") });
+	
+
 
 	// my global obj for saving csv to file
 	let SAVED_VOCAB_LIST = [];
 
+	function addPlusToList(event){
+
+			console.log("called (fx) addPlusToList, Vocab Index to save is: "+event.data.dataIndex);
+
+			let i = event.data.dataIndex;
+			
+	
+			console.log("Def found. Saving...\n" +highlightedvocabObj['word'+i] + " | " +highlightedvocabObj['root'+i] + " | " + highlightedvocabObj['defs'+i]+ " | " + highlightedvocab_CurrentSentence );
+
+			// If root word a.k.a Dictionary form exist , save root word instead of hightlighted conjugated word
+			if (highlightedvocabObj["root"+i])
+			{
+				SAVED_VOCAB_LIST.push([highlightedvocabObj['root'+i],highlightedvocabObj['defs'+i],highlightedvocab_CurrentSentence]);
+				showSaveVocabSuccessNotification(highlightedvocabObj['root'+i]);
+			}
+			else
+			{
+				SAVED_VOCAB_LIST.push([highlightedvocabObj['word'+i],highlightedvocabObj['defs'+i],highlightedvocab_CurrentSentence]);
+				showSaveVocabSuccessNotification(highlightedvocabObj['word'+i]);
+			}
+
+
+
+			
+
+		
+	}
 	function displayDef (defArray) {
 		// Finds longest word in array of results for highlighting
 		const longestMatch = defArray[defArray.length - 1].word;
 
 		// TODO make sure the user hasn't moved the mouse since request
 		if (currentNode) {
+
+
 			highlightMatch(longestMatch.length);
 
 			populateDictBox(defArray);
@@ -89,6 +124,7 @@ if (window.browser == null) {
 			alert(nodeSentence);
 			console.log("@highlightMatch Current node Sentence:");
 			*/
+			highlightedvocab_CurrentSentence = currentNode.data;
 		}
 	}
 
@@ -97,40 +133,67 @@ if (window.browser == null) {
 		//console.log("@populateDictBox:" +defArray);
 		$dictInner.empty();
 
+		/*
 		highlightedvocabObj.word = defArray[defArray.length - 1].word;
 		if (defArray[defArray.length - 1].root) { 
 			highlightedvocabObj.root  = defArray[defArray.length - 1].root;
 		}
-		highlightedvocabObj.defs = '';
-		
+		*/
+
+		highlightedvocabObj = {};
+
+		// because defArray for loop below goes from i to i-- . highlightedvocabObjFirstIndex used for selecting first entry of vocab definition when pressing 's'
+		highlightedvocabObjMaxLength = defArray.length;
+		highlightedvocabObjFirstIndex = highlightedvocabObjMaxLength - 1;
+
 		for (let i = defArray.length - 1; i >= 0; i--) {
 			if (i !== defArray.length - 1) {
 				$dictInner.append($("<div>", { class: 'divider' }));
 			}
 
 			let word = defArray[i].word;
+			highlightedvocabObj['word'+i] = defArray[i].word;
+			//console.log('at populateDictBox , i is' + i);
+
+
 
 			if (defArray[i].root) {
 				word = word + " (" + defArray[i].root + ")";
+				highlightedvocabObj['root'+i] = defArray[i].root;
+
 			}
 
 			$dictInner.append(
 				$("<span>", { class: 'dict-word' }).text(word)
+				
 			);
-			// TODO turn this back on when vocab list is working
-			// var $plus = $("<img>", { class: 'toktogi-plus toktogi-icon', "data-index": i, src: browser.getImageUrl('plus.png') });
-			// $plus.click(addToList);
-			// $dictInner.append($plus);
+
+			
+			// TODO turn this back on when vocab list is working. 
+			// Got-Cha bud !
+			var $plus = $("<img>", { class: 'toktogi-plus toktogi-icon', "data-index": i, src: browser.getImageUrl('plus.png') });
+			$plus.click({dataIndex: i}, addPlusToList);
+			$dictInner.append($plus);
 
 			for (let j = 0; j < defArray[i].defs.length; j++) {
 				$dictInner.append(
 					$("<span>", { class: 'dict-def' }).text( defArray[i].defs[j])
 				);
 
-				if (i == defArray.length - 1){
-					highlightedvocabObj.defs = highlightedvocabObj.defs + '|' + defArray[i].defs[j];
-				}
+					if (!highlightedvocabObj['defs'+i]){
+						// Prevent definition from containing something like  'Undefined | etc | etc2'
+						highlightedvocabObj['defs'+i] = defArray[i].defs[j];
+					}
+
+					else{
+						highlightedvocabObj['defs'+i] = highlightedvocabObj['defs'+i] + '|' + defArray[i].defs[j];
+					}
+					
+				
 			}
+
+			//console.log('highlightedvocabObj["word"+i]. : ' + highlightedvocabObj['word'+i] + ' Definition: '+ highlightedvocabObj['defs'+i]+' Sentence is :' + highlightedvocab_CurrentSentence);
+
 		}
 	}
 
@@ -208,10 +271,22 @@ if (window.browser == null) {
 				
 				// Only save when definition found and text highlighted
 				if (isShowing & currentNode.nodeType === 3){
-					console.log("Def found. Saving...\n" +highlightedvocabObj.word + " | " + highlightedvocabObj.defs + " | " + currentNode.data );
-					SAVED_VOCAB_LIST.push([highlightedvocabObj.word,highlightedvocabObj.defs,currentNode.data]);
 
-					showSaveVocabSuccessNotification();
+					console.log("Def found. Saving...\n" +highlightedvocabObj['word'+highlightedvocabObjFirstIndex] + " | " +highlightedvocabObj['root'+highlightedvocabObjFirstIndex] + " | " + highlightedvocabObj['defs'+highlightedvocabObjFirstIndex]+ " | " + currentNode.data );
+
+					// If root word a.k.a Dictionary form exist , save root word instead of hightlighted conjugated word
+					if (highlightedvocabObj["root"+highlightedvocabObjFirstIndex])
+					{
+						SAVED_VOCAB_LIST.push([highlightedvocabObj['root'+highlightedvocabObjFirstIndex],highlightedvocabObj['defs'+highlightedvocabObjFirstIndex],highlightedvocab_CurrentSentence]);
+						showSaveVocabSuccessNotification(highlightedvocabObj['root'+highlightedvocabObjFirstIndex]);
+					}
+					else
+					{
+						SAVED_VOCAB_LIST.push([highlightedvocabObj['word'+highlightedvocabObjFirstIndex],highlightedvocabObj['defs'+highlightedvocabObjFirstIndex],highlightedvocab_CurrentSentence]);
+						showSaveVocabSuccessNotification(highlightedvocabObj['word'+highlightedvocabObjFirstIndex]);
+					}
+					
+					
 				}
 
 			}
@@ -273,9 +348,9 @@ if (window.browser == null) {
 		$lock.off("click");
 	}
 
-	function showSaveVocabSuccessNotification() {
+	function showSaveVocabSuccessNotification(inputV) {
 		const $SaveVocabSuccessNotification	=	$("<div>", { id: 'SaveVocabSuccess-notification' })
-		.text("Vocab Saved: " + highlightedvocabObj.word)
+		.text("Vocab Saved: " + inputV)
 		.addClass("card-panel grey lighten-4")
 		.appendTo("body");
 
