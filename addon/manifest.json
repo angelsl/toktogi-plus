@@ -27,12 +27,12 @@
       "48": "images/48.png"
    },
    "manifest_version": 2,
-   "name": "Toktogi: A Korean-English Popup Dictionary",
+   "name": "Toktogi:KR-En Popup Dict",
    "options_ui": {
       "page": "options.html"
    },
    "permissions": [ "<all_urls>", "unlimitedStorage", "tabs" ],
    "short_name": "Toktogi",
-   "version": "0.6.6.1",
+   "version": "0.6.7a1",
    "web_accessible_resources": [ "images/unlock.png", "images/lock.png", "images/plus.png" ]
 }

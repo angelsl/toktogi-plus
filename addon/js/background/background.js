@@ -4,14 +4,22 @@ let isOn = false;
 let version = util.getVersion();
 let NEW_INSTALL = util.getSavedVersion() === undefined;
 let JUST_UPDATED = !NEW_INSTALL && version !== util.getSavedVersion();
+let isAndroid =false;
 
 function init() {
 	if (NEW_INSTALL) {
 		util.openTab("guide.html");
 	}
 
+	try {
 	util.setBadgeText("");
+	}
 
+	catch(err) {
+		// Too much work to handle runtime.getBrowserInfo() Promise. This will do for now.
+		console.log("Unable to set badge text. Likely because Client Browser is Android");
+		isAndroid = true;
+	}
 	// Update version after setting JUST_UPDATED
 	util.setVersion(util.getVersion());
 
