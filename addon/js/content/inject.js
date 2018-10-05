@@ -23,6 +23,8 @@ if (window.browser == null) {
 	let range;
 	let currentNode;
 	let currentOffset;
+	// Use rect for saving highlighted word coordinates
+	let rect;
 	let isOn;
 	let savedX;
 	let savedY;
@@ -92,7 +94,16 @@ if (window.browser == null) {
 
 			populateDictBox(defArray);
 
-			$dict.css({ top: savedY + 15, left: savedX }).show();
+			// Save highlighted word coordinates
+
+
+
+			var selectionBottom = rect.bottom + $(window).scrollTop();
+
+			//Previously used top: savedY + 15, issue arise if mouse Y coordinate is too high when highlighting word(Dict popup will overlap word)
+			// or when Y coordinates is is too low (Dict box too far down, can't move mouse over to the box due to isOutOfBox())
+			// changed to selectionBottom for better dict popup location.
+			$dict.css({ top: selectionBottom, left: savedX }).show();
 
 			// Save box coordinates
 			boxTop = $dict.offset().top;
@@ -113,6 +124,9 @@ if (window.browser == null) {
 			const selection = window.getSelection();
 			selection.removeAllRanges();
 			selection.addRange(wordRange);
+
+			
+			rect = wordRange.getBoundingClientRect();
 			//highlightedvocabObj = wordRange
 			/*
 			// @MY SCRIPT@
@@ -206,7 +220,7 @@ if (window.browser == null) {
 			(x <= boxRight + 5) &&
 			(x >= boxLeft - 5) &&
 			(y >= boxTop - 40) &&
-			(y <= boxBottom + 5)
+			(y <= boxBottom + 10)
 		) return false;
 		return true;
 	}
@@ -295,6 +309,22 @@ if (window.browser == null) {
 
 				browser.downloadTSVFile(SAVED_VOCAB_LIST);
 			}
+			else if (ekeyCode ==82){
+				console.log("pressed 'r', retriving Vocab from Cached storage");
+
+				browser.sendMessage({ name: "retrieveCachedVocab" });
+			}
+			else if (ekeyCode ==85){
+				console.log("pressed 'u', Uploading Vocab to Cached storage ");
+
+				browser.sendMessage({ name: "setCachedVocab" , data:SAVED_VOCAB_LIST });
+			}
+			else if (ekeyCode ==80){
+				console.log("pressed 'p', perishing Vocab from Cached storage ");
+
+				browser.sendMessage({ name: "deleteCachedVocab" });
+			}
+
 			//alert('keypress event\n\n' + 'key: ' + ekeyName+ '  key code:' +ekeyCode + 'isOn var: '+ isOn) ;
 
 		});
@@ -415,10 +445,17 @@ if (window.browser == null) {
 		}
 	}
 
+	function readCachedVocabListResult(data) {
+		SAVED_VOCAB_LIST = data
+		console.log("At inject.js, Updated SAVED_VOCAB_LIST from Cached Value:"+SAVED_VOCAB_LIST)
+
+	}
 
 	browser.addListener("injectedData", loadData);
 	browser.addListener("found", displayDef);
 	browser.addListener("startListeners", turnOn);
 	browser.addListener("stopListeners", stopListeners);
+	browser.addListener("cachedVocabListResult",readCachedVocabListResult );
+	
 	browser.initInject();
 })();

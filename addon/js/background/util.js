@@ -72,6 +72,32 @@ util.messageListener = function (message, sender) {
 	}
 };
 
+util.storeVocabList = function(tab, data) {
+	
+	//localStorage only store string, so we use Json to convert list to string
+	localStorage.setItem('vocabList', JSON.stringify(data));
+	console.log('util.storeVocabList: Stored  vocabList :'+data)
+};
+
+util.retrieveVocabList = function(tab) {
+
+	let result = localStorage.getItem('vocabList');
+
+	if (!result){
+		console.log('@util.retrieveVocabList, result is null, converting result to empty list ' + result)
+		result = []
+	}
+
+	util.sendMessage(tab, { name: "cachedVocabListResult", data: JSON.parse(result) });
+	console.log('util.retrieveVocabList: retrieved vocabList :'+result)
+};
+
+util.clearVocabList = function(tab) {
+	localStorage.removeItem('vocabList');
+	console.log('localStorage.removeItem vocabList: completed')
+};
+
+
 util.init = function() {
 	browser.runtime.onMessage.addListener(util.messageListener);
 };

@@ -28,6 +28,10 @@ function init() {
 	util.addListener("updateIsOn", toggleOnOff);
 	util.addListener("showOptions", showOptions);
 	util.addListener("addToList", addToList);
+	util.addListener("retrieveCachedVocab", util.retrieveVocabList);
+	util.addListener("setCachedVocab", util.storeVocabList);
+	util.addListener("deleteCachedVocab", util.clearVocabList);
+
 	util.init();
 
 	util.addActionListener(toggleOnOff);
