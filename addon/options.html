@@ -3,7 +3,46 @@
 <meta charset="utf-8">
 <title>Toktogi</title>
 
+
+
+
+
+<label >KeyPress_Hotkey Enabled: </label><label id="KeyPressToggle_Lb"></label><button id="KeyPressToggle_Btn">Toggle</button><br>
+<label >Vocab List Count: </label><label id="VocabCount_Lb"> 0 </label><button id="showVocabList_Btn">Show</button>
+<p id= "VocabList_Value_p"> </p>
+<button id="downloadVocabList_Btn">Download VocabList</button>
+<button id="resetVocabList_Btn">Reset VocabList</button>
+<script src="options.js"></script>
+
+
+
+
+
+
+
+
 <h2>Change log</h2>
+
+<h3>0.6.7b1 - Bonus Features</h3>
+<ul>
+	<li>Adds clunky Option Menu with button to show currently saved Vocab List</li>
+	<li>Press 's' | Or Click on the + button Next to Vocab To Save Vocab to List in temporary Memory (Vocab List will be reset after closing firefox)</li>
+		<ul>
+			<li>Vocab List Template is As Follow:</li>
+			<li>1.{Vocab}, 2.{Meaning + Hanja}, 3.{Context Sentence}, 4.{Source Html Title}</li>
+			<li>TODO: Hanja will have its own field. & Ability to re-order Fields during Export.</li>
+			<li>TODO: Option To choose between saving {Context Sentence} (Shorter) {Context CurrentNode} (Longer, like Paragragh) </li>
+		</ul>
+	<li>Press 'x' To Export Saved Vocab List to TSV File (For importing to Anki)</li>
+	<li>Press 'u' To Upload/Store Saved Vocab List in Persistent Local Storage (Vocab List Will not be reset after closing firefox)  </li>
+	<li>Press 'r' To Retrieve Saved Vocab List from Persistent Local Storage </li>
+	<li>Press 'p' To Purge/delete Saved Vocab List from Persistent Local Storage</li>
+	<li>Press 'm' To Open Option menu Alternatively, You can manually access Toktogi's menu from Firefox Addon >Extension Tab </li>
+	<li>Re-Adjust Dictionary Pop-up Box so it doesn't appear too far out from the highlighted word</li>
+	<li>Quick fix to make Toktogi-Plus Add-on (Somewhat) Compatible with Android. </li>
+
+
+</ul>
 
 <h3>0.6.6</h3>
 <ul>

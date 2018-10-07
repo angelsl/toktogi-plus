@@ -61,18 +61,19 @@ if (window.browser == null) {
 
 			let i = event.data.dataIndex;
 			
-	
-			console.log("Def found. Saving...\n" +highlightedvocabObj['word'+i] + " | " +highlightedvocabObj['root'+i] + " | " + highlightedvocabObj['defs'+i]+ " | " + highlightedvocab_CurrentSentence );
+			
+			console.log("Def found. Saving...\n" +highlightedvocabObj['word'+i] + " | " +highlightedvocabObj['root'+i] + " | " + highlightedvocabObj['defs'+i]+ " | " + highlightedvocab_CurrentSentence + " | " + document.title);
+
 
 			// If root word a.k.a Dictionary form exist , save root word instead of hightlighted conjugated word
 			if (highlightedvocabObj["root"+i])
 			{
-				SAVED_VOCAB_LIST.push([highlightedvocabObj['root'+i],highlightedvocabObj['defs'+i],highlightedvocab_CurrentSentence]);
+				SAVED_VOCAB_LIST.push([highlightedvocabObj['root'+i],highlightedvocabObj['defs'+i],highlightedvocab_CurrentSentence,document.title]);
 				showSaveVocabSuccessNotification(highlightedvocabObj['root'+i]);
 			}
 			else
 			{
-				SAVED_VOCAB_LIST.push([highlightedvocabObj['word'+i],highlightedvocabObj['defs'+i],highlightedvocab_CurrentSentence]);
+				SAVED_VOCAB_LIST.push([highlightedvocabObj['word'+i],highlightedvocabObj['defs'+i],highlightedvocab_CurrentSentence,document.title]);
 				showSaveVocabSuccessNotification(highlightedvocabObj['word'+i]);
 			}
 
@@ -138,7 +139,37 @@ if (window.browser == null) {
 			alert(nodeSentence);
 			console.log("@highlightMatch Current node Sentence:");
 			*/
-			highlightedvocab_CurrentSentence = currentNode.data;
+			
+			let nodeParagraph = currentNode.data;
+			let nodeSentence;
+
+			//let wordRange = '두각을';
+			//let pBeforeWordRange = nodeParagraph.substring(0,nodeParagraph.indexOf(wordRange));
+			let pBeforeWordRange = nodeParagraph.substring(0,currentOffset);
+
+			let sBeforeWordRangeIndex = pBeforeWordRange.lastIndexOf('.');
+			
+			// If '.' not found before word range, therefore returning -1 index , then include everything 
+			if (sBeforeWordRangeIndex == -1){
+				sBeforeWordRangeIndex = 0;
+			}
+			
+			let WordRange_Sentence_End_Index = nodeParagraph.indexOf('.', currentOffset);
+			
+			
+			// if  '.' not found at the end of sentence, then include everything after wordrange index
+			if (WordRange_Sentence_End_Index == -1){
+				nodeSentence = nodeParagraph.substring(sBeforeWordRangeIndex);
+			}
+			else{
+				nodeSentence = nodeParagraph.substring(sBeforeWordRangeIndex,WordRange_Sentence_End_Index);
+			}
+
+			//console.log("currentOffset "+currentOffset);
+			//console.log("pBeforeWordRange" + pBeforeWordRange + " | sBeforeWordRangeIndex: "+sBeforeWordRangeIndex + " | WordRange_Sentence_End_Index:" + WordRange_Sentence_End_Index);
+			console.log("nodeSentence: " + nodeSentence);
+			// highlightedvocab_CurrentSentence = currentNode.data;
+			highlightedvocab_CurrentSentence = nodeSentence
 		}
 	}
 
@@ -280,23 +311,23 @@ if (window.browser == null) {
 			var ekeyCode = event.keyCode;
 
 			if (ekeyCode ==83){
-				console.log("pressed 's' ");
+				console.log("pressed 's'");
 				// browser.sendMessage({ name: "downloadcsv" });
 				
 				// Only save when definition found and text highlighted
 				if (isShowing & currentNode.nodeType === 3){
 
-					console.log("Def found. Saving...\n" +highlightedvocabObj['word'+highlightedvocabObjFirstIndex] + " | " +highlightedvocabObj['root'+highlightedvocabObjFirstIndex] + " | " + highlightedvocabObj['defs'+highlightedvocabObjFirstIndex]+ " | " + currentNode.data );
+					console.log("Def found. Saving...\n" +highlightedvocabObj['word'+highlightedvocabObjFirstIndex] + " | " +highlightedvocabObj['root'+highlightedvocabObjFirstIndex] + " | " + highlightedvocabObj['defs'+highlightedvocabObjFirstIndex]+ " | " + highlightedvocab_CurrentSentence + " | " + document.title );
 
 					// If root word a.k.a Dictionary form exist , save root word instead of hightlighted conjugated word
 					if (highlightedvocabObj["root"+highlightedvocabObjFirstIndex])
 					{
-						SAVED_VOCAB_LIST.push([highlightedvocabObj['root'+highlightedvocabObjFirstIndex],highlightedvocabObj['defs'+highlightedvocabObjFirstIndex],highlightedvocab_CurrentSentence]);
+						SAVED_VOCAB_LIST.push([highlightedvocabObj['root'+highlightedvocabObjFirstIndex],highlightedvocabObj['defs'+highlightedvocabObjFirstIndex],highlightedvocab_CurrentSentence, document.title]);
 						showSaveVocabSuccessNotification(highlightedvocabObj['root'+highlightedvocabObjFirstIndex]);
 					}
 					else
 					{
-						SAVED_VOCAB_LIST.push([highlightedvocabObj['word'+highlightedvocabObjFirstIndex],highlightedvocabObj['defs'+highlightedvocabObjFirstIndex],highlightedvocab_CurrentSentence]);
+						SAVED_VOCAB_LIST.push([highlightedvocabObj['word'+highlightedvocabObjFirstIndex],highlightedvocabObj['defs'+highlightedvocabObjFirstIndex],highlightedvocab_CurrentSentence, document.title]);
 						showSaveVocabSuccessNotification(highlightedvocabObj['word'+highlightedvocabObjFirstIndex]);
 					}
 					
@@ -305,24 +336,42 @@ if (window.browser == null) {
 
 			}
 			else if (ekeyCode ==88){
-				console.log("pressed 'x', saving ");
+				console.log("pressed 'x', downloading ");
 
 				browser.downloadTSVFile(SAVED_VOCAB_LIST);
 			}
 			else if (ekeyCode ==82){
-				console.log("pressed 'r', retriving Vocab from Cached storage");
-
-				browser.sendMessage({ name: "retrieveCachedVocab" });
-			}
+				if (confirm("Confirm retriving Vocab from Cached storage?")) {
+					console.log("pressed 'r', retriving Vocab from Cached storage");
+					showGeneralNotification("pressed 'r', retrived Vocab from Cached storage");
+					browser.sendMessage({ name: "retrieveCachedVocab" });
+			}}
 			else if (ekeyCode ==85){
-				console.log("pressed 'u', Uploading Vocab to Cached storage ");
-
-				browser.sendMessage({ name: "setCachedVocab" , data:SAVED_VOCAB_LIST });
+				if (confirm("Confirm Uploading Vocab to Cached storage?")) {
+					console.log("pressed 'u', Uploading Vocab to Cached storage ");
+					showGeneralNotification("pressed 'u', Uploaded Vocab to Cached storage");
+					browser.sendMessage({ name: "setCachedVocab" , data:SAVED_VOCAB_LIST });
+				}
 			}
 			else if (ekeyCode ==80){
-				console.log("pressed 'p', perishing Vocab from Cached storage ");
+				if (confirm("Confirm Reset Vocab List ?")) {
 
-				browser.sendMessage({ name: "deleteCachedVocab" });
+					console.log("pressed 'p', Purging Vocab from Cached storage ");
+					showGeneralNotification("pressed 'p', Purged Vocab from Cached storage");
+					browser.sendMessage({ name: "deleteCachedVocab" });
+				
+				}
+
+			}
+
+			else if (ekeyCode ==77){
+				//ekeyCode ==77 == m
+				if (confirm("Show Toktogi Option?")) {
+
+					browser.sendMessage({ name: "showOptions" });
+				
+				}
+
 			}
 
 			//alert('keypress event\n\n' + 'key: ' + ekeyName+ '  key code:' +ekeyCode + 'isOn var: '+ isOn) ;
@@ -392,6 +441,19 @@ if (window.browser == null) {
 
 	}
 
+	function showGeneralNotification(inputM) {
+		const $GeneralNotification	=	$("<div>", { id: 'General_notification' })
+		.text(inputM)
+		.addClass("card-panel green lighten-4")
+		.appendTo("body");
+
+		$GeneralNotification.show();
+
+		setTimeout(function () {
+			$GeneralNotification.hide();
+		}, 1000);
+
+	}
 
 	function showUpdateNotification() {
 		const $update = $("<div>", { id: 'update-notification' }).appendTo("body");

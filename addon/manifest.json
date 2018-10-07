@@ -29,10 +29,11 @@
    "manifest_version": 2,
    "name": "Toktogi:KR-En Popup Dict",
    "options_ui": {
-      "page": "options.html"
+      "page": "options.html",
+      "open_in_tab": true
    },
    "permissions": [ "<all_urls>", "unlimitedStorage", "tabs" ],
    "short_name": "Toktogi",
-   "version": "0.6.7a1",
+   "version": "0.6.7b1",
    "web_accessible_resources": [ "images/unlock.png", "images/lock.png", "images/plus.png" ]
 }
