@@ -26,7 +26,7 @@ Installing unsigned addons permanently requires a special version of Firefox; se
 - [x] **Press 'x' to export saved vocab list to Tsv (So you can later import them into Anki SRS program)**
 - [x] **Use actual sentence token instead of Paragraph when saving to TSV**
 - [x] **Figure out how to share global SAVED_VOCAB_LIST. Currently they all are for each individual Tab**
-- [x] **Choose populated Dict entry to save via mouse clicking plus save Icon.
+- [x] **Choose populated Dict entry to save via mouse clicking plus save Icon.**
 - [ ] **Choose populated Dict entry to save using KeyDown 1,2,3,4** 
 - [ ] **Hanja in its own  column when saving to TSV**
 - [ ] **Intergrate real-time import to Anki with Anki Connect**
