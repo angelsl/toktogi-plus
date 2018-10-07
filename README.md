@@ -25,19 +25,21 @@ Installing unsigned addons permanently requires a special version of Firefox; se
 - [x] **Press 's' to save highlighted vocab + its context sentence into internal vocab list**
 - [x] **Press 'x' to export saved vocab list to Tsv (So you can later import them into Anki SRS program)**
 - [x] **Use actual sentence token instead of Paragraph when saving to TSV**
+- [x] **Figure out how to share global SAVED_VOCAB_LIST. Currently they all are for each individual Tab**
+- [x] **Choose populated Dict entry to save via mouse clicking plus save Icon.
+- [ ] **Choose populated Dict entry to save using KeyDown 1,2,3,4** 
 - [ ] **Hanja in its own  column when saving to TSV**
-- [ ] **Toggle Sanseido-like mode for KR-Eng. Maybe naver Dict. Search the manually highlighted keyword.**
-- [ ] **Escape tab character when saving to TSV**
 - [ ] **Intergrate real-time import to Anki with Anki Connect**
+- [ ] **Toggle Sanseido-like mode for KR-Eng. Maybe naver Dict. Search the manually highlighted keyword.**
 
-- [x] **Choose populated Dict entry to save. Currently only able to save the first longest match entry.
-      		- [ ] Either save with KeyDown 1,2,3,4. Or add the save icon to populated Dict Box.** 
 
-- [] **Figure out how to share global SAVED_VOCAB_LIST. Currently they all are for each individual Tab**
+
+
+- [ ] **Escape tab character when saving to TSV**
 
 - [ ] **More Field Option for SAVED_VOCAB_LIST. Full column should be  1.highlighted Hanguel 2.Hanja 3.Def   4. Sentence Token
 					5.Index No   6. Source URL  7.Web Page Title  8. User Specified Tag**
 
 - [x] **Add persistent local storage for SAVED_VOCAB_LIST , and perhaps for User-specified SAVED_VOCAB_LIST Field option**
-- [ ] Handle frames correctly
-- [ ] Grammar?
+
+
