@@ -8,7 +8,7 @@ Toktogi+ is a modification of Toktogi 0.6.6 for Firefox. It mainly exists the su
 sunsetting of legacy addon support planned for Firefox 57, but may get some other small
 enhancements as well, depending on my motivation :)
 
-## Temporary Installation (Works even newer version of Firefox, but a bit of a hassle)
+## Temporary Installation (Works even newer version of Firefox, but you'll have to do this every time you restart Firefox)
 
 As this add-on is unsigned, I recommend downloading a copy of the repo and installing the addon temporarily with
 [this method](https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Temporary_Installation_in_Firefox).
