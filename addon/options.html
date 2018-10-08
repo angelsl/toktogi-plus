@@ -6,7 +6,7 @@
 
 
 
-
+<label >Save Vocab To TSV List or AnkiConnect?: </label><label id="TSV_OR_AnkiConnect_Lb"></label><button id="Use_TSV_Btn">Use TSV List</button><button id="Use_AnkiConnect_Btn">Use Anki Connect</button><br>
 <label >KeyPress_Hotkey Enabled: </label><label id="KeyPressToggle_Lb"></label><button id="KeyPressToggle_Btn">Toggle</button><br>
 <label >Vocab List Count: </label><label id="VocabCount_Lb"> 0 </label><button id="showVocabList_Btn">Show</button>
 <p id= "VocabList_Value_p"> </p>
@@ -22,6 +22,34 @@
 
 
 <h2>Change log</h2>
+
+<h3>0.6.7c1 - Bonus Features</h3>
+<ul>
+	<li>New Feature: AnkiConnect Add-on Integration</li>
+		<ul>
+			<li>In Option Menu, Choose Whether to Save Vocab List to 'TSV' File, or export directly to Anki /li>
+			<li>Requirement for direct Anki Export:</li>
+				<ol>
+						<li>AnkiConnect Add-on must have been installed on Anki</li>
+						<li>Anki Application must be running.</li>
+						<li>Easy way to check if you did everything correctly is to go to your browser and visit http://127.0.0.1:8765/ . Make sure firewall isn't blocking this</li>
+						<li>Anki Import Format is hard coded:</li>
+						<li>deckname : "Vocab_Toktogi"</li>
+						<li>model/Note Name :  "Toktogi"</li>
+						<li>Field Names, Make sure to have the following(In Any Order, As Long as "Korean_Vocab" is the first field):</li>
+							<ol>
+									<li>"Korean_Vocab"</li>
+									<li>"Meaning_E"</li>
+									<li>"Context_Sentence"</li>
+									<li>"Source_Title"</li>
+							</ol>
+
+				</ol>
+		</ul>
+	<li>Choose populated Dict entry to save using KeyDown 1,2,3,4</li>
+
+
+</ul>
 
 <h3>0.6.7b1 - Bonus Features</h3>
 <ul>

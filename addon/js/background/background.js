@@ -33,13 +33,19 @@ function init() {
 	util.addListener("deleteCachedVocab", util.clearVocabList);
 
 	util.init();
-
+	//util.addListener("localStorageChanged",broadcastStorageChange);
 	util.addActionListener(toggleOnOff);
 }
 
 
-// Listener callbacks
 
+// Listener callbacks
+function broadcastStorageChange() {
+	// i.e local storage changed from option page
+	//util.sendAllMessage("startListeners");
+	console.log("localStorageChanged, Notifying All Content Pages " );
+	util.sendAllMessage("localStorageChanged");
+}
 
 function handleLookup(tab, data) {
 	const found = dictionary.lookupWords(data.text);
@@ -76,6 +82,7 @@ function toggleOnOff(tab) {
 		util.setBadgeText("");
 	}
 }
+
 
 function addToList(tab, data) {
 	// ???

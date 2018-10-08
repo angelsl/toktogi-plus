@@ -1,6 +1,7 @@
 
 let isVocabListShowing;
 let KeyPressToggleEnabled;
+let TSV_OR_AnkiConnect;
 //converts List Array to HTML table
 function ulify(mList){
     let mString = "<ul>\n";
@@ -19,7 +20,8 @@ function ulify(mList){
 function restoreOptions() {
 
 
-  
+    TSV_OR_AnkiConnect = localStorage.getItem('TSV_OR_AnkiConnect') || 'TSV';
+    document.getElementById("TSV_OR_AnkiConnect_Lb").innerHTML = TSV_OR_AnkiConnect;
 
     KeyPressToggleEnabled = localStorage.getItem('KeyPressToggleEnabled');
     console.log('KeyPressToggleEnabled: '+KeyPressToggleEnabled) ;
@@ -38,7 +40,7 @@ function restoreOptions() {
 		VList = [];
     }
 
-    VList = JSON.parse(VList)
+    VList = JSON.parse(VList);
 
     document.getElementById("VocabCount_Lb").innerHTML = VList.length;
 
@@ -69,7 +71,7 @@ function showVocabList(){
     
     
 }
-  
+
 document.addEventListener("DOMContentLoaded", restoreOptions);
 
 document.getElementById("KeyPressToggle_Btn").addEventListener("click", function(){
@@ -85,6 +87,25 @@ document.getElementById("KeyPressToggle_Btn").addEventListener("click", function
         localStorage.setItem('KeyPressToggleEnabled',JSON.stringify(false));
     }
     
+});
+
+document.getElementById("Use_TSV_Btn").addEventListener("click", function(){
+    localStorage.setItem('TSV_OR_AnkiConnect','TSV');
+    restoreOptions();
+
+    browser.extension.getBackgroundPage().broadcastStorageChange();
+});
+
+document.getElementById("Use_AnkiConnect_Btn").addEventListener("click", function(){
+    localStorage.setItem('TSV_OR_AnkiConnect','AnkiConnect');
+    restoreOptions();
+    
+    TSV_OR_AnkiConnect = localStorage.getItem('TSV_OR_AnkiConnect') || 'TSV';
+
+    console.log("@obtions.js Use_AnkiConnect_Btn, TSV_OR_AnkiConnect:" + TSV_OR_AnkiConnect);
+
+    // call function from backgroundPage directly
+    browser.extension.getBackgroundPage().broadcastStorageChange();
 });
 
 document.getElementById("showVocabList_Btn").addEventListener("click", showVocabList);

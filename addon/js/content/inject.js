@@ -23,6 +23,7 @@ if (window.browser == null) {
 	let range;
 	let currentNode;
 	let currentOffset;
+	let TSV_OR_AnkiConnect = localStorage.getItem('TSV_OR_AnkiConnect') || 'TSV';
 	// Use rect for saving highlighted word coordinates
 	let rect;
 	let isOn;
@@ -66,16 +67,36 @@ if (window.browser == null) {
 
 
 			// If root word a.k.a Dictionary form exist , save root word instead of hightlighted conjugated word
-			if (highlightedvocabObj["root"+i])
-			{
-				SAVED_VOCAB_LIST.push([highlightedvocabObj['root'+i],highlightedvocabObj['defs'+i],highlightedvocab_CurrentSentence,document.title]);
-				showSaveVocabSuccessNotification(highlightedvocabObj['root'+i]);
+			if (highlightedvocabObj["root"+i]){
+				highlightedvocabObj['word'+i] = highlightedvocabObj["root"+i]
 			}
-			else
-			{
-				SAVED_VOCAB_LIST.push([highlightedvocabObj['word'+i],highlightedvocabObj['defs'+i],highlightedvocab_CurrentSentence,document.title]);
-				showSaveVocabSuccessNotification(highlightedvocabObj['word'+i]);
+
+			if (TSV_OR_AnkiConnect == 'TSV'){
+				// Use 'TSV' List to Save Vocab
+				SAVED_VOCAB_LIST.push([highlightedvocabObj['word'+i],highlightedvocabObj['defs'+i],highlightedvocab_CurrentSentence, document.title]);
+				showSaveVocabSuccessNotification(highlightedvocabObj['word'+i] + "TSV MODE");
 			}
+
+			else{
+
+				// TSV_OR_AnkiConnect == 'AnkiConnect', Import Vocab directly to Anki via AnkiConnect Add-on
+				ankiConnect_addNote({
+					"Korean_Vocab": highlightedvocabObj['word'+i],
+					"Meaning_E":highlightedvocabObj['defs'+i],
+					"Context_Sentence":highlightedvocab_CurrentSentence,
+					"Source_Title":document.title
+					}).then((value) => {
+						// fulfillment
+						console.log("ankiConnect_addNote() Success ! Result: "+ value);
+						showGeneralNotification("Exported To Anki: "+ highlightedvocabObj['word'+i]);
+						}, (reason) => {
+						// rejection
+						console.log("ankiConnect_addNote() Failed ! Reason:"+ reason);
+						showErrorNotification("Failed Anki Export.. Reason: "+ reason);
+						});
+
+			}
+
 
 
 
@@ -167,7 +188,7 @@ if (window.browser == null) {
 
 			//console.log("currentOffset "+currentOffset);
 			//console.log("pBeforeWordRange" + pBeforeWordRange + " | sBeforeWordRangeIndex: "+sBeforeWordRangeIndex + " | WordRange_Sentence_End_Index:" + WordRange_Sentence_End_Index);
-			console.log("nodeSentence: " + nodeSentence);
+			//console.log("nodeSentence: " + nodeSentence);
 			// highlightedvocab_CurrentSentence = currentNode.data;
 			highlightedvocab_CurrentSentence = nodeSentence
 		}
@@ -302,58 +323,143 @@ if (window.browser == null) {
 		}
 	}
 
+	function ankiConnect_addNote ( vFieldsObj) {
+		
+		//TODO: Hard Coded deckname & Model name
+		let action = "addNote";
+		let version = 6;
+		let deckname = "Vocab_Toktogi";
+		let modelName = "Toktogi";
 
+		/*
+		vFieldsObj Example:
+		let vFieldsObj = {	
+			"Korean_Vocab": highlightedvocabObj['word'+ChosenDictVocabEntryIndex],
+			"Meaning_E":highlightedvocabObj['defs'+ChosenDictVocabEntryIndex],
+			"Context_Sentence":highlightedvocab_CurrentSentence,
+			"Source_Title":document.title
+		};
+		*/
+
+		let params = {
+			"note": {
+				"deckName": deckname,
+				"modelName": modelName,
+				"fields": vFieldsObj,
+				"tags": [
+					"toktogiPlus"
+				]
+
+			}
+			};
+		
+		return new Promise((resolve, reject) => {
+			const xhr = new XMLHttpRequest();
+			xhr.addEventListener('error', () => reject('failed to connect to AnkiConnect'));
+			xhr.addEventListener('load', () => {
+				try {
+					const response = JSON.parse(xhr.responseText);
+					if (response.error) {
+						throw response.error;
+					} else {
+						if (response.hasOwnProperty('result')) {
+							resolve(response.result);
+						} else {
+							reject('failed to get results from AnkiConnect');
+						}
+					}
+				} catch (e) {
+					reject(e);
+				}
+			});
+	
+			xhr.open('POST', 'http://127.0.0.1:8765');
+			xhr.send(JSON.stringify({action, version, params}));
+		});
+
+	}
+	
 	function startListeners () {
 		// @savetofile feature
-		$(document).on("keydown", function (event) {
+		$(document).on("keyup", function (event) {
 
 			const ekeyName = event.key;
 			var ekeyCode = event.keyCode;
+			
 
-			if (ekeyCode ==83){
-				console.log("pressed 's'");
-				// browser.sendMessage({ name: "downloadcsv" });
+
+			if (ekeyCode ==83 || ekeyName==1 || ekeyName==2 || ekeyName==3  || ekeyName==4 ){
+
+				console.log("pressed "+ekeyName);
 				
 				// Only save when definition found and text highlighted
-				if (isShowing & currentNode.nodeType === 3){
+				let ChosenDictVocabEntryIndex 
+				if  (ekeyCode ==83 || ekeyName==1){
+					ChosenDictVocabEntryIndex = highlightedvocabObjFirstIndex;
+				}
+				else {
+					// i.e. Press key '4' , then  ChosenDictVocabEntryIndex =  highlightedvocabObjMaxLength - 4
+					ChosenDictVocabEntryIndex = highlightedvocabObjMaxLength - ekeyName;
+				}
+				
 
-					console.log("Def found. Saving...\n" +highlightedvocabObj['word'+highlightedvocabObjFirstIndex] + " | " +highlightedvocabObj['root'+highlightedvocabObjFirstIndex] + " | " + highlightedvocabObj['defs'+highlightedvocabObjFirstIndex]+ " | " + highlightedvocab_CurrentSentence + " | " + document.title );
+				if (isShowing && currentNode.nodeType === 3 && highlightedvocabObj['word'+ChosenDictVocabEntryIndex] !=  null){
+
+					console.log("Def found. Saving...\n" +highlightedvocabObj['word'+ChosenDictVocabEntryIndex] + " | " +highlightedvocabObj['root'+ChosenDictVocabEntryIndex] + " | " + highlightedvocabObj['defs'+ChosenDictVocabEntryIndex]+ " | " + highlightedvocab_CurrentSentence + " | " + document.title );
 
 					// If root word a.k.a Dictionary form exist , save root word instead of hightlighted conjugated word
-					if (highlightedvocabObj["root"+highlightedvocabObjFirstIndex])
-					{
-						SAVED_VOCAB_LIST.push([highlightedvocabObj['root'+highlightedvocabObjFirstIndex],highlightedvocabObj['defs'+highlightedvocabObjFirstIndex],highlightedvocab_CurrentSentence, document.title]);
-						showSaveVocabSuccessNotification(highlightedvocabObj['root'+highlightedvocabObjFirstIndex]);
+					if (highlightedvocabObj["root"+ChosenDictVocabEntryIndex]){
+						highlightedvocabObj['word'+ChosenDictVocabEntryIndex] = highlightedvocabObj["root"+ChosenDictVocabEntryIndex]
 					}
-					else
-					{
-						SAVED_VOCAB_LIST.push([highlightedvocabObj['word'+highlightedvocabObjFirstIndex],highlightedvocabObj['defs'+highlightedvocabObjFirstIndex],highlightedvocab_CurrentSentence, document.title]);
-						showSaveVocabSuccessNotification(highlightedvocabObj['word'+highlightedvocabObjFirstIndex]);
+
+
+					if (TSV_OR_AnkiConnect == 'TSV'){
+						// Use 'TSV' List to Save Vocab
+						SAVED_VOCAB_LIST.push([highlightedvocabObj['word'+ChosenDictVocabEntryIndex],highlightedvocabObj['defs'+ChosenDictVocabEntryIndex],highlightedvocab_CurrentSentence, document.title]);
+						showSaveVocabSuccessNotification(highlightedvocabObj['word'+ChosenDictVocabEntryIndex] + "TSV MODE");
 					}
-					
+					else{
+
+						// TSV_OR_AnkiConnect == 'AnkiConnect', Import Vocab directly to Anki via AnkiConnect Add-on
+						ankiConnect_addNote({
+							"Korean_Vocab": highlightedvocabObj['word'+ChosenDictVocabEntryIndex],
+							"Meaning_E":highlightedvocabObj['defs'+ChosenDictVocabEntryIndex],
+							"Context_Sentence":highlightedvocab_CurrentSentence,
+							"Source_Title":document.title
+							}).then((value) => {
+								// fulfillment
+								console.log("ankiConnect_addNote() Success ! Result: "+ value);
+								showGeneralNotification("Exported To Anki: "+ highlightedvocabObj['word'+ChosenDictVocabEntryIndex]);
+							  }, (reason) => {
+								// rejection
+								console.log("ankiConnect_addNote() Failed ! Reason:"+ reason);
+								showErrorNotification("Failed Anki Export.. Reason: "+ reason);
+							  });
+	
+					}
 					
 				}
 
 			}
-			else if (ekeyCode ==88){
+			else if (ekeyCode ==88 && TSV_OR_AnkiConnect == 'TSV'){
 				console.log("pressed 'x', downloading ");
 
 				browser.downloadTSVFile(SAVED_VOCAB_LIST);
 			}
-			else if (ekeyCode ==82){
+			else if (ekeyCode ==82 && TSV_OR_AnkiConnect == 'TSV'){
 				if (confirm("Confirm retriving Vocab from Cached storage?")) {
 					console.log("pressed 'r', retriving Vocab from Cached storage");
 					showGeneralNotification("pressed 'r', retrived Vocab from Cached storage");
 					browser.sendMessage({ name: "retrieveCachedVocab" });
 			}}
-			else if (ekeyCode ==85){
+			else if (ekeyCode ==85 && TSV_OR_AnkiConnect == 'TSV'){
 				if (confirm("Confirm Uploading Vocab to Cached storage?")) {
 					console.log("pressed 'u', Uploading Vocab to Cached storage ");
 					showGeneralNotification("pressed 'u', Uploaded Vocab to Cached storage");
 					browser.sendMessage({ name: "setCachedVocab" , data:SAVED_VOCAB_LIST });
 				}
 			}
-			else if (ekeyCode ==80){
+			else if (ekeyCode ==80 && TSV_OR_AnkiConnect == 'TSV'){
 				if (confirm("Confirm Reset Vocab List ?")) {
 
 					console.log("pressed 'p', Purging Vocab from Cached storage ");
@@ -455,6 +561,20 @@ if (window.browser == null) {
 
 	}
 
+	function showErrorNotification(inputM) {
+		const $GeneralNotification	=	$("<div>", { id: 'Error_notification' })
+		.text(inputM)
+		.addClass("card-panel green lighten-4")
+		.appendTo("body");
+
+		$GeneralNotification.show();
+
+		setTimeout(function () {
+			$GeneralNotification.hide();
+		}, 1000);
+
+	}
+
 	function showUpdateNotification() {
 		const $update = $("<div>", { id: 'update-notification' }).appendTo("body");
 		const $updateText = $("<span>").text("Toktogi has been ");
@@ -506,6 +626,13 @@ if (window.browser == null) {
 			startListeners();
 		}
 	}
+	
+	function onlocalStorageChanged(){
+
+		TSV_OR_AnkiConnect = localStorage.getItem('TSV_OR_AnkiConnect') || 'TSV';
+
+		console.log("@Content inject.js onlocalStorageChanged, TSV_OR_AnkiConnect:" + TSV_OR_AnkiConnect);
+	}
 
 	function readCachedVocabListResult(data) {
 		SAVED_VOCAB_LIST = data
@@ -518,6 +645,6 @@ if (window.browser == null) {
 	browser.addListener("startListeners", turnOn);
 	browser.addListener("stopListeners", stopListeners);
 	browser.addListener("cachedVocabListResult",readCachedVocabListResult );
-	
+	browser.addListener("localStorageChanged",onlocalStorageChanged );
 	browser.initInject();
 })();

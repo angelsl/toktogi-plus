@@ -32,8 +32,8 @@
       "page": "options.html",
       "open_in_tab": true
    },
-   "permissions": [ "<all_urls>", "unlimitedStorage", "tabs" ],
+   "permissions": [ "<all_urls>", "unlimitedStorage", "tabs" ,"storage"],
    "short_name": "Toktogi",
-   "version": "0.6.7b1",
+   "version": "0.6.7c1",
    "web_accessible_resources": [ "images/unlock.png", "images/lock.png", "images/plus.png" ]
 }
