@@ -2,6 +2,7 @@
 let isVocabListShowing;
 let KeyPressToggleEnabled;
 let TSV_OR_AnkiConnect;
+let improved_ConjugatedWord_Recognition;
 //converts List Array to HTML table
 function ulify(mList){
     let mString = "<ul>\n";
@@ -19,6 +20,9 @@ function ulify(mList){
 
 function restoreOptions() {
 
+    improved_ConjugatedWord_Recognition = localStorage.getItem('improved_ConjugatedWord_Recognition') || 'true';
+
+    document.getElementById("improved_ConjugatedWord_Recognition_Lb").innerHTML = improved_ConjugatedWord_Recognition;
 
     TSV_OR_AnkiConnect = localStorage.getItem('TSV_OR_AnkiConnect') || 'TSV';
     document.getElementById("TSV_OR_AnkiConnect_Lb").innerHTML = TSV_OR_AnkiConnect;
@@ -105,6 +109,19 @@ document.getElementById("Use_AnkiConnect_Btn").addEventListener("click", functio
         // call function from backgroundPage directly
     browser.extension.getBackgroundPage().broadcastStorageChange();
 });
+
+document.getElementById("Use_improved_Word_Recognition_Btn").addEventListener("click", function(){
+    localStorage.setItem('improved_ConjugatedWord_Recognition','true');
+    restoreOptions();
+    browser.extension.getBackgroundPage().broadcastStorageChange();
+});
+
+document.getElementById("Dont_Use_improved_Word_Recognition_Btn").addEventListener("click", function(){
+    localStorage.setItem('improved_ConjugatedWord_Recognition','false');
+    restoreOptions();
+    browser.extension.getBackgroundPage().broadcastStorageChange();
+});
+
 
 document.getElementById("showVocabList_Btn").addEventListener("click", showVocabList);
 

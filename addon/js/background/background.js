@@ -6,6 +6,7 @@ let NEW_INSTALL = util.getSavedVersion() === undefined;
 let JUST_UPDATED = !NEW_INSTALL && version !== util.getSavedVersion();
 let isAndroid =false;
 let TSV_OR_AnkiConnect = localStorage.getItem('TSV_OR_AnkiConnect') || 'TSV';
+let improved_ConjugatedWord_Recognition = localStorage.getItem('improved_ConjugatedWord_Recognition') || 'true';
 
 function init() {
 	if (NEW_INSTALL) {
@@ -45,8 +46,9 @@ function broadcastStorageChange() {
 	// i.e local storage changed from option page
 	//util.sendAllMessage("startListeners");
 	TSV_OR_AnkiConnect = localStorage.getItem('TSV_OR_AnkiConnect') || 'TSV';
+	improved_ConjugatedWord_Recognition = localStorage.getItem('improved_ConjugatedWord_Recognition') || 'true';
 
-	console.log("broadcastStorageChange, TSV_OR_AnkiConnect: " +TSV_OR_AnkiConnect);
+	console.log("broadcastStorageChange, TSV_OR_AnkiConnect: " +TSV_OR_AnkiConnect + " | improved_ConjugatedWord_Recognition: "+improved_ConjugatedWord_Recognition);
 
 	util.sendAllMessage("localStorageChanged", {	TSV_OR_AnkiConnect:TSV_OR_AnkiConnect		});
 }
