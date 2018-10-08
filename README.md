@@ -27,9 +27,10 @@ Installing unsigned addons permanently requires a special version of Firefox; se
 - [x] **Use actual sentence token instead of Paragraph when saving to TSV**
 - [x] **Figure out how to share global SAVED_VOCAB_LIST. Currently they all are for each individual Tab**
 - [x] **Choose populated Dict entry to save via mouse clicking plus save Icon.**
-- [ ] **Choose populated Dict entry to save using KeyDown 1,2,3,4** 
+- [x] **Choose populated Dict entry to save using KeyDown 1,2,3,4** 
+- [x] **Intergrate real-time import to Anki with Anki Connect**
 - [ ] **Hanja in its own  column when saving to TSV**
-- [ ] **Intergrate real-time import to Anki with Anki Connect**
+- [ ] **Better Conjugated Word recognition. To starts with, maybe also try removing 'n' final jamo and adds 다 when querying?**
 - [ ] **Toggle Sanseido-like mode for KR-Eng. Maybe naver Dict. Search the manually highlighted keyword.**
 
 
