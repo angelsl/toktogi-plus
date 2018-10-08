@@ -8,14 +8,38 @@ Toktogi+ is a modification of Toktogi 0.6.6 for Firefox. It mainly exists the su
 sunsetting of legacy addon support planned for Firefox 57, but may get some other small
 enhancements as well, depending on my motivation :)
 
-## Installation
+## Temporary Installation (Works even newer version of Firefox, but a bit of a hassle)
 
-I recommend downloading a copy of the repo and installing the addon temporarily with
+As this add-on is unsigned, I recommend downloading a copy of the repo and installing the addon temporarily with
 [this method](https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Temporary_Installation_in_Firefox).
-You'll have to do this every time you restart Firefox.
+
+**You'll have to do this every time you restart Firefox.**
+
+
+## Permanent Installation (Not compatible with most newer Firefox )
 
 Installing unsigned addons permanently requires a special version of Firefox; see
 [here](https://wiki.mozilla.org/Addons/Extension_Signing#FAQ) for more.
+
+In other word, Firefox ESR version 52.9 or less will work. https://ftp.mozilla.org/pub/firefox/releases/52.9.0esr/win64/en-US/
+
+**You need to disable "xpinstall.signatures.required" in about:config**
+
+## What About Firefox Android Installation?
+
+As For Firefox Android, 
+
+1. use Firefox Android version 56+ at minimum, 57+ Recommended (Newest version from playstore should work)
+
+2. open Firefox for Android, type about:config in address bar and press enter, find & set xpinstall.signatures.required to false. You should now be able to install unsigned add-on.
+
+3. download & place "Toktogiplus @ example.com.xpi" in root SD Card directory. Open Firefox for Android and browse to file:///mnt/sdcard , then check and install "Toktogiplus @ example.com.xpi"
+
+4. Pray. I haven't spend a lot of time to test whether this works or not, and Firefox for Android doesn't tolerate error very well. Anki-Connect feature won't work for Android.
+
+
+Android Add-on Install Comprehensive Guide (Source : https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Developing_WebExtensions_for_Firefox_for_Android)
+
 
 ## Enhancements
 
