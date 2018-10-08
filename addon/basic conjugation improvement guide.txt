@@ -1,0 +1,53 @@
+﻿mainly, try add 다
+
+if final char contain batchim 'n' or 'r', try removing batchim , then try adding 다
+
+
+
+---
+
+verb    하다 definition type    regular verb
+
+This fails
+
+past base	했
+
+future base	할 (To pass, remove 'r', add 다, OR remove spacing to 할거야)
+
+declarative future informal low	할 거야 (To pass, remove spacing to 할거야)
+
+
+inquisitive present formal low	하니?  (To pass, convert to inquisitive present formal high	합니까?)
+
+
+inquisitive past formal low	했니?
+
+---
+
+verb    드러내다 definition type    regular verb
+
+past base	드러냈 (To pass, make into declarative past informal low	드러냈어) , or try removing 'ss' and add '다', or just add '다'
+
+** declarative present formal low(shortened)/verb converted as noun	드러낸  failed, (To pass, try adding '다' , or remove 'n' , or remove 'n' and add '다'**
+
+future base	드러낼 (To pass, remove 'r', add 다, OR remove spacing to 할거야)
+declarative future informal low	드러낼 거야 (To pass, remove spacing , or remove 'r', add 다)
+declarative future informal high	드러낼 거예요 (To pass, remove spacing , or remove 'r', add 다)
+declarative future formal low	드러낼 거다 (To pass, remove spacing , or remove 'r', add 다)
+declarative future formal high	드러낼 겁니다 (To pass, remove spacing , or remove 'r', add 다)
+
+inquisitive present formal low	드러내니?  (To pass, remove 'r', add 다, OR remove spacing to 할거야)
+inquisitive past formal low	드러냈니?  (To pass, replace 니 with 다)
+
+
+also, 드러내지 propositive present formal high (abbv) works, but should highlight as 드러냅시다 , and not 드러낸 as 드러내
+
+
+----
+
+Adds this without initial to dict
+
+declarative future informal low	할 거야
+declarative future informal high	할 거예요
+declarative future formal low	할 거다
+declarative future formal high	할 겁니다
