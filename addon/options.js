@@ -39,8 +39,11 @@ function restoreOptions() {
 		console.log('@Option.restoreOptions, VList is null, converting VList to empty list ' + VList);
 		VList = [];
     }
+    else{
+        VList = JSON.parse(VList);
+    }
 
-    VList = JSON.parse(VList);
+ 
 
     document.getElementById("VocabCount_Lb").innerHTML = VList.length;
 
@@ -99,12 +102,7 @@ document.getElementById("Use_TSV_Btn").addEventListener("click", function(){
 document.getElementById("Use_AnkiConnect_Btn").addEventListener("click", function(){
     localStorage.setItem('TSV_OR_AnkiConnect','AnkiConnect');
     restoreOptions();
-    
-    TSV_OR_AnkiConnect = localStorage.getItem('TSV_OR_AnkiConnect') || 'TSV';
-
-    console.log("@obtions.js Use_AnkiConnect_Btn, TSV_OR_AnkiConnect:" + TSV_OR_AnkiConnect);
-
-    // call function from backgroundPage directly
+        // call function from backgroundPage directly
     browser.extension.getBackgroundPage().broadcastStorageChange();
 });
 

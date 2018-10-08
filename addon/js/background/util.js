@@ -87,8 +87,11 @@ util.retrieveVocabList = function(tab) {
 		console.log('@util.retrieveVocabList, result is null, converting result to empty list ' + result)
 		result = []
 	}
+	else{
+		result = JSON.parse(result);
+	}
 
-	util.sendMessage(tab, { name: "cachedVocabListResult", data: JSON.parse(result) });
+	util.sendMessage(tab, { name: "cachedVocabListResult", data: result });
 	console.log('util.retrieveVocabList: retrieved vocabList :'+result)
 };
 

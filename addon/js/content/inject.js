@@ -23,7 +23,7 @@ if (window.browser == null) {
 	let range;
 	let currentNode;
 	let currentOffset;
-	let TSV_OR_AnkiConnect = localStorage.getItem('TSV_OR_AnkiConnect') || 'TSV';
+	let TSV_OR_AnkiConnect = 'TSV';
 	// Use rect for saving highlighted word coordinates
 	let rect;
 	let isOn;
@@ -59,7 +59,7 @@ if (window.browser == null) {
 	function addPlusToList(event){
 
 			console.log("called (fx) addPlusToList, Vocab Index to save is: "+event.data.dataIndex);
-
+			getSentenceFromNodeParagrapgh();
 			let i = event.data.dataIndex;
 			
 			
@@ -161,36 +161,7 @@ if (window.browser == null) {
 			console.log("@highlightMatch Current node Sentence:");
 			*/
 			
-			let nodeParagraph = currentNode.data;
-			let nodeSentence;
 
-			//let wordRange = '두각을';
-			//let pBeforeWordRange = nodeParagraph.substring(0,nodeParagraph.indexOf(wordRange));
-			let pBeforeWordRange = nodeParagraph.substring(0,currentOffset);
-
-			let sBeforeWordRangeIndex = pBeforeWordRange.lastIndexOf('.');
-			
-			// If '.' not found before word range, therefore returning -1 index , then include everything 
-			if (sBeforeWordRangeIndex == -1){
-				sBeforeWordRangeIndex = 0;
-			}
-			
-			let WordRange_Sentence_End_Index = nodeParagraph.indexOf('.', currentOffset);
-			
-			
-			// if  '.' not found at the end of sentence, then include everything after wordrange index
-			if (WordRange_Sentence_End_Index == -1){
-				nodeSentence = nodeParagraph.substring(sBeforeWordRangeIndex);
-			}
-			else{
-				nodeSentence = nodeParagraph.substring(sBeforeWordRangeIndex,WordRange_Sentence_End_Index);
-			}
-
-			//console.log("currentOffset "+currentOffset);
-			//console.log("pBeforeWordRange" + pBeforeWordRange + " | sBeforeWordRangeIndex: "+sBeforeWordRangeIndex + " | WordRange_Sentence_End_Index:" + WordRange_Sentence_End_Index);
-			//console.log("nodeSentence: " + nodeSentence);
-			// highlightedvocab_CurrentSentence = currentNode.data;
-			highlightedvocab_CurrentSentence = nodeSentence
 		}
 	}
 
@@ -262,7 +233,38 @@ if (window.browser == null) {
 
 		}
 	}
+	function getSentenceFromNodeParagrapgh(){
+		let nodeParagraph = currentNode.data;
+		let nodeSentence;
 
+		//let wordRange = '두각을';
+		//let pBeforeWordRange = nodeParagraph.substring(0,nodeParagraph.indexOf(wordRange));
+		let pBeforeWordRange = nodeParagraph.substring(0,currentOffset);
+
+		let sBeforeWordRangeIndex = pBeforeWordRange.lastIndexOf('.');
+		
+		// If '.' not found before word range, therefore returning -1 index , then include everything 
+		if (sBeforeWordRangeIndex == -1){
+			sBeforeWordRangeIndex = 0;
+		}
+		
+		let WordRange_Sentence_End_Index = nodeParagraph.indexOf('.', currentOffset);
+		
+		
+		// if  '.' not found at the end of sentence, then include everything after wordrange index
+		if (WordRange_Sentence_End_Index == -1){
+			nodeSentence = nodeParagraph.substring(sBeforeWordRangeIndex);
+		}
+		else{
+			nodeSentence = nodeParagraph.substring(sBeforeWordRangeIndex,WordRange_Sentence_End_Index);
+		}
+
+		//console.log("currentOffset "+currentOffset);
+		//console.log("pBeforeWordRange" + pBeforeWordRange + " | sBeforeWordRangeIndex: "+sBeforeWordRangeIndex + " | WordRange_Sentence_End_Index:" + WordRange_Sentence_End_Index);
+		//console.log("nodeSentence: " + nodeSentence);
+		// highlightedvocab_CurrentSentence = currentNode.data;
+		highlightedvocab_CurrentSentence = nodeSentence;
+	}
 	// Decide whether the mouse has moved far enough away to dimiss
 	// the dictionary pop-up.
 	function isOutOfBox (x, y) {
@@ -389,7 +391,8 @@ if (window.browser == null) {
 
 
 			if (ekeyCode ==83 || ekeyName==1 || ekeyName==2 || ekeyName==3  || ekeyName==4 ){
-
+				
+				getSentenceFromNodeParagrapgh();
 				console.log("pressed "+ekeyName);
 				
 				// Only save when definition found and text highlighted
@@ -449,22 +452,23 @@ if (window.browser == null) {
 			else if (ekeyCode ==82 && TSV_OR_AnkiConnect == 'TSV'){
 				if (confirm("Confirm retriving Vocab from Cached storage?")) {
 					console.log("pressed 'r', retriving Vocab from Cached storage");
-					showGeneralNotification("pressed 'r', retrived Vocab from Cached storage");
 					browser.sendMessage({ name: "retrieveCachedVocab" });
+					showGeneralNotification("pressed 'r', retrived Vocab from Cached storage");
 			}}
 			else if (ekeyCode ==85 && TSV_OR_AnkiConnect == 'TSV'){
 				if (confirm("Confirm Uploading Vocab to Cached storage?")) {
 					console.log("pressed 'u', Uploading Vocab to Cached storage ");
-					showGeneralNotification("pressed 'u', Uploaded Vocab to Cached storage");
 					browser.sendMessage({ name: "setCachedVocab" , data:SAVED_VOCAB_LIST });
+					showGeneralNotification("pressed 'u', Uploaded Vocab to Cached storage");
+
 				}
 			}
 			else if (ekeyCode ==80 && TSV_OR_AnkiConnect == 'TSV'){
 				if (confirm("Confirm Reset Vocab List ?")) {
 
 					console.log("pressed 'p', Purging Vocab from Cached storage ");
-					showGeneralNotification("pressed 'p', Purged Vocab from Cached storage");
 					browser.sendMessage({ name: "deleteCachedVocab" });
+					showGeneralNotification("pressed 'p', Purged Vocab from Cached storage");
 				
 				}
 
@@ -606,7 +610,7 @@ if (window.browser == null) {
 	// Kick things off when response comes back from bg page
 	function loadData(data) {
 		isOn = data.isOn;
-
+		TSV_OR_AnkiConnect = data.TSV_OR_AnkiConnect;
 		if (data.JUST_UPDATED) {
 			showUpdateNotification();
 		}
@@ -627,10 +631,11 @@ if (window.browser == null) {
 		}
 	}
 	
-	function onlocalStorageChanged(){
+	function onlocalStorageChanged(data){
 
-		TSV_OR_AnkiConnect = localStorage.getItem('TSV_OR_AnkiConnect') || 'TSV';
 
+		//TSV_OR_AnkiConnect = browser.extension.getBackgroundPage().localStorage.getItem('TSV_OR_AnkiConnect') || 'TSV';
+		TSV_OR_AnkiConnect = data.TSV_OR_AnkiConnect;
 		console.log("@Content inject.js onlocalStorageChanged, TSV_OR_AnkiConnect:" + TSV_OR_AnkiConnect);
 	}
 

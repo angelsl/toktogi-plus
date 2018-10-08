@@ -4,6 +4,7 @@
 const dictionary = {};
 
 // TODO Make this more efficient, probably redo the whole process
+// TODO , assuming  word = str.substring(0, i), if char i jamo = 'n' ending, try removing it, also try adding 'da' after.
 dictionary.lookupWords = function(str) {
 	const dict = dictionary.dict;
 

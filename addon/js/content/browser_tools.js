@@ -60,7 +60,11 @@ if (window.browser == null) {
 
 	browser.downloadTSVFile = function (data) {
 
-	
+		if (data ==[]){
+			console.log("No TSV DATA");
+			showErrorNotification("No TSV DATA to Download");
+			return;
+		}
 		//Anki don't have header for tsv. so don't use this. var tsv = 'Name,Title\n';
 		var tsv = '';
 		 data.forEach(function(row) {

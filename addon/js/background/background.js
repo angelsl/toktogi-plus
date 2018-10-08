@@ -5,6 +5,7 @@ let version = util.getVersion();
 let NEW_INSTALL = util.getSavedVersion() === undefined;
 let JUST_UPDATED = !NEW_INSTALL && version !== util.getSavedVersion();
 let isAndroid =false;
+let TSV_OR_AnkiConnect = localStorage.getItem('TSV_OR_AnkiConnect') || 'TSV';
 
 function init() {
 	if (NEW_INSTALL) {
@@ -43,8 +44,11 @@ function init() {
 function broadcastStorageChange() {
 	// i.e local storage changed from option page
 	//util.sendAllMessage("startListeners");
-	console.log("localStorageChanged, Notifying All Content Pages " );
-	util.sendAllMessage("localStorageChanged");
+	TSV_OR_AnkiConnect = localStorage.getItem('TSV_OR_AnkiConnect') || 'TSV';
+
+	console.log("broadcastStorageChange, TSV_OR_AnkiConnect: " +TSV_OR_AnkiConnect);
+
+	util.sendAllMessage("localStorageChanged", {	TSV_OR_AnkiConnect:TSV_OR_AnkiConnect		});
 }
 
 function handleLookup(tab, data) {
@@ -59,7 +63,8 @@ function sendScriptData(tab, data) {
 		name: "injectedData",
 		data: {
 			isOn: isOn,
-			JUST_UPDATED: JUST_UPDATED
+			JUST_UPDATED: JUST_UPDATED,
+			TSV_OR_AnkiConnect: TSV_OR_AnkiConnect
 		}
 	});
 	JUST_UPDATED = false;
