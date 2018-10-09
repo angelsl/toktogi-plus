@@ -33,6 +33,10 @@ TO fix is to use perhaps stop at . or search for up to str.substring(0, 15);
 */
 
 dictionary.lookupWords = function(str) {
+
+	// lookupword for up to 15 char. Vocab length shouldn't be longer
+	str = str.substring(0,Math.max(str.length, 15));
+
 	const dict = dictionary.dict;
 
 	let entryList = [];
