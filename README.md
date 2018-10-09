@@ -53,18 +53,32 @@ Android Add-on Install Comprehensive Guide (Source : https://developer.mozilla.o
 - [x] **Choose populated Dict entry to save via mouse clicking plus save Icon.**
 - [x] **Choose populated Dict entry to save using KeyDown 1,2,3,4** 
 - [x] **Intergrate real-time import to Anki with Anki Connect**
+- [x] **Add persistent local storage for SAVED_VOCAB_LIST , and perhaps for User-specified SAVED_VOCAB_LIST Field option**
+
 - [ ] **Hanja in its own  column when saving to TSV**
 - [ ] **Better Conjugated Word recognition. To starts with, maybe also try removing 'n' final jamo and adds 다 when querying?**
 - [ ] **Toggle Sanseido-like mode for KR-Eng. Maybe naver Dict. Search the manually highlighted keyword.**
+- [ ] **Toggle Sanseido-like mode for KR-Eng. Maybe naver Dict. Search the manually highlighted keyword.**
+- [ ] **Add [Korean vocab Frequency List](https://github.com/open-korean-text/open-korean-text/tree/master/src/main/resources/org/openkoreantext/processor/util/freq)  to field. Tags 1-5000 as very common , 5001-10000 as common, 10001-20000 as rare, 20001+ as extremely rare
+
+## Low Priority Enhancements 
+
+- [ ] There is a bug that cause multiple instances of Toktogi-plus add-on running. Try to fix it.
+- [ ] After krdict API is done, store retrieved dict vocab locally as well. Saves time for user, and saved dict could also be used to further make comprehensive offline user dict 
+
+- [ ] Consider ways to make offline KR-KR Dict , and KR-JP Dict. 
 
 
+- [ ] Even more comprehensive congujation recognition. Perhaps by using [Open Korean Text Processor](https://github.com/open-korean-text/open-korean-text) on existing Vocab Dictionary >> Finds and Tags all Verb+ Adj >> parse into this [Tool](https://github.com/dbravender/korean_conjugation)  to get all conjugated Verb >> Add back to JSON Dict.
 
+- [ ] If new Verb/Noun not in current offline Dict is detected( Perhaps from krdict API), before adding them into offline user dict, Do >> Parse {{Verb/Noun}} with [Tool](https://github.com/dbravender/korean_conjugation)  to get all conjugated Verb >> Add back to JSON Dict.
 
-- [ ] **Escape tab character when saving to TSV**
+- [ ] if Offline User Dict is implemented, add ways to View/Import/Export/Save them.
 
-- [ ] **More Field Option for SAVED_VOCAB_LIST. Full column should be  1.highlighted Hanguel 2.Hanja 3.Def   4. Sentence Token
-					5.Index No   6. Source URL  7.Web Page Title  8. User Specified Tag**
+- [ ] Escape tab character when saving to TSV
 
-- [x] **Add persistent local storage for SAVED_VOCAB_LIST , and perhaps for User-specified SAVED_VOCAB_LIST Field option**
+- [ ] More Field Option for SAVED_VOCAB_LIST. Full column should be  1.highlighted Hanguel 2.Hanja 3.Def   4. Sentence Token
+					5.Index No   6. Source URL  7.Web Page Title  8. User Specified Tag
+
 
 
