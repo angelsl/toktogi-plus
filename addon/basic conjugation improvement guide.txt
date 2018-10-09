@@ -1,4 +1,22 @@
-﻿mainly, try add 다
+﻿
+--------- Fixes . The lazy way
+
+
+batchim ㄹ ㅆ ㄴ  >  1. Adds 다  OR 2. Drop batchim & Add 다
+
+char end with 니 > try replacing 니 with 다
+
+char end with 을, and previous word has batchim (e.g. 먹을 거야)  > 1. remove space after 을 OR 2. Replace 을 with 다
+
+
+--- More proper way
+batchim r > try removing next ' ' spacing > search for 3 more char
+
+-----------------------
+
+
+
+mainly, try add 다
 
 if final char contain batchim 'n' or 'r', try removing batchim , then try adding 다
 
