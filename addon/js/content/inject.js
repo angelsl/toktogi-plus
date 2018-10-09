@@ -533,7 +533,7 @@ if (window.browser == null) {
 
 	function stopListeners() {
 		$(document).off("mousemove");
-		$(document).off("keydown");
+		$(document).off("keyup");
 		$lock.off("click");
 	}
 

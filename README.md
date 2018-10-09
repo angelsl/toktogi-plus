@@ -59,9 +59,9 @@ Android Add-on Install Comprehensive Guide (Source : https://developer.mozilla.o
 - [ ] **Better Conjugated Word recognition. To starts with, maybe also try removing 'n' final jamo and adds 다 when querying?**
 - [ ] **Toggle Sanseido-like mode for KR-Eng. Maybe naver Dict. Search the manually highlighted keyword.**
 - [ ] **Toggle Sanseido-like mode for KR-Eng. Maybe naver Dict. Search the manually highlighted keyword.**
-- [ ] **Add [Korean vocab Frequency List](https://github.com/open-korean-text/open-korean-text/tree/master/src/main/resources/org/openkoreantext/processor/util/freq)  to field. Tags 1-5000 as very common , 5001-10000 as common, 10001-20000 as rare, 20001+ as extremely rare
+- [ ] Add [Korean vocab Frequency List](https://github.com/open-korean-text/open-korean-text/tree/master/src/main/resources/org/openkoreantext/processor/util/freq)  to field. Tags 1-5000 as very common , 5001-10000 as common, 10001-20000 as rare, 20001+ as extremely rare
 
-## Low Priority Enhancements 
+## To do Low Priority Enhancements 
 
 - [ ] There is a bug that cause multiple instances of Toktogi-plus add-on running. Try to fix it.
 - [ ] After krdict API is done, store retrieved dict vocab locally as well. Saves time for user, and saved dict could also be used to further make comprehensive offline user dict 
