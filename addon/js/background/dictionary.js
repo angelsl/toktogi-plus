@@ -32,26 +32,137 @@ TO fix is to use perhaps stop at . or search for up to str.substring(0, 15);
 
 */
 
+
 dictionary.lookupWords = function(str) {
 
+	dictionary.lookupWords_Old(str);
+	let t0 = performance.now();
 	// lookupword for up to 15 char. Vocab length shouldn't be longer
 	str = str.substring(0,Math.max(str.length, 15));
+	// clear all white spaces (Except if first char is white space) so that str like '먹을 거야' becomes '먹을거야' which has dict entry
+	
+	if (str.charAt(0) == ' '){
+		// if (first char is white space) is needed if mouse pointed at word where first char is " " e.g.  " 먹다" will match and highlight " 먹" as "먹다"
+		str = ' '.concat(str.replace(/\s/g, ''));
+	}
+	else{
+		str = str.replace(/\s/g, '');
+	}
+
 
 	const dict = dictionary.dict;
 
 	let entryList = [];
-	console.log("@@ dictionary.js. improved_ConjugatedWord_Recognition is : " + improved_ConjugatedWord_Recognition);
-	// https://jsfiddle.net/wqLb5zvd/ This will be helpful for improving Conjugated WordRecognition
+	//console.log("@@ dictionary.js. improved_ConjugatedWord_Recognition is : " + improved_ConjugatedWord_Recognition);
+	// https://jsfiddle.net/4tfgoucx/ This will be helpful for improving Conjugated WordRecognition
 
-	console.log("@Dict.js  Begins Logging time. Search Dict with str.length:  " +str.length + " Str Value : " + str);
+	//console.log("@Dict.js  Begins Logging time. Search Dict with str.length:  " +str.length + " Str Value : " + str);
+
+
+	let totalDictKeyLookupCount = 0;
+
+	let t2 = performance.now();
+	let  wordList = [];
+	
+	for (let i = 1; i < str.length + 1; i++) {
+		const word = str.substring(0, i);
+		if (str.charAt(i-1) =='니' || str.charAt(i-1) =='을'){
+			// to handle 	inquisitive present & past formal low '먹니' & '먹었니'
+			// 을 to handle st like 먹을게요 or ~(으)ㄹ게 
+			// if not already in list, push
+			if (!wordList.includes(str.substring(0, i-1).concat('다'))){
+				wordList.push(str.substring(0, i-1).concat('다'));
+				console.log("@ word ending contains '니' || '을'. "+ word+" becomes :" + str.substring(0, i-1).concat('다'));
+			}
+		}
+		else if (str.charAt(i-1).normalize('NFD')[2] == 'ᆫ' || str.charAt(i-1).normalize('NFD')[2] == 'ᆻ' || str.charAt(i-1).normalize('NFD')[2] == 'ᆯ' ){
+			// if final char ends with above batchim 1. Drop batchim & Add 다   AND 2. simply Adds 다  without dropping anything
+			// handle things like 가졌 가질 가진
+
+			let char_no_batchim = str.charAt(i-1).normalize('NFD')[0].concat(str.charAt(i-1).normalize('NFD')[1]).normalize('NFC');
+			if (!wordList.includes(str.substring(0, i-1).concat(char_no_batchim).concat('다'))){
+				wordList.push(str.substring(0, i-1).concat(char_no_batchim).concat('다'));
+				console.log("@ word ending contains 'ᆫ' || 'ᆻ' || 'ᆯ' ,  "+ word +" becomes :" + str.substring(0, i-1).concat(char_no_batchim).concat('다'));
+			}
+			
+			if (!wordList.includes(str.substring(0, i).concat('다'))){
+				wordList.push(str.substring(0, i).concat('다'));
+				console.log("@ word ending contains 'ᆫ' || 'ᆻ' || 'ᆯ' ,  "+ word +" becomes :" + str.substring(0, i).concat('다'));
+			}
+		}
+		if (!wordList.includes(word)){
+			wordList.push(word);
+		}
+
+
+	}
+	console.log("Before sort : "+ wordList);
+
+	wordList.sort(function(a, b) {
+		return a.length - b.length || // sort by length, ASC Order. if equal then  (ASC  -> a.length - b.length) (DESC -> b.length - a.length)
+			   a.localeCompare(b);    // sort by dictionary order  
+	  });
+
+
+	  console.log("After sort : "+ wordList);
+
+	let t3 = performance.now();
+
+	for (let i = 1; i < wordList.length + 1; i++) {
+	
+		// An array of definitions
+		//console.log("@Dict.js Searched Dict with word: " + word + " &word.len:" + word.length);
+		const info = dict[wordList[i]];
+		totalDictKeyLookupCount = totalDictKeyLookupCount + 1;
+		if (info) {
+			if (info.defs) {
+				entryList.push({ word: wordList[i], defs: info.defs.split("|") });
+			}
+
+			// word is a conjugated verb, add root definition
+			if(info.roots) {
+				const roots = Object.keys(info.roots);
+
+				roots.forEach(function (root) {
+					entryList.push({
+						word: wordList[i],
+						defs: dict[root].defs.split("|"),
+						root: root
+					});
+				});
+			}
+		}
+	}
+	let t1 = performance.now();
+	console.log("@Dict.js lookupWords_new Finished. Whole Fx() Took :" + (t1-t0) + "ms. Creating wordList[] Took  " +(t3-t2) +  "ms. Lookup dict[wordList[index] : " +totalDictKeyLookupCount + "Times. str.length: "+ str.length + " Str Value : " + str );
+	//console.log("lookupWords_new cont. Wordlist[] is :" + wordList);
+
+
+	return entryList;
+}
+
+
+dictionary.lookupWords_Old = function(str) {
 
 	let t0 = performance.now();
+	// lookupword for up to 15 char. Vocab length shouldn't be longer
+	//str = str.substring(0,Math.max(str.length, 15));
+
+	const dict = dictionary.dict;
+
+	let entryList = [];
+	//console.log("@@ dictionary.js. improved_ConjugatedWord_Recognition is : " + improved_ConjugatedWord_Recognition);
+	// https://jsfiddle.net/4tfgoucx/ This will be helpful for improving Conjugated WordRecognition
+
+	//console.log("@Dict.js  Begins Logging time. Search Dict with str.length:  " +str.length + " Str Value : " + str);
+
+	let totalDictKeyLookupCount = 0;
 	for (let i = 1; i < str.length + 1; i++) {
 		const word = str.substring(0, i);
 		// An array of definitions
-		console.log("@Dict.js Searched Dict with word: " + word + " &word.len:" + word.length);
+		//console.log("@Dict.js Searched Dict with word: " + word + " &word.len:" + word.length);
 		const info = dict[word];
-
+		totalDictKeyLookupCount = totalDictKeyLookupCount + 1;
 		if (info) {
 			if (info.defs) {
 				entryList.push({ word: word, defs: info.defs.split("|") });
@@ -72,7 +183,7 @@ dictionary.lookupWords = function(str) {
 		}
 	}
 	let t1 = performance.now();
-	console.log("@Dict.js  Finished Logging time. Took :" + (t1-t0) + "ms");
+	console.log("@Dict.js lookupWords_Old Finished. Took :" + (t1-t0) + "ms "+  " Lookup dict[word] : " +totalDictKeyLookupCount + "Times. str.length: "+ str.length + " Str Value : " + str );
 	return entryList;
 }
 

@@ -142,11 +142,22 @@ if (window.browser == null) {
 		if (currentNode.nodeType === 3) {
 			const wordRange = document.createRange();
 			wordRange.setStart(currentNode, currentOffset);
-			wordRange.setEnd(currentNode, currentOffset + length);
+
+			try {
+				wordRange.setEnd(currentNode, currentOffset + length);
+			}
+			catch(err) {
+				// This try catch is a gapstop for bug introduced by a makeshift word congujation recognition improvement
+				// for exaple , Given the past base form of 먹다 > 먹었. There is no 먹었 or Dict definition, but there is 먹었다
+				// This makeshift word congujation recognition will recognise 먹었 as 먹었다. And all seems fine
+				// <p>먹었 </p> is fine. But problem arise when trying to highlight , <p>먹었</p> as <p>먹었다</p> . You will get Err: Index or size is negative or greater than the allowed amount
+				// When that happens, just hightlight one char less
+				// console.log("Error on wordRange.setEnd(currentNode, currentOffset + length) Err: "+ err.message);
+				wordRange.setEnd(currentNode, currentOffset + length -1);
+			}
 			const selection = window.getSelection();
 			selection.removeAllRanges();
 			selection.addRange(wordRange);
-
 			
 			rect = wordRange.getBoundingClientRect();
 			//highlightedvocabObj = wordRange
