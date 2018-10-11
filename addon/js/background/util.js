@@ -79,21 +79,6 @@ util.storeVocabList = function(tab, data) {
 	console.log('util.storeVocabList: Stored  vocabList :'+data)
 };
 
-util.retrieveVocabList = function(tab) {
-
-	let result = localStorage.getItem('vocabList');
-
-	if (!result){
-		console.log('@util.retrieveVocabList, result is null, converting result to empty list ' + result)
-		result = []
-	}
-	else{
-		result = JSON.parse(result);
-	}
-
-	util.sendMessage(tab, { name: "cachedVocabListResult", data: result });
-	console.log('util.retrieveVocabList: retrieved vocabList :'+result)
-};
 
 util.clearVocabList = function(tab) {
 	localStorage.removeItem('vocabList');

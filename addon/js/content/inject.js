@@ -54,7 +54,11 @@ if (window.browser == null) {
 
 		if (TSV_OR_AnkiConnect == 'TSV'){
 			// Use 'TSV' List to Save Vocab
+			
+			//save list locally
 			SAVED_VOCAB_LIST.push([highlightedvocabObj['word'+i],highlightedvocabObj['defs'+i],highlightedvocab_CurrentSentence, document.title]);
+			//save list in local.storage   (which is still persistent after firefox restart)
+			browser.sendMessage({ name: "setCachedVocab" , data:SAVED_VOCAB_LIST });
 			showSaveVocabSuccessNotification(highlightedvocabObj['word'+i] + "TSV MODE");
 		}
 
@@ -354,75 +358,62 @@ if (window.browser == null) {
 
 	}
 	
+
 	function startListeners () {
 		// @savetofile feature
-		if (hotkey_Enabled){
+		
+		$(document).on("keyup", function (event) {
+
+		const ekeyName = event.key;
+		var ekeyCode = event.keyCode;
+		
+		if (ekeyCode ==83 || ekeyName==1 || ekeyName==2 || ekeyName==3  || ekeyName==4 ){
 			
-			$(document).on("keyup", function (event) {
-				
-			const ekeyName = event.key;
-			var ekeyCode = event.keyCode;
+			getSentenceFromNodeParagrapgh();
+			console.log("pressed "+ekeyName);
 			
-			if (ekeyCode ==83 || ekeyName==1 || ekeyName==2 || ekeyName==3  || ekeyName==4 ){
-				
-				getSentenceFromNodeParagrapgh();
-				console.log("pressed "+ekeyName);
-				
-				// Only save when definition found and text highlighted
-				let ChosenDictVocabEntryIndex 
-				if  (ekeyCode ==83 || ekeyName==1){
-					ChosenDictVocabEntryIndex = highlightedvocabObjFirstIndex;
-				}
-				else {
-					// i.e. Press key '4' , then  ChosenDictVocabEntryIndex =  highlightedvocabObjMaxLength - 4
-					ChosenDictVocabEntryIndex = highlightedvocabObjMaxLength - ekeyName;
-				}
-				
-
-				if (isShowing && currentNode.nodeType === 3 && highlightedvocabObj['word'+ChosenDictVocabEntryIndex] !=  null){
-					saveVocab(ChosenDictVocabEntryIndex);
-				}
-
+			// Only save when definition found and text highlighted
+			let ChosenDictVocabEntryIndex 
+			if  (ekeyCode ==83 || ekeyName==1){
+				ChosenDictVocabEntryIndex = highlightedvocabObjFirstIndex;
 			}
-			else if (ekeyCode ==88 && TSV_OR_AnkiConnect == 'TSV'){
-				console.log("pressed 'x', downloading ");
-
-				browser.downloadTSVFile(SAVED_VOCAB_LIST);
+			else {
+				// i.e. Press key '4' , then  ChosenDictVocabEntryIndex =  highlightedvocabObjMaxLength - 4
+				ChosenDictVocabEntryIndex = highlightedvocabObjMaxLength - ekeyName;
 			}
-			else if (ekeyCode ==82 && TSV_OR_AnkiConnect == 'TSV'){
-				if (confirm("Confirm retriving Vocab from Cached storage?")) {
-					console.log("pressed 'r', retriving Vocab from Cached storage");
-					browser.sendMessage({ name: "retrieveCachedVocab" });
-					showGeneralNotification("pressed 'r', retrived Vocab from Cached storage");
-			}}
-			else if (ekeyCode ==85 && TSV_OR_AnkiConnect == 'TSV'){
-				if (confirm("Confirm Uploading Vocab to Cached storage?")) {
-					console.log("pressed 'u', Uploading Vocab to Cached storage ");
-					browser.sendMessage({ name: "setCachedVocab" , data:SAVED_VOCAB_LIST });
-					showGeneralNotification("pressed 'u', Uploaded Vocab to Cached storage");
+			
 
-				}
-			}
-			else if (ekeyCode ==80 && TSV_OR_AnkiConnect == 'TSV'){
-				if (confirm("Confirm Reset Vocab List ?")) {
-
-					console.log("pressed 'p', Purging Vocab from Cached storage ");
-					browser.sendMessage({ name: "deleteCachedVocab" });
-					showGeneralNotification("pressed 'p', Purged Vocab from Cached storage");
-				
-				}
-
+			if (isShowing && currentNode.nodeType === 3 && highlightedvocabObj['word'+ChosenDictVocabEntryIndex] !=  null){
+				saveVocab(ChosenDictVocabEntryIndex);
 			}
 
-			else if (ekeyCode ==77){
-				//ekeyCode ==77 == m
-				if (confirm("Show Toktogi Option?")) {
-					browser.sendMessage({ name: "showOptions" });
-				}
-			}
-			//alert('keypress event\n\n' + 'key: ' + ekeyName+ '  key code:' +ekeyCode + 'isOn var: '+ isOn) ;
-			});
 		}
+		else if (ekeyCode ==88 && TSV_OR_AnkiConnect == 'TSV'){
+			console.log("pressed 'x', downloading ");
+
+			browser.downloadTSVFile(SAVED_VOCAB_LIST);
+		}
+		else if (ekeyCode ==80 && TSV_OR_AnkiConnect == 'TSV'){
+			/* To reset vocabList. Use option menu instead.
+			if (confirm("Confirm Reset Vocab List ?")) {
+
+				console.log("pressed 'p', Purging Vocab from Cached storage ");
+				browser.sendMessage({ name: "deleteCachedVocab" });
+				showGeneralNotification("pressed 'p', Purged Vocab from Cached storage");
+			
+			}
+			*/
+		}
+
+		else if (ekeyCode ==77){
+			//ekeyCode ==77 == m
+			if (confirm("Show Toktogi Option?")) {
+				browser.sendMessage({ name: "showOptions" });
+			}
+		}
+		//alert('keypress event\n\n' + 'key: ' + ekeyName+ '  key code:' +ekeyCode + 'isOn var: '+ isOn) ;
+		});
+		
 
 		$(document).on("mousemove", function (event) {
 			clearTimeout(lookupTimeout);
@@ -575,8 +566,10 @@ if (window.browser == null) {
 	}
 
 	function readCachedVocabListResult(data) {
-		SAVED_VOCAB_LIST = data
-		console.log("At inject.js, Updated SAVED_VOCAB_LIST from Cached Value:"+SAVED_VOCAB_LIST)
+		//data got send in { vocablist: Array[0] }
+		SAVED_VOCAB_LIST = data.vocablist;
+		console.log("At inject.js, Updated SAVED_VOCAB_LIST from Cached Value:", SAVED_VOCAB_LIST);
+		showGeneralNotification("VocabList Refreshed");
 
 	}
 
@@ -586,7 +579,7 @@ if (window.browser == null) {
 	browser.addListener("stopListeners", stopListeners);
 	browser.addListener("cachedVocabListResult",readCachedVocabListResult );
 	browser.addListener("localStorageChanged",onlocalStorageChanged );
-	browser.addListener("toggle-hotkey",function(){hotkey_Enabled = !hotkey_Enabled; showGeneralNotification("Hotkey_On :"+ hotkey_Enabled);} );
+	browser.addListener("toggle-hotkey",function(){hotkey_Enabled = !hotkey_Enabled; showGeneralNotification("Hotkey_On :"+ hotkey_Enabled); if (hotkey_Enabled){startListeners();}else{$(document).off("keyup");} });
 
 	browser.initInject();
 })();

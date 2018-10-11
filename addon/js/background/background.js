@@ -30,7 +30,7 @@ function init() {
 	util.addListener("updateIsOn", toggleOnOff);
 	util.addListener("showOptions", showOptions);
 	util.addListener("addToList", addToList);
-	util.addListener("retrieveCachedVocab", util.retrieveVocabList);
+	//util.addListener("retrieveCachedVocab", util.retrieveVocabList); 
 	util.addListener("setCachedVocab", util.storeVocabList);
 	util.addListener("deleteCachedVocab", util.clearVocabList);
 
@@ -75,6 +75,8 @@ function sendScriptData(tab, data) {
 		}
 	});
 	JUST_UPDATED = false;
+	//also notify inject.js if VocabList[] exists in localstorage
+	retrieveVocabList();
 }
 
 function showOptions(tab, data) {
@@ -95,6 +97,22 @@ function toggleOnOff(tab) {
 	}
 }
 
+
+function retrieveVocabList() {
+
+	let result = localStorage.getItem('vocabList');
+
+	if (!result){
+		console.log('@util.retrieveVocabList, result is null, converting result to empty list ' + result)
+		result = []
+	}
+	else{
+		result = JSON.parse(result);
+	}
+
+	util.sendAllMessage("cachedVocabListResult", { vocablist: result });
+	console.log('util.retrieveVocabList: retrieved vocabList :'+result)
+};
 
 function addToList(tab, data) {
 	// ???

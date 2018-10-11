@@ -162,6 +162,8 @@ document.getElementById("resetVocabList_Btn").addEventListener("click", function
         localStorage.removeItem('vocabList');
         console.log('localStorage.removeItem vocabList: completed');
         showVocabList();
+        // call background function to let all content.js get notified of VocabList Changes
+        browser.extension.getBackgroundPage().retrieveVocabList();
         alert("Vocab List Reset Complete!");
     
     } else {
