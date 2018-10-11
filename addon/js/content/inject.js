@@ -1,20 +1,8 @@
 /* Copyright 2015, Brad McDermott, All rights reserved. */
 "use strict";
-//TODO  Use actual sentence token instead of Paragraph when saving to TSV
 //TODO  Hanja in its own  column when saving to TSV
 //TODO  Toggle Sanseido-like mode for KR-Eng. Maybe naver Dict. Search the manually highlighted keyword.
-//TODO escape tab character when saving to TSV
-//TODO Intergrate real-time import to Anki with Anki Connect
 
-//TODO Choose populated Dict entry to save. Currently only able to save the first longest match entry.
-//        - Either save with KeyDown 1,2,3,4. Or add the save icon to populated Dict Box. 
-
-//TODO Figure out how to share global SAVED_VOCAB_LIST. Currently they all are for each individual Tab
-
-//TODO More Field Option for SAVED_VOCAB_LIST. Full column should be  1.highlighted Hanguel 2.Hanja 3.Def   4. Sentence Token
-//									5.Index No   6. Source URL  7.Web Page Title  8. User Specified Tag
-
-//TODO Add persistent local storage for SAVED_VOCAB_LIST , and perhaps for User-specified SAVED_VOCAB_LIST Field option
 if (window.browser == null) {
 	window.browser = chrome;
 }
@@ -24,6 +12,7 @@ if (window.browser == null) {
 	let currentNode;
 	let currentOffset;
 	let TSV_OR_AnkiConnect = 'TSV';
+	let hotkey_Enabled = true;
 	// Use rect for saving highlighted word coordinates
 	let rect;
 	let isOn;
@@ -33,9 +22,6 @@ if (window.browser == null) {
 	let highlightedvocabObjMaxLength;
 	let highlightedvocabObjFirstIndex;
 	let highlightedvocab_CurrentSentence;
-	//highlightedvocabObj.word;
-	//highlightedvocabObj.root;
-	//highlightedvocabObj.defs;
 	// Box state and variables
 	let lookupTimeout;
 	let isShowing;
@@ -56,51 +42,49 @@ if (window.browser == null) {
 	// my global obj for saving csv to file
 	let SAVED_VOCAB_LIST = [];
 
+	function saveVocab(i){
+		// i = dictionary entry index
+
+		console.log("Def found. Saving...\n" +highlightedvocabObj['word'+i] + " | " +highlightedvocabObj['root'+i] + " | " + highlightedvocabObj['defs'+i]+ " | " + highlightedvocab_CurrentSentence + " | " + document.title);
+
+		// If root word a.k.a Dictionary form exist , save root word instead of hightlighted conjugated word
+		if (highlightedvocabObj["root"+i]){
+			highlightedvocabObj['word'+i] = highlightedvocabObj["root"+i]
+		}
+
+		if (TSV_OR_AnkiConnect == 'TSV'){
+			// Use 'TSV' List to Save Vocab
+			SAVED_VOCAB_LIST.push([highlightedvocabObj['word'+i],highlightedvocabObj['defs'+i],highlightedvocab_CurrentSentence, document.title]);
+			showSaveVocabSuccessNotification(highlightedvocabObj['word'+i] + "TSV MODE");
+		}
+
+		else{
+			// TSV_OR_AnkiConnect == 'AnkiConnect', Import Vocab directly to Anki via AnkiConnect Add-on
+			ankiConnect_addNote({
+				"Korean_Vocab": highlightedvocabObj['word'+i],
+				"Meaning_E":highlightedvocabObj['defs'+i],
+				"Context_Sentence":highlightedvocab_CurrentSentence,
+				"Source_Title":document.title
+				}).then((value) => {
+					// fulfillment
+					console.log("ankiConnect_addNote() Success ! Result: "+ value);
+					showGeneralNotification("Exported To Anki: "+ highlightedvocabObj['word'+i]);
+					}, (reason) => {
+					// rejection
+					console.log("ankiConnect_addNote() Failed ! Reason:"+ reason);
+					showErrorNotification("Failed Anki Export.. Reason: "+ reason);
+					});
+
+		}
+
+	}
+
 	function addPlusToList(event){
 
 			console.log("called (fx) addPlusToList, Vocab Index to save is: "+event.data.dataIndex);
 			getSentenceFromNodeParagrapgh();
-			let i = event.data.dataIndex;
-			
-			
-			console.log("Def found. Saving...\n" +highlightedvocabObj['word'+i] + " | " +highlightedvocabObj['root'+i] + " | " + highlightedvocabObj['defs'+i]+ " | " + highlightedvocab_CurrentSentence + " | " + document.title);
-
-
-			// If root word a.k.a Dictionary form exist , save root word instead of hightlighted conjugated word
-			if (highlightedvocabObj["root"+i]){
-				highlightedvocabObj['word'+i] = highlightedvocabObj["root"+i]
-			}
-
-			if (TSV_OR_AnkiConnect == 'TSV'){
-				// Use 'TSV' List to Save Vocab
-				SAVED_VOCAB_LIST.push([highlightedvocabObj['word'+i],highlightedvocabObj['defs'+i],highlightedvocab_CurrentSentence, document.title]);
-				showSaveVocabSuccessNotification(highlightedvocabObj['word'+i] + "TSV MODE");
-			}
-
-			else{
-
-				// TSV_OR_AnkiConnect == 'AnkiConnect', Import Vocab directly to Anki via AnkiConnect Add-on
-				ankiConnect_addNote({
-					"Korean_Vocab": highlightedvocabObj['word'+i],
-					"Meaning_E":highlightedvocabObj['defs'+i],
-					"Context_Sentence":highlightedvocab_CurrentSentence,
-					"Source_Title":document.title
-					}).then((value) => {
-						// fulfillment
-						console.log("ankiConnect_addNote() Success ! Result: "+ value);
-						showGeneralNotification("Exported To Anki: "+ highlightedvocabObj['word'+i]);
-						}, (reason) => {
-						// rejection
-						console.log("ankiConnect_addNote() Failed ! Reason:"+ reason);
-						showErrorNotification("Failed Anki Export.. Reason: "+ reason);
-						});
-
-			}
-
-
-
-
-			
+			let i = event.data.dataIndex;	
+			saveVocab(i);
 
 		
 	}
@@ -111,14 +95,11 @@ if (window.browser == null) {
 		// TODO make sure the user hasn't moved the mouse since request
 		if (currentNode) {
 
-
 			highlightMatch(longestMatch.length);
 
 			populateDictBox(defArray);
 
 			// Save highlighted word coordinates
-
-
 
 			var selectionBottom = rect.bottom + $(window).scrollTop();
 
@@ -153,26 +134,13 @@ if (window.browser == null) {
 				// <p>먹었 </p> is fine. But problem arise when trying to highlight , <p>먹었</p> as <p>먹었다</p> . You will get Err: Index or size is negative or greater than the allowed amount
 				// When that happens, just hightlight one char less
 				// console.log("Error on wordRange.setEnd(currentNode, currentOffset + length) Err: "+ err.message);
-				wordRange.setEnd(currentNode, currentOffset + length -1);
+				wordRange.setEnd(currentNode, currentOffset + length -1);				
 			}
 			const selection = window.getSelection();
 			selection.removeAllRanges();
 			selection.addRange(wordRange);
 			
 			rect = wordRange.getBoundingClientRect();
-			//highlightedvocabObj = wordRange
-			/*
-			// @MY SCRIPT@
-			console.log("at highlightMatch. Length:" + length + "   word range:" + wordRange);
-			console.log("@highlightMatch Current node content:" + currentNode.data);
-			var nodeParagraph = currentNode.data
-			var nodeSentence = nodeParagraph.replace(/(((?![.!?]['"]?\s).)*[.!?]['"]?)(\s|$)/g, '$1');
-			// console.log("@highlightMatch Current node Sentence:"  + typeof sentence);
-			alert(nodeSentence);
-			console.log("@highlightMatch Current node Sentence:");
-			*/
-			
-
 		}
 	}
 
@@ -180,13 +148,6 @@ if (window.browser == null) {
 	function populateDictBox(defArray) {
 		//console.log("@populateDictBox:" +defArray);
 		$dictInner.empty();
-
-		/*
-		highlightedvocabObj.word = defArray[defArray.length - 1].word;
-		if (defArray[defArray.length - 1].root) { 
-			highlightedvocabObj.root  = defArray[defArray.length - 1].root;
-		}
-		*/
 
 		highlightedvocabObj = {};
 
@@ -337,13 +298,6 @@ if (window.browser == null) {
 	}
 
 	function ankiConnect_addNote ( vFieldsObj) {
-		
-		//TODO: Hard Coded deckname & Model name
-		let action = "addNote";
-		let version = 6;
-		let deckname = "Vocab_Toktogi";
-		let modelName = "Toktogi";
-
 		/*
 		vFieldsObj Example:
 		let vFieldsObj = {	
@@ -353,6 +307,14 @@ if (window.browser == null) {
 			"Source_Title":document.title
 		};
 		*/
+		
+		//TODO: Hard Coded deckname & Model name
+		let action = "addNote";
+		let version = 6;
+		let deckname = "Vocab_Toktogi";
+		let modelName = "Toktogi";
+
+
 
 		let params = {
 			"note": {
@@ -394,13 +356,13 @@ if (window.browser == null) {
 	
 	function startListeners () {
 		// @savetofile feature
-		$(document).on("keyup", function (event) {
-
+		if (hotkey_Enabled){
+			
+			$(document).on("keyup", function (event) {
+				
 			const ekeyName = event.key;
 			var ekeyCode = event.keyCode;
 			
-
-
 			if (ekeyCode ==83 || ekeyName==1 || ekeyName==2 || ekeyName==3  || ekeyName==4 ){
 				
 				getSentenceFromNodeParagrapgh();
@@ -418,40 +380,7 @@ if (window.browser == null) {
 				
 
 				if (isShowing && currentNode.nodeType === 3 && highlightedvocabObj['word'+ChosenDictVocabEntryIndex] !=  null){
-
-					console.log("Def found. Saving...\n" +highlightedvocabObj['word'+ChosenDictVocabEntryIndex] + " | " +highlightedvocabObj['root'+ChosenDictVocabEntryIndex] + " | " + highlightedvocabObj['defs'+ChosenDictVocabEntryIndex]+ " | " + highlightedvocab_CurrentSentence + " | " + document.title );
-
-					// If root word a.k.a Dictionary form exist , save root word instead of hightlighted conjugated word
-					if (highlightedvocabObj["root"+ChosenDictVocabEntryIndex]){
-						highlightedvocabObj['word'+ChosenDictVocabEntryIndex] = highlightedvocabObj["root"+ChosenDictVocabEntryIndex]
-					}
-
-
-					if (TSV_OR_AnkiConnect == 'TSV'){
-						// Use 'TSV' List to Save Vocab
-						SAVED_VOCAB_LIST.push([highlightedvocabObj['word'+ChosenDictVocabEntryIndex],highlightedvocabObj['defs'+ChosenDictVocabEntryIndex],highlightedvocab_CurrentSentence, document.title]);
-						showSaveVocabSuccessNotification(highlightedvocabObj['word'+ChosenDictVocabEntryIndex] + "TSV MODE");
-					}
-					else{
-
-						// TSV_OR_AnkiConnect == 'AnkiConnect', Import Vocab directly to Anki via AnkiConnect Add-on
-						ankiConnect_addNote({
-							"Korean_Vocab": highlightedvocabObj['word'+ChosenDictVocabEntryIndex],
-							"Meaning_E":highlightedvocabObj['defs'+ChosenDictVocabEntryIndex],
-							"Context_Sentence":highlightedvocab_CurrentSentence,
-							"Source_Title":document.title
-							}).then((value) => {
-								// fulfillment
-								console.log("ankiConnect_addNote() Success ! Result: "+ value);
-								showGeneralNotification("Exported To Anki: "+ highlightedvocabObj['word'+ChosenDictVocabEntryIndex]);
-							  }, (reason) => {
-								// rejection
-								console.log("ankiConnect_addNote() Failed ! Reason:"+ reason);
-								showErrorNotification("Failed Anki Export.. Reason: "+ reason);
-							  });
-	
-					}
-					
+					saveVocab(ChosenDictVocabEntryIndex);
 				}
 
 			}
@@ -488,16 +417,12 @@ if (window.browser == null) {
 			else if (ekeyCode ==77){
 				//ekeyCode ==77 == m
 				if (confirm("Show Toktogi Option?")) {
-
 					browser.sendMessage({ name: "showOptions" });
-				
 				}
-
 			}
-
 			//alert('keypress event\n\n' + 'key: ' + ekeyName+ '  key code:' +ekeyCode + 'isOn var: '+ isOn) ;
-
-		});
+			});
+		}
 
 		$(document).on("mousemove", function (event) {
 			clearTimeout(lookupTimeout);
@@ -546,6 +471,7 @@ if (window.browser == null) {
 		$(document).off("mousemove");
 		$(document).off("keyup");
 		$lock.off("click");
+		showErrorNotification("Toktogi Turned Off ");
 	}
 
 	function showSaveVocabSuccessNotification(inputV) {
@@ -643,8 +569,6 @@ if (window.browser == null) {
 	}
 	
 	function onlocalStorageChanged(data){
-
-
 		//TSV_OR_AnkiConnect = browser.extension.getBackgroundPage().localStorage.getItem('TSV_OR_AnkiConnect') || 'TSV';
 		TSV_OR_AnkiConnect = data.TSV_OR_AnkiConnect;
 		console.log("@Content inject.js onlocalStorageChanged, TSV_OR_AnkiConnect:" + TSV_OR_AnkiConnect);
@@ -662,5 +586,7 @@ if (window.browser == null) {
 	browser.addListener("stopListeners", stopListeners);
 	browser.addListener("cachedVocabListResult",readCachedVocabListResult );
 	browser.addListener("localStorageChanged",onlocalStorageChanged );
+	browser.addListener("toggle-hotkey",function(){hotkey_Enabled = !hotkey_Enabled; showGeneralNotification("Hotkey_On :"+ hotkey_Enabled);} );
+
 	browser.initInject();
 })();

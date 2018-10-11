@@ -34,6 +34,11 @@ function init() {
 	util.addListener("setCachedVocab", util.storeVocabList);
 	util.addListener("deleteCachedVocab", util.clearVocabList);
 
+	browser.commands.onCommand.addListener(function(command) {
+		if (command == "toggle-hotkey") {
+			util.sendAllMessage("toggle-hotkey", {	TSV_OR_AnkiConnect:TSV_OR_AnkiConnect		});
+		}
+	  });
 	util.init();
 	//util.addListener("localStorageChanged",broadcastStorageChange);
 	util.addActionListener(toggleOnOff);

@@ -26,6 +26,15 @@
       "16": "images/16.png",
       "48": "images/48.png"
    },
+   "commands": {
+    "toggle-hotkey": {
+      "suggested_key": {
+        "default": "Alt+O"
+      },
+      "description": "Send a 'toggle-hotkey' on-off event to the extension"
+    }
+  },
+
    "manifest_version": 2,
    "name": "Toktogi:KR-En Popup Dict",
    "options_ui": {
@@ -34,6 +43,6 @@
    },
    "permissions": [ "<all_urls>", "unlimitedStorage", "tabs" ,"storage"],
    "short_name": "Toktogi",
-   "version": "0.6.7c1",
+   "version": "0.6.7c2",
    "web_accessible_resources": [ "images/unlock.png", "images/lock.png", "images/plus.png" ]
 }

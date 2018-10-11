@@ -1,22 +1,3 @@
-@font-face {
-	font-family: 'Jura-DemiBold';
-	src: url('Jura-DemiBold.woff') format('woff');
-}
-
-@font-face {
-	font-family: 'Jura-Light';
-	src: url('Jura-Light.woff') format('woff');
-}
-
-@font-face {
-	font-family: 'Jura-Medium';
-	src: url('Jura-Medium.woff') format('woff');
-}
-
-@font-face {
-	font-family: 'Jura-Regular';
-	src: url('Jura-Regular.woff') format('woff');
-}
 
 body {
 	font-family: 'Jura-Regular';
