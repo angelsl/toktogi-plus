@@ -7,6 +7,8 @@ let JUST_UPDATED = !NEW_INSTALL && version !== util.getSavedVersion();
 let isAndroid =false;
 let TSV_OR_AnkiConnect = localStorage.getItem('TSV_OR_AnkiConnect') || 'TSV';
 let improved_ConjugatedWord_Recognition = localStorage.getItem('improved_ConjugatedWord_Recognition') || 'true';
+let hotkey_Enabled = localStorage.getItem('hotkey_Enabled') == null?  true :  JSON.parse(localStorage.getItem('hotkey_Enabled'));
+
 
 function init() {
 	if (NEW_INSTALL) {
@@ -22,7 +24,10 @@ function init() {
 		console.log("Unable to set badge text. Likely because Client Browser is Android");
 		isAndroid = true;
 	}
+
+
 	// Update version after setting JUST_UPDATED
+	console.log("loaded hotkey_Enabled", hotkey_Enabled);
 	util.setVersion(util.getVersion());
 
 	util.addListener("text", handleLookup);
@@ -34,17 +39,20 @@ function init() {
 	util.addListener("setCachedVocab", util.storeVocabList);
 	util.addListener("deleteCachedVocab", util.clearVocabList);
 
-	browser.commands.onCommand.addListener(function(command) {
-		if (command == "toggle-hotkey") {
-			util.sendAllMessage("toggle-hotkey", {	TSV_OR_AnkiConnect:TSV_OR_AnkiConnect		});
-		}
-	  });
+	browser.commands.onCommand.addListener(toggleHotkey);
 	util.init();
 	//util.addListener("localStorageChanged",broadcastStorageChange);
 	util.addActionListener(toggleOnOff);
 }
 
-
+function toggleHotkey(command) {
+	if (command == "toggle-hotkey") {
+		hotkey_Enabled = !hotkey_Enabled;
+		localStorage.setItem('hotkey_Enabled',JSON.stringify(hotkey_Enabled));
+		console.log("hotkey_Enabled: ", hotkey_Enabled);
+		util.sendAllMessage("toggle-hotkey", {	hotkey_Enabled:hotkey_Enabled		});
+	}
+  }
 
 // Listener callbacks
 function broadcastStorageChange() {
@@ -66,12 +74,15 @@ function handleLookup(tab, data) {
 }
 
 function sendScriptData(tab, data) {
+	//refresh hotkey_Enabled before sending to be safe
+	hotkey_Enabled = localStorage.getItem('hotkey_Enabled') == null?  true :  JSON.parse(localStorage.getItem('hotkey_Enabled'));
 	util.sendMessage(tab, {
 		name: "injectedData",
 		data: {
 			isOn: isOn,
 			JUST_UPDATED: JUST_UPDATED,
-			TSV_OR_AnkiConnect: TSV_OR_AnkiConnect
+			TSV_OR_AnkiConnect: TSV_OR_AnkiConnect,
+			hotkey_Enabled: hotkey_Enabled
 		}
 	});
 	JUST_UPDATED = false;
@@ -99,19 +110,10 @@ function toggleOnOff(tab) {
 
 
 function retrieveVocabList() {
-
-	let result = localStorage.getItem('vocabList');
-
-	if (!result){
-		console.log('@util.retrieveVocabList, result is null, converting result to empty list ' + result)
-		result = []
-	}
-	else{
-		result = JSON.parse(result);
-	}
-
+	// convert result to empty [] if getItem() returns null
+	let result = localStorage.getItem('vocabList') == null? []:  JSON.parse(localStorage.getItem('vocabList'));
 	util.sendAllMessage("cachedVocabListResult", { vocablist: result });
-	console.log('util.retrieveVocabList: retrieved vocabList :'+result)
+	//console.log('util.retrieveVocabList: retrieved vocabList :'+result)
 };
 
 function addToList(tab, data) {

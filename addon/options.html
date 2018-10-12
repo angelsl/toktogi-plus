@@ -5,10 +5,10 @@
 
 
 
-
+<button id="refreshpage">Refresh Page</button><br>
 <label >Save Vocab To TSV List or AnkiConnect?: </label><label id="TSV_OR_AnkiConnect_Lb"></label><button id="Use_TSV_Btn">Use TSV List</button><button id="Use_AnkiConnect_Btn">Use Anki Connect</button><br>
 <label >Turn on "Conjugated Word Recognition Improvement"? : </label><label id="improved_ConjugatedWord_Recognition_Lb"></label><button id="Use_improved_Word_Recognition_Btn">Turn on</button><button id="Dont_Use_improved_Word_Recognition_Btn">Turn Off</button><br>
-<label >KeyPress_Hotkey Enabled: </label><label id="KeyPressToggle_Lb"></label><button id="KeyPressToggle_Btn">Toggle</button><br>
+<label >KeyPress_Hotkey Enabled: </label><label id="hotkey_Enabled_Lb"></label><button id="KeyPressToggle_Btn">Toggle</button><br>
 <label >Vocab List Count: </label><label id="VocabCount_Lb"> 0 </label><button id="showVocabList_Btn">Show</button>
 <p id= "VocabList_Value_p"> </p>
 <button id="downloadVocabList_Btn">Download VocabList</button>
@@ -27,8 +27,11 @@
 <h3>0.6.7c3- Bonus Features</h3>
 <ul>
 	<li>Refactor stuffs under the hood.</li>
-	<li>Improved "improving Conjugated Word Recognition" even more. Removed previous Conjugated Word Recognition Logic</li>
+	<li>Improved "improving Conjugated Word Recognition" even more. It's now the default and only choice.</li>
 	<li>Hotkey. Press Alt+ O to toggle Hotkey mode On-Off. Useful for if you want to see definition on mouse-hover but doesn't want to save vocab/etc</li>
+	<li>Add refresh button in option page</li>
+	<li>Bug fix for Vocab List. Now vocab list will persist even after re-starting firefox by default. So 'r', 'u' and  'p' hotkeys are removed</li>
+	<li>'s' key for saving vocab list, 'x' for downloading list, 'm' for opening menu option page</li>
 </ul>
 
 <h3>0.6.7c2 - Bonus Features</h3>

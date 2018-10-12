@@ -1,4 +1,50 @@
-﻿//console.log("at dictionary.js. improved_ConjugatedWord_Recognition is : " + improved_ConjugatedWord_Recognition);
+﻿
+--TO fix verb improved_ConjugatedWord_Recognition
+
+1. (으)러 sentance connector - used with directional verbs
+
+    ーにいく
+
+    먹다
+
+    (食べる)
+
+    같이 밥을 먹으러 갑시다！
+
+    一緒にご飯を食べに行きましょう。
+
+    －(으)러
+    ～しに
+    ＜意味＞
+    移動の直接的な目的を表す：～しに
+
+
+2. stem A 든지 + stem B든지 하다
+
+3. adj stem + 아/어/여 지다
+
+4. adj. stem + ㄴ/은
+
+5. adj stem + 게
+
+    ~く、~ように
+
+    시끄럽게 놀다    うるさく遊ぶ、騒いで遊ぶ
+
+    못 가게 잡다   行けないようつかむ
+
+    ~게 되다   〜ことになる、〜くなる、〜になる
+
+    ~게 하다  〜させる、〜ようにする、〜くする、〜にする
+
+    ~게 만들다  〜のようにさせる、〜くさせる、〜にさせる
+
+    ＜語尾のつけ方＞
+
+6. stem + 지 
+
+----
+//console.log("at dictionary.js. improved_ConjugatedWord_Recognition is : " + improved_ConjugatedWord_Recognition);
 // TODO Make this more efficient, probably redo the whole process
 // TODO , assuming  word = str.substring(0, i), if char i jamo = 'n' ending, try removing it, also try adding 'da' after.
 

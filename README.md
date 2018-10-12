@@ -8,7 +8,7 @@ Toktogi+ is a modification of Toktogi 0.6.6 for Firefox. It mainly exists the su
 sunsetting of legacy addon support planned for Firefox 57, but may get some other small
 enhancements as well, depending on my motivation :)
 
-## Temporary Installation (Works even newer version of Firefox, but you'll have to do this every time you restart Firefox)
+## Temporary Installation (Works even on newer version of Firefox, but you'll have to do this every time you restart Firefox)
 
 As this add-on is unsigned, I recommend downloading a copy of the repo and installing the addon temporarily with
 [this method](https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Temporary_Installation_in_Firefox).
@@ -54,11 +54,12 @@ Android Add-on Install Comprehensive Guide (Source : https://developer.mozilla.o
 - [x] **Choose populated Dict entry to save using KeyDown 1,2,3,4** 
 - [x] **Intergrate real-time import to Anki with Anki Connect**
 - [x] **Add persistent local storage for SAVED_VOCAB_LIST , and perhaps for User-specified SAVED_VOCAB_LIST Field option**
-
+- [ ] **Replace all localstorage saving api with storage.local which is more suitable for extensions**
 - [ ] **Hanja in its own  column when saving to TSV**
 - [ ] **Better Conjugated Word recognition. To starts with, maybe also try removing 'n' final jamo and adds 다 when querying?**
 - [ ] **Toggle Sanseido-like mode for KR-Eng. Maybe naver Dict. Search the manually highlighted keyword.**
-- [ ] **Toggle Sanseido-like mode for KR-Eng. Maybe naver Dict. Search the manually highlighted keyword.**
+- [ ] **Toggle Sanseido-like mode for KR-JP, and KR-KR. Maybe naver Dict. Search the manually highlighted keyword.**
+- [ ] **Add popup menu when clicked the toktogi logo, easy way to check config, Ankiconnect connection, and how many words saved**
 - [ ] Add [Korean vocab Frequency List](https://github.com/open-korean-text/open-korean-text/tree/master/src/main/resources/org/openkoreantext/processor/util/freq)  to field. Tags 1-5000 as very common , 5001-10000 as common, 10001-20000 as rare, 20001+ as extremely rare
 
 

@@ -1,6 +1,6 @@
 
 let isVocabListShowing;
-let KeyPressToggleEnabled;
+let hotkey_Enabled;
 let TSV_OR_AnkiConnect;
 let improved_ConjugatedWord_Recognition;
 //converts List Array to HTML table
@@ -26,16 +26,10 @@ function restoreOptions() {
 
     TSV_OR_AnkiConnect = localStorage.getItem('TSV_OR_AnkiConnect') || 'TSV';
     document.getElementById("TSV_OR_AnkiConnect_Lb").innerHTML = TSV_OR_AnkiConnect;
+    //if null , then = true, else JSON.parse( <'true'/'false'>) into boolean
+    hotkey_Enabled = localStorage.getItem('hotkey_Enabled') == null?  true :  JSON.parse(localStorage.getItem('hotkey_Enabled'));
 
-    KeyPressToggleEnabled = localStorage.getItem('KeyPressToggleEnabled');
-    console.log('KeyPressToggleEnabled: '+KeyPressToggleEnabled) ;
-    if (KeyPressToggleEnabled==null){
-        KeyPressToggleEnabled = true;
-        localStorage.setItem('KeyPressToggleEnabled',JSON.stringify(true));
- 
- 
-    }
-    document.getElementById("KeyPressToggle_Lb").innerHTML = JSON.parse(KeyPressToggleEnabled); 
+    document.getElementById("hotkey_Enabled_Lb").innerHTML = hotkey_Enabled? 'Enabled': 'Disabled'; 
 
     let VList = localStorage.getItem("vocabList");
 
@@ -81,18 +75,16 @@ function showVocabList(){
 
 document.addEventListener("DOMContentLoaded", restoreOptions);
 
+document.getElementById("refreshpage").addEventListener("click", function(){
+    restoreOptions();
+});
+
+
 document.getElementById("KeyPressToggle_Btn").addEventListener("click", function(){
-    if (document.getElementById("KeyPressToggle_Lb").innerHTML == 'false'){
-        document.getElementById("KeyPressToggle_Lb").innerHTML = "true";
-        KeyPressToggleEnabled = true;
-        localStorage.setItem('KeyPressToggleEnabled',JSON.stringify(true));
-        
-    }
-    else{
-        document.getElementById("KeyPressToggle_Lb").innerHTML = 'false';
-        KeyPressToggleEnabled = false;
-        localStorage.setItem('KeyPressToggleEnabled',JSON.stringify(false));
-    }
+
+    browser.extension.getBackgroundPage().toggleHotkey("toggle-hotkey");
+    restoreOptions();
+
     
 });
 
@@ -101,6 +93,7 @@ document.getElementById("Use_TSV_Btn").addEventListener("click", function(){
     restoreOptions();
 
     browser.extension.getBackgroundPage().broadcastStorageChange();
+
 });
 
 document.getElementById("Use_AnkiConnect_Btn").addEventListener("click", function(){

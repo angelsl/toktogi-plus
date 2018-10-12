@@ -76,7 +76,9 @@ util.storeVocabList = function(tab, data) {
 	
 	//localStorage only store string, so we use Json to convert list to string
 	localStorage.setItem('vocabList', JSON.stringify(data));
-	console.log('util.storeVocabList: Stored  vocabList :'+data)
+	// console.log('util.storeVocabList: Stored  vocabList :'+data);
+	//broadcast changes of vocablist to all tabs
+	retrieveVocabList();
 };
 
 
