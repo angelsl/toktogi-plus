@@ -39,7 +39,15 @@ function init() {
 	util.addListener("setCachedVocab", util.storeVocabList);
 	util.addListener("deleteCachedVocab", util.clearVocabList);
 
-	browser.commands.onCommand.addListener(toggleHotkey);
+	try {
+		browser.commands.onCommand.addListener(toggleHotkey);
+		}
+	
+		catch(err) {
+			console.log("Unable to run browser.commands.onCommand. Likely because Client Browser is Android");
+			isAndroid = true;
+		}
+
 	util.init();
 	//util.addListener("localStorageChanged",broadcastStorageChange);
 	util.addActionListener(toggleOnOff);
