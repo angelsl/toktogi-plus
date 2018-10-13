@@ -2,7 +2,8 @@
 'use strict';
 
 const dictionary = {};
-
+// To Add, Eng version sample API https://krdict.korean.go.kr/api/search?key={API AUTHENICATION KEY}&q=%22%EC%97%84%ED%95%98%EB%8B%A4%22&translated=y&trans_lang=1 
+// No hanja though, which is a shame  
 // Hotfix, var not update unless restarted. will do this properly later.
 //let improved_ConjugatedWord_Recognition = localStorage.getItem('improved_ConjugatedWord_Recognition') || 'true';
 dictionary.lookupWords = function(str) {
