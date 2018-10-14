@@ -3,9 +3,12 @@
 
 const dictionary = {};
 // To Add, Eng version sample API https://krdict.korean.go.kr/api/search?key={API AUTHENICATION KEY}&q=%22%EC%97%84%ED%95%98%EB%8B%A4%22&translated=y&trans_lang=1 
+// V2, This one includes Hanja and everything , but word entry must be accurate https://krdict.korean.go.kr/api/view?&key={KEY}&type_search=view&method=WORD_INFO&part=word&q=%ED%91%9C%EC%A0%950&sort=dict&translated=y
 // No hanja though, which is a shame  
 // Hotfix, var not update unless restarted. will do this properly later.
 //let improved_ConjugatedWord_Recognition = localStorage.getItem('improved_ConjugatedWord_Recognition') || 'true';
+let KRDICT_API = "omitted";
+let KRDICT_Mode_Enabled = true;
 dictionary.lookupWords = function(str) {
 
 	// lookupword for up to 15 char. Vocab length shouldn't be longer
@@ -97,10 +100,54 @@ dictionary.lookupWords = function(str) {
 		}
 	}
 	//console.log("@Dict.js lookupWords_new Finished. wordList.length: "+ wordList.length + " Str Value : " + str + "WordList :" + wordList);
+	if (KRDICT_Mode_Enabled && KRDICT_API){
+
+		//lookupKRDict(entryList);
+	}
 	return entryList;
 }
 
+function lookupKRDict(entryList){
+	let KRDict_entryList = [];
 
+	if (entryList == []){
+		return KRDict_entryList;
+	}
+
+
+	let url = "https://krdict.korean.go.kr/api/search?key="+KRDICT_API+"&type_search=search&method=WORD_INFO&translated=y&sort=dict&q=";
+	let p = "신실한";
+	// let p = entryList[0].word;
+
+	console.log("url+p is ", url+p);
+
+
+	
+	return new Promise((resolve, reject) => {
+		const xhr = new XMLHttpRequest();
+		xhr.addEventListener('error', () => reject('failed to query KRDict'));
+		xhr.addEventListener('load', () => {
+			try {
+
+				console.log("XMLHttpRequest to KRDict response: ", xhr.response);
+				console.log("XMLHttpRequest to KRDict text: ", xhr.responseText);
+				console.log("XMLHttpRequest to KRDict responseXML: ", xhr.responseXML);
+				resolve(xhr.responseText);
+
+
+
+			} catch (e) {
+				reject(e);
+			}
+		});
+
+		xhr.open("GET", url+p);
+		xhr.send();
+	});	
+
+
+
+}
 
 dictionary.load = async function() {
 	dictionary.dict = await util.getDictJson();

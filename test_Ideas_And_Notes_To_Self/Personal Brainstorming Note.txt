@@ -1,4 +1,31 @@
-﻿
+﻿Handling KRDict
+
+
+v1 - Auto
+1. if (dictentry!= []) 
+    > Use dictentry!= [0].word or dictentry!= [0].root for querying KRDict. Cooldown every 2seconds or 10 queries/min
+
+
+v2.1 - Semi Auto 
+1. if (dictentry!= []) && Key pressed 'P'
+     > Use dictentry!= [0].word or dictentry!= [0].root for querying KRDict. Cooldown 20 queries/min
+
+v2.2 - Semi Auto 
+1. if (dictentry!= []) && Key pressed 'q w e r' 
+    > q = 1, w = 2, e = 3, r = 4
+     > Use dictentry!= [qwer].word or dictentry!= [qwer].root for querying KRDict. Cooldown 20 queries/min
+
+v3 - Manual    https://stackoverflow.com/questions/5379120/get-the-highlighted-selected-text
+1. if mousedown >disable autohighlight
+    on mouseup > use manual highlighted text for querying KRDict. Cooldown 20 queries/min 
+     >wait 5 sec or somekeypress to re-enable autohighlight
+     >> Or re-enable autohighlight immediately and show offline dictentry using highlighted text , while waiting for query promise to return.
+
+v3.2 - Manual Highlighted mode   https://stackoverflow.com/questions/5379120/get-the-highlighted-selected-text
+    same as above, but with button to toggle on-off auto highlight
+
+
+
 --TO fix verb improved_ConjugatedWord_Recognition
 
 1. (으)러 sentance connector - used with directional verbs
