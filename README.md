@@ -25,6 +25,11 @@ In other word, Firefox ESR version 52.9 or less will work. https://ftp.mozilla.o
 
 **You need to disable "xpinstall.signatures.required" in about:config**
 
+
+## It's installed but the Add-on Doesn't work...?
+
+Try refreshing (F5) The current page & Then Toggle the Toktogi Icon again. You should see the 'Toktogi is on' Popup on the upper right corner if everything's working as intended.
+
 ## What About Firefox Android Installation?
 
 As For Firefox Android, 
