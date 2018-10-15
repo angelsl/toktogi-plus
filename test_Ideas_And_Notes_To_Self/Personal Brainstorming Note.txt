@@ -28,6 +28,13 @@ v3.2 - Manual Highlighted mode   https://stackoverflow.com/questions/5379120/get
 
 --TO fix verb improved_ConjugatedWord_Recognition
 
+    For adjective:
+        1.〔  않다  )
+                 않은 (Aux adj form),   않으니, 않지
+         Lazy fix  않은 >   은 >> 다  // DONE
+                   않으니 > 으니 >> 다 || >> 습니까
+                   않지 > 지 >>  자 || 다
+
 1. (으)러 sentance connector - used with directional verbs
 
     ーにいく

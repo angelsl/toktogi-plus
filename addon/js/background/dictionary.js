@@ -39,7 +39,8 @@ dictionary.lookupWords = function(str) {
 	
 	for (let i = 1; i < str.length + 1; i++) {
 		const word = str.substring(0, i);
-		if (str.charAt(i-1) =='니' || str.charAt(i-1) =='을'){
+		//TODO: More fine criteria i.e. (str.charAt(i-1) =='을' ||  str.charAt(i-1) == '은') && str.charAt(i-2) exist && str.charAt(i-2) has batchim
+		if (str.charAt(i-1) =='니' || str.charAt(i-1) =='을' ||  str.charAt(i-1) == '은'){
 			// to handle 	inquisitive present & past formal low '먹니' & '먹었니'
 			// 을 to handle st like 먹을게요 or ~(으)ㄹ게 
 			// if not already in list, push
@@ -75,7 +76,7 @@ dictionary.lookupWords = function(str) {
 	  });
 
 
-	for (let i = 1; i < wordList.length + 1; i++) {
+	for (let i = 0; i < wordList.length + 1; i++) {
 	
 		// An array of definitions
 		//console.log("@Dict.js Searched Dict with word: " + word + " &word.len:" + word.length);
@@ -99,7 +100,7 @@ dictionary.lookupWords = function(str) {
 			}
 		}
 	}
-	//console.log("@Dict.js lookupWords_new Finished. wordList.length: "+ wordList.length + " Str Value : " + str + "WordList :" + wordList);
+	console.log("@Dict.js lookupWords_new Finished. wordList.length: "+ wordList.length + " Str Value : " + str + "WordList :" + wordList);
 	if (KRDICT_Mode_Enabled && KRDICT_API){
 
 		//lookupKRDict(entryList);
