@@ -100,7 +100,7 @@ dictionary.lookupWords = function(str) {
 			}
 		}
 	}
-	console.log("@Dict.js lookupWords_new Finished. wordList.length: "+ wordList.length + " Str Value : " + str + "WordList :" + wordList);
+	//console.log("@Dict.js lookupWords_new Finished. wordList.length: "+ wordList.length + " Str Value : " + str + "WordList :" + wordList);
 	if (KRDICT_Mode_Enabled && KRDICT_API){
 
 		//lookupKRDict(entryList);
