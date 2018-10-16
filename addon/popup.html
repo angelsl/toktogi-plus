@@ -1,0 +1,43 @@
+<html>
+<head>
+<meta charset="utf-8">
+<link href="css/popup.css" media="screen" rel="stylesheet" type="text/css">
+<script src="js/vendor/jquery-2.1.4.min.js"></script>
+<script src="js/content/browser_tools.js"></script>
+<script src="js/popup.js"></script>
+</head>
+<body>
+
+<div id="content"><button id="on">Enable Dictionary</button></div>
+
+
+<div class="grid-container">
+    <div class="grid-item"> <h1>Toktogi Plus  &nbsp; <button id="Refresh_Btn">Refresh</button> </h1></div>
+  
+    <div class="grid-item"><label class="desc">Enable Dict: </label><label class="switch">  <input type="checkbox">  <span class="slider"></span></label></div>  
+   <div class="grid-item"><label class="desc">Keypress_HotKey: </label><label class="switch">  <input type="checkbox" checked>  <span class="slider"></span></label></div>  
+   <div class="grid-item"><label class="desc">Save Vocab To: </label> Tsv List <label id="TSV_OR_AnkiConnect_Lb"></label><button id="Use_TSV_Btn">Use TSV List</button><button id="Use_AnkiConnect_Btn">Use Anki Connect</button></div>  
+    <div class="grid-item">Vocab List Count: <label id="VocabCount_Lb"> 0 </label><button id="downloadVocabList_Btn">Download List</button>
+  <button id="resetVocabList_Btn">Reset List</button></div>  
+    <div class="grid-item"> <form class="form-inline">
+    <label class="desc">Online_KR_Dict_API:</label>
+    <input type="form" id="Online_KR_Dict_API_id" placeholder="Online KRDict_API Key">  </label>  <button type="submit">Submit</button>
+  </form> </div>
+    <div class="grid-item"> <label class="desc">Dictionary Mode: </label> </br>
+    
+        <label class="radio_verticle">Offline Dict Only
+        <input type="radio" checked="checked" name="Dict_Mode">
+      </label>
+      <label class="radio_verticle">Online + Offline Dict Auto(Auto Query First Entry)
+        <input type="radio" name="Dict_Mode">
+      </label>
+      <label class="radio_verticle">Online + Offline Dict Manual(Toggle On mouse up, KeyPress)
+        <input type="radio" name="Dict_Mode">
+      </label>
+  
+    
+    </div>
+  
+  </div>
+</body>
+</html>
