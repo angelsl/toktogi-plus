@@ -84,15 +84,16 @@ dictionary.lookupWords = function(str) {
 	
 		// An array of definitions
 		//console.log("@Dict.js Searched Dict with word: " + word + " &word.len:" + word.length);
-		const info = dict[wordList[i]];
+		let info = dict[wordList[i]];
 		if (info) {
+
 			if (info.defs) {
 				entryList.push({ word: wordList[i], defs: info.defs.split("|") });
 			}
 
 			// word is a conjugated verb, add root definition
 			if(info.roots) {
-				const roots = Object.keys(info.roots);
+				let roots = Object.keys(info.roots);
 
 				roots.forEach(function (root) {
 					entryList.push({
@@ -103,19 +104,18 @@ dictionary.lookupWords = function(str) {
 				});
 			}
 		}
-	}
-	if (use_dictionary2 == true){
-		for (let i = 0; i < wordList.length + 1; i++) {
-	
-			// An array of definitions
-			//console.log("@Dict.js Searched dict2 with word: " + word + " &word.len:" + word.length);
-			const info = dict2[wordList[i]];
-			if (info) {
-					entryList.push({ word: wordList[i], defs: info.split("<BR>") });
-
+		else{
+			// Only check dict2 if dict1 entry not found.
+			if (use_dictionary2 == true){
+				info = dict2[wordList[i]];
+				if (info) {
+						entryList.push({ word: wordList[i], defs: info.split("<BR>") });
+				}
 			}
 		}
+
 	}
+
 	//console.log("@Dict.js lookupWords_new Finished. wordList.length: "+ wordList.length + " Str Value : " + str + "WordList :" + wordList);
 	if (KRDICT_Mode_Enabled && KRDICT_API){
 
