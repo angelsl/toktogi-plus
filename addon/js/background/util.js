@@ -43,6 +43,11 @@ util.getDictJson = async function() {
 	return response.json();
 };
 
+util.getDictSpaceSlashSpaceDelimitedTSV = async function() {
+	let response = await fetch('krdict2.tsv');
+	return response.text();
+};
+
 util.sendAllMessage = function(name, data) {
 	browser.tabs.query({}, function(tabs) {
 		var message = { name: name, data: data };

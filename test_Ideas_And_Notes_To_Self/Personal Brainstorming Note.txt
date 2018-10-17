@@ -26,6 +26,7 @@ v3.2 - Manual Highlighted mode   https://stackoverflow.com/questions/5379120/get
 
 
 
+
 --TO fix verb improved_ConjugatedWord_Recognition
 
     For adjective:
@@ -77,6 +78,7 @@ v3.2 - Manual Highlighted mode   https://stackoverflow.com/questions/5379120/get
 
 6. stem + 지 
 
+
 ----
 //console.log("at dictionary.js. improved_ConjugatedWord_Recognition is : " + improved_ConjugatedWord_Recognition);
 // TODO Make this more efficient, probably redo the whole process
@@ -103,6 +105,9 @@ Which takes almost 0.1 second for a look up. (average should be 1ms for word loo
 TO fix is to use perhaps stop at . or search for up to str.substring(0, 15);
 
 */
+
+// https://jsfiddle.net/4tfgoucx/ This will be helpful for improving Conjugated WordRecognition
+//https://stackoverflow.com/questions/48074764/regex-to-match-all-hangul-korean-characters-and-syllable-blocks
 --------- Fixes . The lazy way
 
 
@@ -173,3 +178,5 @@ declarative future informal low	할 거야
 declarative future informal high	할 거예요
 declarative future formal low	할 거다
 declarative future formal high	할 겁니다
+
+https://gist.github.com/iwek/7154706

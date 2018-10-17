@@ -2,6 +2,7 @@
 'use strict';
 
 const dictionary = {};
+const dictionary2 = {};
 // To Add, Eng version sample API https://krdict.korean.go.kr/api/search?key={API AUTHENICATION KEY}&q=%22%EC%97%84%ED%95%98%EB%8B%A4%22&translated=y&trans_lang=1 
 // V2, This one includes Hanja and everything , but word entry must be accurate https://krdict.korean.go.kr/api/view?&key={KEY}&type_search=view&method=WORD_INFO&part=word&q=%ED%91%9C%EC%A0%950&sort=dict&translated=y
 // No hanja though, which is a shame  
@@ -9,6 +10,8 @@ const dictionary = {};
 //let improved_ConjugatedWord_Recognition = localStorage.getItem('improved_ConjugatedWord_Recognition') || 'true';
 let KRDICT_API = "omitted";
 let KRDICT_Mode_Enabled = true;
+let use_dictionary2 = true;
+
 dictionary.lookupWords = function(str) {
 
 	// lookupword for up to 15 char. Vocab length shouldn't be longer
@@ -23,6 +26,7 @@ dictionary.lookupWords = function(str) {
 	}
 
 	const dict = dictionary.dict;
+	const dict2 = dictionary2.dict;
 
 	let entryList = [];
 	//console.log("@@ dictionary.js. improved_ConjugatedWord_Recognition is : " + improved_ConjugatedWord_Recognition);
@@ -100,6 +104,18 @@ dictionary.lookupWords = function(str) {
 			}
 		}
 	}
+	if (use_dictionary2 == true){
+		for (let i = 0; i < wordList.length + 1; i++) {
+	
+			// An array of definitions
+			//console.log("@Dict.js Searched dict2 with word: " + word + " &word.len:" + word.length);
+			const info = dict2[wordList[i]];
+			if (info) {
+					entryList.push({ word: wordList[i], defs: info.split("<BR>") });
+
+			}
+		}
+	}
 	//console.log("@Dict.js lookupWords_new Finished. wordList.length: "+ wordList.length + " Str Value : " + str + "WordList :" + wordList);
 	if (KRDICT_Mode_Enabled && KRDICT_API){
 
@@ -150,6 +166,60 @@ function lookupKRDict(entryList){
 
 }
 
+//var tsv is the TSV file with headers
+function TsvLineToObjectDict(tsv){
+	/* Given multi-line strings like 
+	"가등기 / [假登記] provisional registration<BR>
+	가뜩 / full; on top of everything else<BR>" 
+	" 
+	use " / " as delimiter and convert to object with ['가등기'] & ['가뜩'] as key	*/
+
+	// console.log(typeof dictionary2.dict); //String
+	//console.log(dictionary2.dict.length);
+	// console.log(dictionary2.dict.substring(0,100));
+	//let  numberOfLineBreaks = (dictionary2.dict.match(/\n/g)||[]).length; //63435
+	//let arrayOfLines = dictionary2.dict.match(/[^\r\n]+/g);  //63435
+	// console.log(numberOfLineBreaks, arrayOfLines.length); //63435, 63435
+	/*
+	var keys = Object.keys(dictionary.dict);
+	console.log('Dict keys total = ' + keys.length + "key[0] key[1] : " + keys[0] + "  |  " +  keys[1]);
+	let maxkeyvaluelength = 0;
+
+	for (let i = 0;i<keys.length;i++){
+		maxkeyvaluelength = Math.max(maxkeyvaluelength,keys[i].length);
+		if (keys[i].length >12){
+			console.log(keys[i]);
+		}
+	}
+
+	console.log('Dict max key length is :' + maxkeyvaluelength);
+	*/
+	//let arrayOfLines = dictionary2.dict.match(/[^\r\n]+/g);  
+	//let options={"separator" : " / "};
+	
+	
+		let lines=tsv.split("\n");
+	
+		dictionary2.dict = {};
+	
+		let headers=lines[0].split("\t");
+		
+		for(let i=1;i<lines.length;i++){
+			let currentline=lines[i].split("\t");
+			dictionary2.dict[currentline[0]] = currentline[1];
+		}
+		
+		//return dictionary2.dict; //JavaScript object
+		console.log("dictionary2.dict[가량없다] : ", dictionary2.dict['가량없다']);
+		return JSON.stringify(dictionary2.dict); //JSON
+	}
+
+
+
 dictionary.load = async function() {
 	dictionary.dict = await util.getDictJson();
+	dictionary2.dictstr = await util.getDictSpaceSlashSpaceDelimitedTSV();
+	TsvLineToObjectDict(dictionary2.dictstr);
+	dictionary2.dictstr = null; //don't need dictstr anymore, use dictionary2.dict obj instead. fotmat dictionary2[Str of  'Dictentry'] = Str 'defs'
 }
+
