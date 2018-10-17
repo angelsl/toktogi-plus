@@ -112,6 +112,7 @@ if (window.browser == null) {
 			//Previously used top: savedY + 15, issue arise if mouse Y coordinate is too high when highlighting word(Dict popup will overlap word)
 			// or when Y coordinates is is too low (Dict box too far down, can't move mouse over to the box due to isOutOfBox())
 			// changed to selectionBottom for better dict popup location.
+			//console.log("savedX: " + savedX + " window.innerWidth :" + window.innerWidth);
 			$dict.css({ top: selectionBottom, left: savedX }).show();
 
 			// Save box coordinates
@@ -396,16 +397,18 @@ if (window.browser == null) {
 
 				browser.downloadTSVFile(SAVED_VOCAB_LIST);
 			}
-			else if (ekeyCode ==80 && TSV_OR_AnkiConnect == 'TSV'){
-				/* To reset vocabList. Use option menu instead.
-				if (confirm("Confirm Reset Vocab List ?")) {
+			else if (ekeyCode ==80 ){
+				/* Press P To test querying KRDict for vocab defn*/
 
-					console.log("pressed 'p', Purging Vocab from Cached storage ");
-					browser.sendMessage({ name: "deleteCachedVocab" });
-					showGeneralNotification("pressed 'p', Purged Vocab from Cached storage");
+
+				if (confirm("querying KRDict for vocab defn ?")) {
+
+					//browser.sendMessage({ name: "deleteCachedVocab" });
+					getSelectionText();
+					showGeneralNotification("pressed 'p', querying KRDict");
 				
 				}
-				*/
+
 			}
 
 			else if (ekeyCode ==77){
@@ -577,6 +580,19 @@ if (window.browser == null) {
 
 	}
 
+	function getSelectionText() {
+		//
+		// More info: from stackoverflow.com/questions/5379120/get-the-highlighted-selected-text
+		let text = "";
+		if (window.getSelection) {
+			text = window.getSelection().toString();
+		} else if (document.selection && document.selection.type != "Control") {
+			text = document.selection.createRange().text;
+		}
+		alert("highlighted text is: " + text);
+
+		return text;
+	}
 	browser.addListener("injectedData", loadData);
 	browser.addListener("found", displayDef);
 	browser.addListener("startListeners", turnOn);

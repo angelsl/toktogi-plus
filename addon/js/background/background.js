@@ -25,6 +25,7 @@ function init() {
 		isAndroid = true;
 	}
 
+	browser.browserAction.setTitle({ title: "Toktogi:KR-En Popup Dict (Off)" });
 
 	// Update version after setting JUST_UPDATED
 	console.log("loaded hotkey_Enabled", hotkey_Enabled);
@@ -108,10 +109,12 @@ function toggleOnOff(tab) {
 
 	if (isOn) {
 		util.sendAllMessage("startListeners");
+		browser.browserAction.setTitle({ title: "Toktogi:KR-En Popup Dict (On)" });
 		util.setBadgeText("On");
 
 	} else {
 		util.sendAllMessage("stopListeners");
+		browser.browserAction.setTitle({ title: "Toktogi:KR-En Popup Dict (Off)" });
 		util.setBadgeText("");
 	}
 }

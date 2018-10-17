@@ -1,5 +1,40 @@
-﻿
+﻿Handling KRDict
+
+
+v1 - Auto
+1. if (dictentry!= []) 
+    > Use dictentry!= [0].word or dictentry!= [0].root for querying KRDict. Cooldown every 2seconds or 10 queries/min
+
+
+v2.1 - Semi Auto 
+1. if (dictentry!= []) && Key pressed 'P'
+     > Use dictentry!= [0].word or dictentry!= [0].root for querying KRDict. Cooldown 20 queries/min
+
+v2.2 - Semi Auto 
+1. if (dictentry!= []) && Key pressed 'q w e r' 
+    > q = 1, w = 2, e = 3, r = 4
+     > Use dictentry!= [qwer].word or dictentry!= [qwer].root for querying KRDict. Cooldown 20 queries/min
+
+v3 - Manual    https://stackoverflow.com/questions/5379120/get-the-highlighted-selected-text
+1. if mousedown >disable autohighlight
+    on mouseup > use manual highlighted text for querying KRDict. Cooldown 20 queries/min 
+     >wait 5 sec or somekeypress to re-enable autohighlight
+     >> Or re-enable autohighlight immediately and show offline dictentry using highlighted text , while waiting for query promise to return.
+
+v3.2 - Manual Highlighted mode   https://stackoverflow.com/questions/5379120/get-the-highlighted-selected-text
+    same as above, but with button to toggle on-off auto highlight
+
+
+
+
 --TO fix verb improved_ConjugatedWord_Recognition
+
+    For adjective:
+        1.〔  않다  )
+                 않은 (Aux adj form),   않으니, 않지
+         Lazy fix  않은 >   은 >> 다  // DONE
+                   않으니 > 으니 >> 다 || >> 습니까
+                   않지 > 지 >>  자 || 다
 
 1. (으)러 sentance connector - used with directional verbs
 
@@ -43,6 +78,7 @@
 
 6. stem + 지 
 
+
 ----
 //console.log("at dictionary.js. improved_ConjugatedWord_Recognition is : " + improved_ConjugatedWord_Recognition);
 // TODO Make this more efficient, probably redo the whole process
@@ -69,6 +105,9 @@ Which takes almost 0.1 second for a look up. (average should be 1ms for word loo
 TO fix is to use perhaps stop at . or search for up to str.substring(0, 15);
 
 */
+
+// https://jsfiddle.net/4tfgoucx/ This will be helpful for improving Conjugated WordRecognition
+//https://stackoverflow.com/questions/48074764/regex-to-match-all-hangul-korean-characters-and-syllable-blocks
 --------- Fixes . The lazy way
 
 
@@ -139,3 +178,5 @@ declarative future informal low	할 거야
 declarative future informal high	할 거예요
 declarative future formal low	할 거다
 declarative future formal high	할 겁니다
+
+https://gist.github.com/iwek/7154706
