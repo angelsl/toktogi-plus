@@ -27,7 +27,7 @@ function restoreOptions() {
     document.getElementById("improved_ConjugatedWord_Recognition_Lb").innerHTML = improved_ConjugatedWord_Recognition;
 
 
-    OfflineDict_Mode = localStorage.getItem('OfflineDict_Mode') == null?  1 :  JSON.parse(localStorage.getItem('OfflineDict_Mode'));
+    OfflineDict_Mode = localStorage.getItem('OfflineDict_Mode') == null?  3 :  JSON.parse(localStorage.getItem('OfflineDict_Mode'));
     
     if (OfflineDict_Mode ==1){
         document.getElementById("OfflineDict_Mode_type1").checked = true;

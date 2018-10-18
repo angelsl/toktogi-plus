@@ -10,11 +10,10 @@ const dictionary2 = {};
 //let improved_ConjugatedWord_Recognition = localStorage.getItem('improved_ConjugatedWord_Recognition') || 'true';
 let KRDICT_API = "omitted";
 let KRDICT_Mode_Enabled = true;
-
 //OfflineDict_Mode:"1" ==> Dict1 = default, Dict2 = fallback
 //OfflineDict_Mode:"2" ==> Use both Dict1 & Dict2, Merge Entry
 //OfflineDict_Mode:"3" ==> Dict2 = default, Dict1 = fallback 
-let OfflineDict_Mode = 3;
+
 
 dictionary.lookupWords = function(str) {
 
@@ -89,13 +88,52 @@ dictionary.lookupWords = function(str) {
 	
 		// An array of definitions
 		//console.log("@Dict.js Searched Dict with word: " + word + " &word.len:" + word.length);
+		//console.log("OfflineDict_Mode: "+OfflineDict_Mode);
+		let hasEntry = true;
+		if  (OfflineDict_Mode == 1){
+			hasEntry = lookupDict1(i);
+			if (!hasEntry){
+				lookupDict2(i);
+			}
+		}
+		else if (OfflineDict_Mode == 2){
+			lookupDict1(i);
+			lookupDict2(i);
+
+			if  (entryList.length>=2){
+				if  (entryList[entryList.length-1].word == entryList[entryList.length-2].word && !entryList[entryList.length-2].root){
+					totalDictKeyLookupCount += 1;
+					//console.log("word entry found in both dict1 & dict2 !:" + entryList[entryList.length-1].word + " totalDictKeyLookupCount:" + totalDictKeyLookupCount);
+					entryList[entryList.length-2].defs = entryList[entryList.length-2].defs.concat(entryList[entryList.length-1].defs);
+					entryList.pop();
+				}
+			}
+		}
+
+		else if (OfflineDict_Mode == 3){
+			hasEntry = lookupDict2(i);
+			if (!hasEntry){
+				lookupDict1(i);
+			}			
+		}
+
+
+	}
+
+	//console.log("@Dict.js lookupWords_new Finished. wordList.length: "+ wordList.length + " Str Value : " + str + "WordList :" + wordList);
+	if (KRDICT_Mode_Enabled && KRDICT_API){
+
+		//lookupKRDict(entryList);
+	}
+	return entryList;
+
+	function lookupDict1(i){
 		let info = dict[wordList[i]];
 		if (info) {
 
 			if (info.defs) {
 				entryList.push({ word: wordList[i], defs: info.defs.split("|") });
 			}
-
 			// word is a conjugated verb, add root definition
 			if(info.roots) {
 				let roots = Object.keys(info.roots);
@@ -108,43 +146,23 @@ dictionary.lookupWords = function(str) {
 					});
 				});
 			}
+			return true;
 		}
-		else{
-			//OfflineDict_Mode:"1" ==> Only check dict2 if dict1 entry not found.
-			if (OfflineDict_Mode == 1){
-				info = dict2[wordList[i]];
-				if (info) {
-						entryList.push({ word: wordList[i], defs: info.split("<BR>") });
-				}
-			}
-		}
-
-		if (OfflineDict_Mode == 2){
-			//OfflineDict_Mode:"2" ==> Use both Dict1 & Dict2, Merge Entry 
-				info = dict2[wordList[i]];
-				if (info) {
-						entryList.push({ word: wordList[i], defs: info.split("<BR>") });
-				}
-			}
-		
-
+		return false;
 	}
-
-	//console.log("@Dict.js lookupWords_new Finished. wordList.length: "+ wordList.length + " Str Value : " + str + "WordList :" + wordList);
-	if (KRDICT_Mode_Enabled && KRDICT_API){
-
-		//lookupKRDict(entryList);
-	}
-	return entryList;
-}
-
-function lookupDict1(){
-
-}
-
-function lookupDict2(){
 	
+	function lookupDict2(i){
+		//console.log("atlookupdict2 : ")
+
+		//OfflineDict_Mode:"1" ==> Only check dict2 if dict1 entry not found.
+		let info = dict2[wordList[i]];
+		if (info) {
+				entryList.push({ word: wordList[i], defs: info.split("<BR>") });
+		}	
+	}
 }
+
+
 
 
 function lookupKRDict(entryList){
@@ -229,7 +247,17 @@ function TsvLineToObjectDict(tsv){
 		
 		for(let i=1;i<lines.length;i++){
 			let currentline=lines[i].split("\t");
-			dictionary2.dict[currentline[0]] = currentline[1];
+			
+			if (dictionary2.dict[currentline[0]]){
+				// if entry already exist, append
+				//console.log("dict2 entry already exist: "+ currentline[0]);
+				dictionary2.dict[currentline[0]] = dictionary2.dict[currentline[0]] + currentline[1];
+
+			}
+			else{
+				dictionary2.dict[currentline[0]] = currentline[1];
+			}
+			
 		}
 		
 		//return dictionary2.dict; //JavaScript object
