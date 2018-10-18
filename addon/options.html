@@ -13,6 +13,29 @@
 <p id= "VocabList_Value_p"> </p>
 <button id="downloadVocabList_Btn">Download VocabList</button>
 <button id="resetVocabList_Btn">Reset VocabList</button>
+
+</div>
+<div class="grid-item"> <br><label class="desc"><b>Offline Dict Config:</b> </label> <br>
+
+	<label class="radio_verticle">Dict1 = default, Dict2 = fallback
+	<input type="radio" name="OfflineDict_Mode" id="OfflineDict_Mode_type1">
+  </label><br>
+  <label class="radio_verticle">Use both Dict1 & Dict2, Merge Entry
+	<input type="radio" name="OfflineDict_Mode" id="OfflineDict_Mode_type2">
+  </label><br>
+  <label class="radio_verticle">Dict2 = default, Dict1 = fallback
+	<input type="radio" name="OfflineDict_Mode" id="OfflineDict_Mode_type3">
+  </label>
+
+</div>
+
+<br><br>
+
+<div class="grid-item"> <form class="form-inline">
+    <label class="desc"><b>Online_KR_Dict_API:</b></label>
+    <input type="form" id="Online_KR_Dict_API_id" placeholder="Online KRDict_API Key">  </label>  <button type="submit" id ='Online_KR_Dict_Form'>Submit</button>
+  </form>Required for Querying Word to KRDict website (Similar to Rikai-sama's "Sanseidō Mode").<br> If you don't plan to use this feature. it's fine to leave blank</div>
+
 <script src="options.js"></script>
 
 

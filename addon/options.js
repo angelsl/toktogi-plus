@@ -3,6 +3,8 @@ let isVocabListShowing;
 let hotkey_Enabled;
 let TSV_OR_AnkiConnect;
 let improved_ConjugatedWord_Recognition;
+let OfflineDict_Mode;
+let KRDICT_API; //Either String with value , or Null, Or Empty String "" if submitted blank Value
 //converts List Array to HTML table
 function ulify(mList){
     let mString = "<ul>\n";
@@ -24,6 +26,20 @@ function restoreOptions() {
 
     document.getElementById("improved_ConjugatedWord_Recognition_Lb").innerHTML = improved_ConjugatedWord_Recognition;
 
+
+    OfflineDict_Mode = localStorage.getItem('OfflineDict_Mode') == null?  1 :  JSON.parse(localStorage.getItem('OfflineDict_Mode'));
+    
+    if (OfflineDict_Mode ==1){
+        document.getElementById("OfflineDict_Mode_type1").checked = true;
+    }
+    else if (OfflineDict_Mode ==2) {
+        document.getElementById("OfflineDict_Mode_type2").checked = true;
+    }
+    else if (OfflineDict_Mode ==3) {
+        document.getElementById("OfflineDict_Mode_type3").checked = true;
+    }
+
+    KRDICT_API = localStorage.getItem('KRDICT_API');
     TSV_OR_AnkiConnect = localStorage.getItem('TSV_OR_AnkiConnect') || 'TSV';
     document.getElementById("TSV_OR_AnkiConnect_Lb").innerHTML = TSV_OR_AnkiConnect;
     //if null , then = true, else JSON.parse( <'true'/'false'>) into boolean
@@ -114,6 +130,36 @@ document.getElementById("Dont_Use_improved_Word_Recognition_Btn").addEventListen
     restoreOptions();
     browser.extension.getBackgroundPage().broadcastStorageChange();
 });
+
+
+
+   
+document.getElementById("OfflineDict_Mode_type1").addEventListener("click", function(){
+    localStorage.setItem('OfflineDict_Mode','1');
+    restoreOptions();
+    browser.extension.getBackgroundPage().broadcastStorageChange();
+});
+
+document.getElementById("OfflineDict_Mode_type2").addEventListener("click", function(){
+    localStorage.setItem('OfflineDict_Mode','2');
+    restoreOptions();
+    browser.extension.getBackgroundPage().broadcastStorageChange();
+});
+
+document.getElementById("OfflineDict_Mode_type3").addEventListener("click", function(){
+    localStorage.setItem('OfflineDict_Mode','3');
+    restoreOptions();
+    browser.extension.getBackgroundPage().broadcastStorageChange();
+});
+
+document.getElementById("Online_KR_Dict_Form").addEventListener("click", function(){
+    //alert(document.getElementById("Online_KR_Dict_API_id").value + typeof document.getElementById("Online_KR_Dict_API_id").value);
+    // Either String value or Empty String ""
+    localStorage.setItem('KRDICT_API',document.getElementById("Online_KR_Dict_API_id").value);
+    restoreOptions();
+    browser.extension.getBackgroundPage().broadcastStorageChange();
+});
+
 
 
 document.getElementById("showVocabList_Btn").addEventListener("click", showVocabList);

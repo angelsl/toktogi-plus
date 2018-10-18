@@ -10,10 +10,15 @@ const dictionary2 = {};
 //let improved_ConjugatedWord_Recognition = localStorage.getItem('improved_ConjugatedWord_Recognition') || 'true';
 let KRDICT_API = "omitted";
 let KRDICT_Mode_Enabled = true;
-let use_dictionary2 = true;
+
+//OfflineDict_Mode:"1" ==> Dict1 = default, Dict2 = fallback
+//OfflineDict_Mode:"2" ==> Use both Dict1 & Dict2, Merge Entry
+//OfflineDict_Mode:"3" ==> Dict2 = default, Dict1 = fallback 
+let OfflineDict_Mode = 3;
 
 dictionary.lookupWords = function(str) {
 
+		
 	// lookupword for up to 15 char. Vocab length shouldn't be longer
 	str = str.substring(0,Math.max(str.length, 15));
 	// clear all white spaces (Except if first char is white space) so that str query like dict["할 거야"] becomes  dict["할거야"] which has dict entry
@@ -105,14 +110,23 @@ dictionary.lookupWords = function(str) {
 			}
 		}
 		else{
-			// Only check dict2 if dict1 entry not found.
-			if (use_dictionary2 == true){
+			//OfflineDict_Mode:"1" ==> Only check dict2 if dict1 entry not found.
+			if (OfflineDict_Mode == 1){
 				info = dict2[wordList[i]];
 				if (info) {
 						entryList.push({ word: wordList[i], defs: info.split("<BR>") });
 				}
 			}
 		}
+
+		if (OfflineDict_Mode == 2){
+			//OfflineDict_Mode:"2" ==> Use both Dict1 & Dict2, Merge Entry 
+				info = dict2[wordList[i]];
+				if (info) {
+						entryList.push({ word: wordList[i], defs: info.split("<BR>") });
+				}
+			}
+		
 
 	}
 
@@ -123,6 +137,15 @@ dictionary.lookupWords = function(str) {
 	}
 	return entryList;
 }
+
+function lookupDict1(){
+
+}
+
+function lookupDict2(){
+	
+}
+
 
 function lookupKRDict(entryList){
 	let KRDict_entryList = [];
