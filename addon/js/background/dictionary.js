@@ -158,7 +158,9 @@ dictionary.lookupWords = function(str) {
 		let info = dict2[wordList[i]];
 		if (info) {
 				entryList.push({ word: wordList[i], defs: info.split("<BR>") });
+				return true;
 		}	
+		return false;
 	}
 }
 
