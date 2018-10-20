@@ -271,6 +271,7 @@ function TsvLineToObjectDict(tsv){
 
 dictionary.load = async function() {
 	dictionary.dict = await util.getDictJson();
+	//Important! Makesure TSV file does not have carriage return , otherwise the Saving vocab feature will break. Temp fix is to use \r to catch the and replace them in notepad++
 	dictionary2.dictstr = await util.getDictSpaceSlashSpaceDelimitedTSV();
 	TsvLineToObjectDict(dictionary2.dictstr);
 	dictionary2.dictstr = null; //don't need dictstr anymore, use dictionary2.dict obj instead. fotmat dictionary2[Str of  'Dictentry'] = Str 'defs'

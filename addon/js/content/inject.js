@@ -112,9 +112,14 @@ if (window.browser == null) {
 			//Previously used top: savedY + 15, issue arise if mouse Y coordinate is too high when highlighting word(Dict popup will overlap word)
 			// or when Y coordinates is is too low (Dict box too far down, can't move mouse over to the box due to isOutOfBox())
 			// changed to selectionBottom for better dict popup location.
-			//console.log("savedX: " + savedX + " window.innerWidth :" + window.innerWidth);
-			$dict.css({ top: selectionBottom, left: savedX }).show();
+			//console.log("savedX: " + savedX + " window.innerWidth :" + window.innerWidth + " $dict.width()" + $dict.width() + "IsDictBoxOutside_RightWindowScreen: "+ (window.innerWidth<=savedX+$dict.width()));
 
+			if (savedX+700>=window.innerWidth){
+				$dict.css({ top: selectionBottom, left: "", right: window.innerWidth-(savedX+100) }).show();
+			}
+			else{
+				$dict.css({ top: selectionBottom, left: savedX, right:"" }).show();
+			}
 			// Save box coordinates
 			boxTop = $dict.offset().top;
 			boxLeft = $dict.offset().left;
