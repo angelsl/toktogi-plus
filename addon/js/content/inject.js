@@ -36,6 +36,7 @@ if (window.browser == null) {
 	let $lock;
 	let $notification;
 	//let $plus = $("<img>", { id: 'toktogi-plus', class: 'toktogi-icon', src: browser.getImageUrl("plus.png") });
+	let isAndroid = false;
 	
 
 
@@ -114,7 +115,8 @@ if (window.browser == null) {
 			// changed to selectionBottom for better dict popup location.
 			//console.log("savedX: " + savedX + " window.innerWidth :" + window.innerWidth + " $dict.width()" + $dict.width() + "IsDictBoxOutside_RightWindowScreen: "+ (window.innerWidth<=savedX+$dict.width()));
 
-			if (savedX+700>=window.innerWidth){
+			if (savedX+700>=window.innerWidth && !isAndroid){
+				//also make sure device isn't android. As window.innerWidth changes constantly based on zoom size( Which is very often on android) 
 				$dict.css({ top: selectionBottom, left: "", right: window.innerWidth-(savedX+100) }).show();
 			}
 			else{
@@ -197,9 +199,12 @@ if (window.browser == null) {
 			$dictInner.append($plus);
 
 			for (let j = 0; j < defArray[i].defs.length; j++) {
-				$dictInner.append(
-					$("<span>", { class: 'dict-def' }).text( defArray[i].defs[j])
-				);
+				if (defArray[i].dictType =="offlinedict2"){
+					$dictInner.append(	$("<span>", { class: 'dict-def offlinedict2' }).text( defArray[i].defs[j]));
+				}
+				else {
+					$dictInner.append(	$("<span>", { class: 'dict-def' }).text( defArray[i].defs[j]));
+				}
 
 					if (!highlightedvocabObj['defs'+i]){
 						// Prevent definition from containing something like  'Undefined | etc | etc2'
@@ -551,6 +556,7 @@ if (window.browser == null) {
 		isOn = data.isOn;
 		TSV_OR_AnkiConnect = data.TSV_OR_AnkiConnect;
 		hotkey_Enabled = data.hotkey_Enabled;
+		isAndroid = data.isAndroid;
 		if (data.JUST_UPDATED) {
 			showUpdateNotification();
 		}

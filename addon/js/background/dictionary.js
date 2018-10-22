@@ -101,6 +101,7 @@ dictionary.lookupWords = function(str) {
 			lookupDict2(i);
 
 			if  (entryList.length>=2){
+				// if word property from last index match word property from current index then merge entry
 				if  (entryList[entryList.length-1].word == entryList[entryList.length-2].word && !entryList[entryList.length-2].root){
 					totalDictKeyLookupCount += 1;
 					//console.log("word entry found in both dict1 & dict2 !:" + entryList[entryList.length-1].word + " totalDictKeyLookupCount:" + totalDictKeyLookupCount);
@@ -125,7 +126,7 @@ dictionary.lookupWords = function(str) {
 
 		//lookupKRDict(entryList);
 	}
-	DummylookupKRDict();
+	// DummylookupKRDict();  //to play around with it later
 	return entryList;
 
 	function lookupDict1(i){
@@ -143,7 +144,8 @@ dictionary.lookupWords = function(str) {
 					entryList.push({
 						word: wordList[i],
 						defs: dict[root].defs.split("|"),
-						root: root
+						root: root,
+						dictType:"offlinedict1"
 					});
 				});
 			}
@@ -158,7 +160,7 @@ dictionary.lookupWords = function(str) {
 		//OfflineDict_Mode:"1" ==> Only check dict2 if dict1 entry not found.
 		let info = dict2[wordList[i]];
 		if (info) {
-				entryList.push({ word: wordList[i], defs: info.split("<BR>") });
+				entryList.push({ word: wordList[i], defs: info.split("<BR>"),dictType:"offlinedict2" });
 				return true;
 		}	
 		return false;
@@ -251,21 +253,8 @@ function DummylookupKRDict(){
 				//console.log("XMLHttpRequest to KRDict text: ", xhr.responseText);
 				console.log("XMLHttpRequest to KRDict responseXML: "+ xhr.responseXML);
 				let xml = xhr.responseXML;
-
-				let txt = "";
 				let itemList = [];
-				/*
-				let path = "/channel/item/word[text()]";
-				if (xml.evaluate) {
-					var nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
-					var result = nodes.iterateNext();
-					while (result) {
-						txt += result.childNodes[0].nodeValue + "<br>";
-						result = nodes.iterateNext();
-					} 
 
-				} 
-				*/
 				let item, y, itemlen; 
 				let itemObj = {};
 				let itemsLength = xml.getElementsByTagName("item").length;
@@ -283,17 +272,14 @@ function DummylookupKRDict(){
 						// loops through all item childNotes element i.e. <target_code>, <word>, <pos>,etc
 						
 						if (y.nodeType == 1) {
-							txt += "Name: " + y.nodeName + " childnodeValue: " + y.firstChild.nodeValue + " childNodes.length: " + y.childNodes.length;
 							if (y.childNodes.length==1){
 								itemObj[y.nodeName] = y.firstChild.nodeValue;
 							}
 							else if (y.nodeName =='sense'){
-								
 								sentence_index++;
 								sen_El = y.childNodes
 								for (let k = 0; k < sen_El.length; k++) {
 									if (sen_El[k].nodeType==1){
-										
 										//console.log(sen_El[k].nodeName);
 										if (sen_El[k].childNodes.length==1 && sen_El[k].nodeName == "definition"){
 											itemObj["Kr"+sen_El[k].nodeName.concat(sentence_index)] =sen_El[k].firstChild.nodeValue;
@@ -339,8 +325,6 @@ function DummylookupKRDict(){
 						y = y.nextSibling;
 					}
 					itemList.push(itemObj);
-					txt = txt+"\n";
-
 				}
 
 			

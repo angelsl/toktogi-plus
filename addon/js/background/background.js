@@ -92,7 +92,8 @@ function sendScriptData(tab, data) {
 			isOn: isOn,
 			JUST_UPDATED: JUST_UPDATED,
 			TSV_OR_AnkiConnect: TSV_OR_AnkiConnect,
-			hotkey_Enabled: hotkey_Enabled
+			hotkey_Enabled: hotkey_Enabled,
+			isAndroid:isAndroid
 		}
 	});
 	JUST_UPDATED = false;
