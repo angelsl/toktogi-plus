@@ -1,0 +1,9756 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<channel>
+	<title>한국어 기초사전 개발 지원(Open API) - 사전 검색</title>
+	<link>https://krdict.korean.go.kr</link>
+	<description>한국어 기초사전 개발 지원(Open API) - 사전 검색 결과</description>
+	<lastBuildDate>20181021224945</lastBuildDate> 
+	<total>10</total>
+	<start>1</start>
+	<num>10</num>
+	
+	
+	
+	<item>
+		
+		
+		<target_code>67348</target_code>
+		<word>엄하다</word>
+		<sup_no>0</sup_no>
+		<pos>형용사</pos>
+		<link>https://krdict.korean.go.kr/dicSearch/SearchView?ParaWordNo=67348</link>
+		
+		
+		<sense>
+			<sense_order>1</sense_order>
+			<definition>규칙을 적용하거나 예절을 가르치는 일 등이 매우 철저하고 바르다.</definition>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				영어
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>stern; strict; rigorous</trans_word>
+				<trans_dfn>Thorough and upright in applying a rule or teaching manners.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				일본어
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>きびしい【厳しい】。げんかくだ【厳格だ】。げんじゅうだ【厳重だ】</trans_word>
+				<trans_dfn>規則の適用やしつけなどが徹底して正しい。</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				프랑스어
+				
+				
+				
+				</trans_lang>
+				<trans_word>sévère, rigoureux, dur, strict, austère, inflexible, ferme, étroit</trans_word>
+				<trans_dfn>Qui présente une grande rigueur et intransigeance dans l'application d'une règle ou l'éducation sur les bonnes manières.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				스페인어
+				
+				
+				</trans_lang>
+				<trans_word>severo, estricto, rígido, riguroso, rigoroso, exigente</trans_word>
+				<trans_dfn>Que es muy perfecto y recto en aplicar normas o enseñar los buenos modales.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				아랍어
+				
+				</trans_lang>
+				<trans_word>صارم</trans_word>
+				<trans_dfn>يكون تطبيق القوانين أو تدريس العادات والتقاليد أو غيره بدقّة بالغة</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				몽골어
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>хатуу байх, чанд байх, чанга ширүүн байх, дэглэмтэй байх</trans_word>
+				<trans_dfn>дүрэм журмыг хэрэглэх, ёс дэгийг заах үйл зэрэг маш нарийн нямбай бөгөөд зөв зохистой байх.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				베트남어
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>nghiêm, nghiêm khắc</trans_word>
+				<trans_dfn>Việc áp dụng quy tắc hay dạy lễ nghĩa... rất triệt để và thẳng thắn.
+
+</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				타이어
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>เข้มงวด, เคร่งครัด</trans_word>
+				<trans_dfn>เรื่องที่ใช้กฎเกณฑ์หรือสอนมารยาท เป็นต้น ปฏิบัติให้ถึงที่สุดและถูกต้อง</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				인도네시아어
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>tegas</trans_word>
+				<trans_dfn>penerapan peraturan atau pengajaran sopan santun sangat menyeluruh dan benar</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				러시아어
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>строгий; суровый</trans_word>
+				<trans_dfn>Очень последовательный и правильный (о применении закона или обучении этикету и т.п.).</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</sense>
+		
+		<sense>
+			<sense_order>2</sense_order>
+			<definition>일이나 행동이 잘못되지 않도록 주의가 철저하다.</definition>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				영어
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>strict</trans_word>
+				<trans_dfn>Thoroughly cautious so that there is not any problem with something or someone's behavior.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				일본어
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>きびしい【厳しい】。げんかくだ【厳格だ】。げんじゅうだ【厳重だ】</trans_word>
+				<trans_dfn>仕事や行動に間違いがないように注意を徹底する。</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				프랑스어
+				
+				
+				
+				</trans_lang>
+				<trans_word>sévère, rigoureux, dur, strict, austère, inflexible, ferme, étroit</trans_word>
+				<trans_dfn>Qui est très vigilant pour éviter qu'une affaire ou une action tourne mal.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				스페인어
+				
+				
+				</trans_lang>
+				<trans_word>exigente, riguroso, recto, rígido, severo, minucioso</trans_word>
+				<trans_dfn>Que pone mucha atención para que no resulte mal algún trabajo o acto.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				아랍어
+				
+				</trans_lang>
+				<trans_word/>
+				<trans_dfn>يعتني بأمر أو فعل بدقّة شديدة حتى لا يفشل</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				몽골어
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>хатуу байх, чанд байх, чанга ширүүн байх, дэглэмтэй байх</trans_word>
+				<trans_dfn>ажил хэрэг, үйл хөдлөлөө буруудахгүйн тулд анхаарлаа хандуулах.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				베트남어
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>nghiêm ngặt</trans_word>
+				<trans_dfn>Chú ý triệt để để việc hay hành động không bị sai sót.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				타이어
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>เข้มงวด, เคร่งครัด</trans_word>
+				<trans_dfn>ระมัดระวังให้ถึงที่สุดเพื่อไม่ให้งานหรือการกระทำผิดพลาด</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				인도네시아어
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>tegas</trans_word>
+				<trans_dfn>penekanan perhatian menyeluruh agar pekerjaan atau tindakan tidak salah</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				러시아어
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>строгий; суровый</trans_word>
+				<trans_dfn>Очень последовательный, исчерпывающий, чтобы не было недостатков, проступков (о деле, поведении).</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</sense>
+		
+		<sense>
+			<sense_order>3</sense_order>
+			<definition>성격이나 행동이 매우 철저하고 까다롭다.</definition>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				영어
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>stern; strict; rigorous</trans_word>
+				<trans_dfn>One's personality or behavior being very thorough and fastidious.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				일본어
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>きびしい【厳しい】</trans_word>
+				<trans_dfn>性格や行動が徹底的で気難しい。</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				프랑스어
+				
+				
+				
+				</trans_lang>
+				<trans_word>sévère, rigoureux, dur, strict, austère, ferme</trans_word>
+				<trans_dfn>(Caractère ou action) Très minutieux et exigeant.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				스페인어
+				
+				
+				</trans_lang>
+				<trans_word>exigente, riguroso, recto, rígido, severo, minucioso </trans_word>
+				<trans_dfn>Que la personalidad o el comportamiento es muy perfecto y delicado.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				아랍어
+				
+				</trans_lang>
+				<trans_word/>
+				<trans_dfn>تكون شخصية الشخص أو فعله معقّدة ومفصّلة</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				몽골어
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>хатуу байх, хахир байх, чанга ширүүн байх</trans_word>
+				<trans_dfn>зан ааш, үйл хөдлөл нь маш нягт нямбай, төвөгтэй байх.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				베트남어
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>nghiêm nghị</trans_word>
+				<trans_dfn>Tính cách hay hành động rất triệt để và khắt khe.
+</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				타이어
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>เข้มงวด, เคร่งครัด</trans_word>
+				<trans_dfn>นิสัยหรือการกระทำสุดขีดและพิถีพิถันมาก</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				인도네시아어
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>galak, tegas</trans_word>
+				<trans_dfn>sifat atau tindakannya sangat disiplin dan pilah-pilih</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				러시아어
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>строгий; суровый</trans_word>
+				<trans_dfn>Очень тщательный, привередливый (о характере, поведении).</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</sense>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</item>
+	
+	<item>
+		
+		
+		<target_code>32198</target_code>
+		<word>근엄하다</word>
+		<sup_no>0</sup_no>
+		<pos>형용사</pos>
+		<link>https://krdict.korean.go.kr/dicSearch/SearchView?ParaWordNo=32198</link>
+		
+		
+		<sense>
+			<sense_order>1</sense_order>
+			<definition>표정이나 태도가 신중하고 엄숙하다.</definition>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				영어
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>grave; austere</trans_word>
+				<trans_dfn>One's look or behavior being discreet and serious.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				일본어
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>きんげんだ【謹厳だ】</trans_word>
+				<trans_dfn>表情や態度が慎重でおごそかだ。
+
+</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				프랑스어
+				
+				
+				
+				</trans_lang>
+				<trans_word>sérieux, grave, austère</trans_word>
+				<trans_dfn>(Expression du visage ou attitude) Qui est prudent et solennel.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				스페인어
+				
+				
+				</trans_lang>
+				<trans_word>severo, serio, solemne</trans_word>
+				<trans_dfn>Dícese de la expresión facial o conducta.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				아랍어
+				
+				</trans_lang>
+				<trans_word>صارم</trans_word>
+				<trans_dfn>الملامح الوجه أو السلوك حازم حذر</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				몽골어
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>чухал, ноцтой, сүрлэг байх</trans_word>
+				<trans_dfn>нүүр царай, байр байдал зэрэг нь бодолтой, нухацтай байх.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				베트남어
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>trang nghiêm, nghiêm nghị</trans_word>
+				<trans_dfn>Nét mặt hay thái độ rất nghiêm túc và thận trọng.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				타이어
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>เคร่งขรึม, ขรึม</trans_word>
+				<trans_dfn>สีหน้าหรือท่าทางสุขุมรอบคอบและเอาจริงเอาจัง</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				인도네시아어
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>serius, sungguh-sungguh, kusuk</trans_word>
+				<trans_dfn>wajah atau tindakan yang sungguh-sungguh dan sepenuh hati</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				러시아어
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>серьёзный; суровый; строгий</trans_word>
+				<trans_dfn>Выражающий сосредоточенность, задумчивость и строгость (о выражении лица или поведении).</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</sense>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</item>
+	
+	<item>
+		
+		
+		<target_code>40197</target_code>
+		<word>냉엄하다</word>
+		<sup_no>0</sup_no>
+		<pos>형용사</pos>
+		<link>https://krdict.korean.go.kr/dicSearch/SearchView?ParaWordNo=40197</link>
+		
+		
+		<sense>
+			<sense_order>1</sense_order>
+			<definition>태도나 행동이 인정이 없고 엄하다.</definition>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				영어
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>harsh</trans_word>
+				<trans_dfn>A person's attitude or behavior being stern without mercy.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				일본어
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>きびしい【厳しい】</trans_word>
+				<trans_dfn>態度や行動が情がなく厳しい。</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				프랑스어
+				
+				
+				
+				</trans_lang>
+				<trans_word>impitoyable, implacable, cruel, sévère
+</trans_word>
+				<trans_dfn>(Attitude ou action) inhumain et sévère.
+</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				스페인어
+				
+				
+				</trans_lang>
+				<trans_word>rígido y severo</trans_word>
+				<trans_dfn>Que muestra actitud o comportamiento severo y poco afable. </trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				아랍어
+				
+				</trans_lang>
+				<trans_word>صارم</trans_word>
+				<trans_dfn>موقفه أو سلوكه غير عاطفي وصارم</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				몽골어
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>хүйтэн, ширүүн, хатуу</trans_word>
+				<trans_dfn>хандлага буюу үйлдэл хайр энэрэлгүй, ширүүн байх.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				베트남어
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>lạnh lùng và nghiêm khắc</trans_word>
+				<trans_dfn>Thái độ hay hành động nghiêm khắc và không có tình cảm. </trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				타이어
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>เย็นชาและเข้มงวด, เย็นชาและเคร่งครัด, เยือกเย็น 
+
+</trans_word>
+				<trans_dfn>ท่าทีหรือการกระทำไร้น้ำใจและเข้มงวด
+</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				인도네시아어
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>keras, muram, dingin</trans_word>
+				<trans_dfn>dalam sikap atau tindakannya tidak ada pengakuan dan keras</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				러시아어
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>холодный; хладнокровный</trans_word>
+				<trans_dfn>Строгий и жёсткий, не имеющий человеческой душевности или теплоты (о поведении, отношении к чему-либо или характере).</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</sense>
+		
+		<sense>
+			<sense_order>2</sense_order>
+			<definition>남의 처지를 살피지 않고 규칙을 적용하는 것이 확실하며 빈틈없다.</definition>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				영어
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>stern</trans_word>
+				<trans_dfn>Applying rules in a clear and thorough way without considering others' situation.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				일본어
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>れいげんだ【冷厳だ】</trans_word>
+				<trans_dfn>他人の立場は考慮せずルールを適用するのが確実で、隙が無い。</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				프랑스어
+				
+				
+				
+				</trans_lang>
+				<trans_word>impitoyable, implacable, cruel, sévère
+</trans_word>
+				<trans_dfn>Ne s'intéressant pas aux autres, et qui se montre exact et sans faille en matière d'application des règles.
+</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				스페인어
+				
+				
+				</trans_lang>
+				<trans_word>rígido y severo</trans_word>
+				<trans_dfn>Que aplica las normas tajantemente sin considerar la situación en que se hallan los demás. </trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				아랍어
+				
+				</trans_lang>
+				<trans_word/>
+				<trans_dfn>يطبق القواعد بصرامة وشمول دون وضع ظروف الآخرين في الاعتبار</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				몽골어
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>хүйтэн, ширүүн, хатуу</trans_word>
+				<trans_dfn>бусдын нөхцөл байдлыг хайхрахгүй дүрэм журмыг баримтлах нь баттай бөгөөд хянуур.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				베트남어
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>tàn nhẫn, lạnh lùng  </trans_word>
+				<trans_dfn>Không xem xét tình cảnh của người khác mà áp dụng quy tắc chắc chắn, chặt chẽ. </trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				타이어
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>ตายตัว, เคร่งครัด
+
+</trans_word>
+				<trans_dfn>ใช้กฏระเบียบอย่างแน่นอนและไม่มีช่องว่างโดยไม่พิจารณาสถานภาพของผู้อื่น
+
+</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				인도네시아어
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>dingin, suram, muram</trans_word>
+				<trans_dfn>tidak mengamati kondisi orang lain dan menjalankan peraturan pun jelas tanpa salah</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				러시아어
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>профессиональный; хладнокровный</trans_word>
+				<trans_dfn>Не имеющий эмоций, действующий согласно правилам, не считающийся с мнением других.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</sense>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</item>
+	
+	<item>
+		
+		
+		<target_code>55689</target_code>
+		<word>무엄하다</word>
+		<sup_no>0</sup_no>
+		<pos>형용사</pos>
+		<link>https://krdict.korean.go.kr/dicSearch/SearchView?ParaWordNo=55689</link>
+		
+		
+		<sense>
+			<sense_order>1</sense_order>
+			<definition>윗사람 앞에서 조심하거나 어려워하지 않고 매우 무례하다.</definition>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				영어
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>impertinent; discourteous</trans_word>
+				<trans_dfn>Very rude to one's superior, lacking in discipline or respect.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				일본어
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>ぶれいだ【無礼だ】。ぶさほうだ【無作法だ】。ぶしつけだ	</trans_word>
+				<trans_dfn>目上の人の前で慎んだり控えたりせずに非常に無礼だ。
+</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				프랑스어
+				
+				
+				
+				</trans_lang>
+				<trans_word>impertinent, insolent</trans_word>
+				<trans_dfn>Qui est très impoli sans faire attention ou montrer de respect à une personne plus âgée.
+</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				스페인어
+				
+				
+				</trans_lang>
+				<trans_word>irrespetuoso, irreverente, descortés, insolente</trans_word>
+				<trans_dfn>Que falta el respeto a alguien de mayor edad o jerarquía, sin prudencia ni reverencia debida. </trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				아랍어
+				
+				</trans_lang>
+				<trans_word>وقِح، صفيق</trans_word>
+				<trans_dfn>غير حذر أو لا يشعر بأن الأمر صعب وغير مهذب جدّا أمام شخص ذي رتبة أعلى منه</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				몽골어
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>жудаггүй, замбараагүй</trans_word>
+				<trans_dfn>ахмад хүний өмнө болгоомжлох болон айж эмээхгүй ёс жудаггүй байх.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				베트남어
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>không nghiêm túc, thất lễ</trans_word>
+				<trans_dfn>Không cẩn thận hay nghiêm túc trước người trên mà rất vô lễ.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				타이어
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>ไม่สุภาพ, ไม่มีมารยาท, ไม่เกรงใจ, ไม่ระมัดระวัง</trans_word>
+				<trans_dfn>ไม่มีมารยาทอย่างมากและทำอย่างง่าย ๆ หรือไม่ระวังต่อหน้าผู้ใหญ่</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				인도네시아어
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>kurang ajar, lancang, gerenyau</trans_word>
+				<trans_dfn>tidak berhati-hati atau bersusah payah di depan orang yang dituakan dan sangat tidak sopan</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				러시아어
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>наглый; дерзкий; нахальный; грубый</trans_word>
+				<trans_dfn>Неделикатный, невежливый, не соблюдающий этики по отношению к вышестоящему лицу.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</sense>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</item>
+	
+	<item>
+		
+		
+		<target_code>61996</target_code>
+		<word>삼엄하다</word>
+		<sup_no>0</sup_no>
+		<pos>형용사</pos>
+		<link>https://krdict.korean.go.kr/dicSearch/SearchView?ParaWordNo=61996</link>
+		
+		
+		<sense>
+			<sense_order>1</sense_order>
+			<definition>분위기 등이 빈틈이 없고 엄숙하다.</definition>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				영어
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>strict; tightly-guarded</trans_word>
+				<trans_dfn>An atmosphere, etc., being tight and serious.
+</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				일본어
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>いかめしい【厳めしい】。きびしい【厳しい】。ものものしい【物物しい】</trans_word>
+				<trans_dfn>雰囲気などに抜け目がなく、厳重である。
+</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				프랑스어
+				
+				
+				
+				</trans_lang>
+				<trans_word>sévère, austère, rigoureux, imposant, sérieux
+</trans_word>
+				<trans_dfn>(Ambiance) Qui est méticuleux et grave.
+</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				스페인어
+				
+				
+				</trans_lang>
+				<trans_word>estricto, riguroso, imponente
+</trans_word>
+				<trans_dfn>Dícese de atmósfera rigurosa, sin admitir excepciones ni concesiones. 
+</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				아랍어
+				
+				</trans_lang>
+				<trans_word>صارم</trans_word>
+				<trans_dfn>جو  دقيق ورهيب أو غيره</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				몽골어
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>хатуу чанд, дэгтэй</trans_word>
+				<trans_dfn>уур амьсгал байдал нь хатуу чанд дэгтэй байх.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				베트남어
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>trang nghiêm </trans_word>
+				<trans_dfn>Bầu không khí chặt chẽ và nghiêm túc. </trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				타이어
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>เคร่งครัด, เข้มงวด, กวดขัน</trans_word>
+				<trans_dfn>บรรยากาศ เป็นต้น เคร่งครัดและเป็นจริงเป็นจัง</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				인도네시아어
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>teliti, saksama, ketat</trans_word>
+				<trans_dfn>suasana dsbsangat ketat dan tidak ada celahnya</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				러시아어
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>строгий; требовательный; взыскательный; жёсткий; суровый; точный </trans_word>
+				<trans_dfn>Строгий и напряжённый (об атмосфере и т.п.). </trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</sense>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</item>
+	
+	<item>
+		
+		
+		<target_code>65515</target_code>
+		<word>숭엄하다</word>
+		<sup_no>0</sup_no>
+		<pos>형용사</pos>
+		<link>https://krdict.korean.go.kr/dicSearch/SearchView?ParaWordNo=65515</link>
+		
+		
+		<sense>
+			<sense_order>1</sense_order>
+			<definition>함부로 대할 수 없을 만큼 매우 위엄이 있고 귀하다.</definition>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				영어
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>solemn; sublime; grand</trans_word>
+				<trans_dfn>So majestic and valuable that it cannot be treated disrespectfully.
+</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				일본어
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>すうこうだ【崇高だ】。そんげんだ【尊厳だ】</trans_word>
+				<trans_dfn>気軽に近付けないほど非常に威厳があって尊貴だ。
+</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				프랑스어
+				
+				
+				
+				</trans_lang>
+				<trans_word>solennel, majestueux, grandiose</trans_word>
+				<trans_dfn>Imposant au point d'inspirer naturellement de la considération, et précieux.
+</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				스페인어
+				
+				
+				</trans_lang>
+				<trans_word>majestuoso, sublime, solemne 
+</trans_word>
+				<trans_dfn>Que es muy digno y precioso, que no se puede tratar abusivamente.
+</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				아랍어
+				
+				</trans_lang>
+				<trans_word>موقر</trans_word>
+				<trans_dfn>ذو وقار ونفيس لدرجة غير المستحيل المعاملة بقلة احترام</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				몽골어
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>ихэмсэг, эрхэмсэг</trans_word>
+				<trans_dfn>хамаагүй харьцаж болохгүй маш эрхэмсэг, ихэмсэг.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				베트남어
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>long trọng, trang nghiêm, trọng thể, uy nghi</trans_word>
+				<trans_dfn>Rất uy nghiêm và cao quý đến mức không thể tùy tiện.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				타이어
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>ทรงเกียรติ, สูงส่ง</trans_word>
+				<trans_dfn>สง่างามและประเสริฐมากจนไม่สามารถเผชิญได้ตามอำเภอใจ</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				인도네시아어
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>agung, mulia</trans_word>
+				<trans_dfn>sangat berwibawa dan berharga sampai tidak bisa dihadapi seenaknya</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				러시아어
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>величественный; возвышенный; торжественный</trans_word>
+				<trans_dfn>Очень внушительный и достойный настолько, что невозможно относиться бесцеремонно.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</sense>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</item>
+	
+	<item>
+		
+		
+		<target_code>73378</target_code>
+		<word>장엄하다</word>
+		<sup_no>0</sup_no>
+		<pos>형용사</pos>
+		<link>https://krdict.korean.go.kr/dicSearch/SearchView?ParaWordNo=73378</link>
+		
+		
+		<sense>
+			<sense_order>1</sense_order>
+			<definition>규모가 매우 크며 점잖고 엄숙하다.</definition>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				영어
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>magnificent</trans_word>
+				<trans_dfn>Huge in scale, dignified and solemn.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				일본어
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>そうごんだ・しょうげんだ【荘厳だ】</trans_word>
+				<trans_dfn>規模が大きくて、重々しくおごそかだ。</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				프랑스어
+				
+				
+				
+				</trans_lang>
+				<trans_word>somptueux, magnifique, grandiose, splendide, majestueux</trans_word>
+				<trans_dfn>Qui est d'une très grande dimension, élégant et solennel.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				스페인어
+				
+				
+				</trans_lang>
+				<trans_word>majestuoso, solemne, sublime, esplendoroso, magnífico, grandioso  </trans_word>
+				<trans_dfn>Que es de gran escala, elegante y solemne.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				아랍어
+				
+				</trans_lang>
+				<trans_word>عظيم</trans_word>
+				<trans_dfn>يكون وقورا ومؤدبا وكبير الحجم جدّا</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				몽골어
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>сүрлэг, сүр жавхлантай</trans_word>
+				<trans_dfn>цар хэмжээ нь маш том, сүрдэм.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				베트남어
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>trang nghiêm, uy nghiêm</trans_word>
+				<trans_dfn>Quy mô rất lớn, đứng đắn và nghiêm túc.
+
+</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				타이어
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>โอ่โถง, โอ่อ่า, มโหฬาร </trans_word>
+				<trans_dfn>ขนาดใหญ่โตมาก มีความเป็นระเบียบและเคร่งขรึม</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				인도네시아어
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>besar, megah, agung, mulia</trans_word>
+				<trans_dfn>berskala sangat besar dan mulia</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				러시아어
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>величественный; торжественный; великолепный; внушительный</trans_word>
+				<trans_dfn>Строгий, тихий, очень большого масштаба. </trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</sense>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</item>
+	
+	<item>
+		
+		
+		<target_code>76006</target_code>
+		<word>존엄하다</word>
+		<sup_no>0</sup_no>
+		<pos>형용사</pos>
+		<link>https://krdict.korean.go.kr/dicSearch/SearchView?ParaWordNo=76006</link>
+		
+		
+		<sense>
+			<sense_order>1</sense_order>
+			<definition>어떤 사람이나 신분이 매우 높고 엄숙하다.</definition>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				영어
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>dignified</trans_word>
+				<trans_dfn>A person or status being very lofty and solemn.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				일본어
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>そんげんだ【尊厳だ】</trans_word>
+				<trans_dfn>人や身分が極めて高く、厳かである。</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				프랑스어
+				
+				
+				
+				</trans_lang>
+				<trans_word>plein de dignité, noble, honorable, respectable</trans_word>
+				<trans_dfn>(Personne ou statut) Qui est très élevé(e) et solennel.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				스페인어
+				
+				
+				</trans_lang>
+				<trans_word>digno</trans_word>
+				<trans_dfn>Que una persona se comporta con decoro o tiene un alto estatus. </trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				아랍어
+				
+				</trans_lang>
+				<trans_word>مكرّم، عظيم</trans_word>
+				<trans_dfn>يكون شخص أو منصب مبجلا كثيرا جدّا</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				몽골어
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>сүр жавхлан, нэр төр, сүр хүч</trans_word>
+				<trans_dfn>хэн нэгний нийгэмд эзлэх байр суурь дээгүүр, нэр сүртэй.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				베트남어
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>tôn nghiêm, cao quý</trans_word>
+				<trans_dfn>Người nào đó hay thân phận rất cao và uy nghiêm.
+</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				타이어
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>มีเกียรติ, สง่างาม, ภูมิฐาน, ภาคภูมิ, สูงส่ง, ทรงเกียรติ</trans_word>
+				<trans_dfn>คนหรือสถานภาพใด ๆ สูงส่งและเคร่งขรึมมาก</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				인도네시아어
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>bermartabat</trans_word>
+				<trans_dfn>seseorang atau suatu kedudukan sangat tinggi dan bermartabat</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				러시아어
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>величественный; достойный; благородный; недосягаемый</trans_word>
+				<trans_dfn>Очень высокий, значимый и внушительный (о человеке, социальном положении).</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</sense>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</item>
+	
+	<item>
+		
+		
+		<target_code>76763</target_code>
+		<word>준엄하다</word>
+		<sup_no>0</sup_no>
+		<pos>형용사</pos>
+		<link>https://krdict.korean.go.kr/dicSearch/SearchView?ParaWordNo=76763</link>
+		
+		
+		<sense>
+			<sense_order>1</sense_order>
+			<definition>조금의 여지도 없이 매우 엄격하다.</definition>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				영어
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>solemn</trans_word>
+				<trans_dfn>Very strict without any room for other options.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				일본어
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>しゅんげんだ【峻厳だ】 	</trans_word>
+				<trans_dfn>少しも隙がなく非常にきびしい。
+</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				프랑스어
+				
+				
+				
+				</trans_lang>
+				<trans_word>sévère, austère, rigide, rigoureux</trans_word>
+				<trans_dfn>Qui est très strict et sans la moindre tolérance.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				스페인어
+				
+				
+				</trans_lang>
+				<trans_word>estricto</trans_word>
+				<trans_dfn>Que es muy exigente sin tener ni un poco de compasión.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				아랍어
+				
+				</trans_lang>
+				<trans_word>صارم في</trans_word>
+				<trans_dfn>يكون متشدّدا جدّا بدون استثناء</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				몽골어
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>догшин, ширүүн, хатуу</trans_word>
+				<trans_dfn>өчүүхэн ч өршөөлгүй хатуу ширүүн байх. </trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				베트남어
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>nghiêm khắc</trans_word>
+				<trans_dfn>Rất nghiêm khắc không chút sơ suất.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				타이어
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>เข้มงวด, กวดขัน, เคร่งครัด</trans_word>
+				<trans_dfn>เข้มงวดมากโดยไม่มีช่องว่างแม้แต่น้อย </trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				인도네시아어
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>tegas, keras</trans_word>
+				<trans_dfn>sangat tegas tanpa celah sedikit pun</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				러시아어
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>жёсткий; суровый</trans_word>
+				<trans_dfn>Очень строгий без малейших доводов.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</sense>
+		
+		<sense>
+			<sense_order>2</sense_order>
+			<definition>형편이 매우 어렵다.</definition>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				영어
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>challenging</trans_word>
+				<trans_dfn>A situation being very difficult.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				일본어
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>きびしい【厳しい】。こんきゅうだ【困窮だ】</trans_word>
+				<trans_dfn>都合がとても良くない。
+</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				프랑스어
+				
+				
+				
+				</trans_lang>
+				<trans_word>difficile, rude</trans_word>
+				<trans_dfn>(Situation) Qui est très difficile.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				스페인어
+				
+				
+				</trans_lang>
+				<trans_word>pobre, precario, vulnerable</trans_word>
+				<trans_dfn>Que la situación está compleja.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				아랍어
+				
+				</trans_lang>
+				<trans_word/>
+				<trans_dfn>يكون الوضع صعبا جدّا</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				몽골어
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>ширүүн, хатуу</trans_word>
+				<trans_dfn>нөхцөл байдал маш хүнд байх.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				베트남어
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>khắc nghiệt, khắc khổ</trans_word>
+				<trans_dfn>Hoàn cảnh rất khó khăn.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				타이어
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>สถานการณ์ที่ลำบาก, สภาพที่ยากลำบาก</trans_word>
+				<trans_dfn>สถานการณ์ยากลำบากมาก</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				인도네시아어
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>susah, berkesusahan</trans_word>
+				<trans_dfn>keadaannya sangat susah</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				러시아어
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>тяжёлый</trans_word>
+				<trans_dfn>Очень трудный (о положении).</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</sense>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</item>
+	
+	<item>
+		
+		
+		<target_code>76853</target_code>
+		<word>지엄하다</word>
+		<sup_no>0</sup_no>
+		<pos>형용사</pos>
+		<link>https://krdict.korean.go.kr/dicSearch/SearchView?ParaWordNo=76853</link>
+		
+		
+		<sense>
+			<sense_order>1</sense_order>
+			<definition>매우 엄하다.</definition>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				영어
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>stern; rigid</trans_word>
+				<trans_dfn>Very strict. </trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				일본어
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>おごそかだ【厳かだ】	</trans_word>
+				<trans_dfn>極めて厳しい。
+</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				프랑스어
+				
+				
+				
+				</trans_lang>
+				<trans_word>très sévère, impérieux</trans_word>
+				<trans_dfn>Qui est très strict.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				스페인어
+				
+				
+				</trans_lang>
+				<trans_word>muy estricto</trans_word>
+				<trans_dfn>Que es muy estricto.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				아랍어
+				
+				</trans_lang>
+				<trans_word>رصين، وقور، مهيب</trans_word>
+				<trans_dfn>يكون صارما جدّا</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				몽골어
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>туйлын хатуу, туйлын чанд</trans_word>
+				<trans_dfn>маш хатуу чанд байх.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				베트남어
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>chí nghiêm, vô cùng nghiêm </trans_word>
+				<trans_dfn>Rất nghiêm.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				타이어
+				
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>เข้มงวด, เข้มงวดกวดขัน, เคร่งครัด </trans_word>
+				<trans_dfn>เข้มงวดมาก</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				인도네시아어
+				
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word>tegas, ketat, keras</trans_word>
+				<trans_dfn>sangat keras</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<translation>
+				<trans_lang>
+				
+				
+				
+				
+				
+				러시아어
+				
+				
+				
+				
+				
+				
+				</trans_lang>
+				<trans_word/>
+				<trans_dfn>Очень строгий; очень жёсткий; очень суровый.</trans_dfn>
+			</translation>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</sense>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</item>
+	
+	
+	
+</channel>

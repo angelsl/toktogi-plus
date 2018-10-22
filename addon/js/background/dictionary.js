@@ -125,6 +125,7 @@ dictionary.lookupWords = function(str) {
 
 		//lookupKRDict(entryList);
 	}
+	DummylookupKRDict();
 	return entryList;
 
 	function lookupDict1(i){
@@ -192,6 +193,21 @@ function lookupKRDict(entryList){
 				console.log("XMLHttpRequest to KRDict response: ", xhr.response);
 				console.log("XMLHttpRequest to KRDict text: ", xhr.responseText);
 				console.log("XMLHttpRequest to KRDict responseXML: ", xhr.responseXML);
+
+				var txt = "";
+				path = "/bookstore/book/price[text()]";
+				if (xml.evaluate) {
+					var nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
+					var result = nodes.iterateNext();
+					while (result) {
+						txt += result.childNodes[0].nodeValue + "<br>";
+						result = nodes.iterateNext();
+					} 
+				// Code For Internet Explorer
+				} 
+				document.getElementById("demo").innerHTML = txt;
+
+
 				resolve(xhr.responseText);
 
 
@@ -202,6 +218,148 @@ function lookupKRDict(entryList){
 		});
 
 		xhr.open("GET", url+p);
+		xhr.send();
+	});	
+
+
+
+}
+
+
+function DummylookupKRDict(){
+	let KRDict_entryList = [];
+	let sampleEntryObj ={ target_code:"target_code", word: "", sup_no:"sup_no",pos:"pos", defs :{sense_order:"1",KrDef:"",JPDef:"",JPWord:""}};
+
+	let transPath = "/channel/item/word_info/sense_info/translation";
+
+
+	let url = "https://krdict.korean.go.kr/api/search?key="+KRDICT_API+"&type_search=search&method=WORD_INFO&translated=y&sort=dict&q=";
+	let p = "신실한";
+	// let p = entryList[0].word;
+
+	console.log("url+p is ", url+p);
+
+
+	
+	return new Promise((resolve, reject) => {
+		const xhr = new XMLHttpRequest();
+		xhr.addEventListener('error', () => reject('failed to query KRDict'));
+		xhr.addEventListener('load', () => {
+			try {
+
+				//console.log("XMLHttpRequest to KRDict response: ", xhr.response);
+				//console.log("XMLHttpRequest to KRDict text: ", xhr.responseText);
+				console.log("XMLHttpRequest to KRDict responseXML: "+ xhr.responseXML);
+				let xml = xhr.responseXML;
+
+				let txt = "";
+				let itemList = [];
+				/*
+				let path = "/channel/item/word[text()]";
+				if (xml.evaluate) {
+					var nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
+					var result = nodes.iterateNext();
+					while (result) {
+						txt += result.childNodes[0].nodeValue + "<br>";
+						result = nodes.iterateNext();
+					} 
+
+				} 
+				*/
+				let item, y, itemlen; 
+				let itemObj = {};
+				let itemsLength = xml.getElementsByTagName("item").length;
+				let sen_El;
+				let sen_List = [];
+				
+				for (let i = 0;i<itemsLength;i++){
+					//loops through all items element
+					item = xml.getElementsByTagName("item")[i];
+					itemlen = item.childNodes.length;
+					y = item.firstChild;
+					itemObj = {};
+					let sentence_index = 0;
+					for (let j = 0; j < itemlen; j++) {
+						// loops through all item childNotes element i.e. <target_code>, <word>, <pos>,etc
+						
+						if (y.nodeType == 1) {
+							txt += "Name: " + y.nodeName + " childnodeValue: " + y.firstChild.nodeValue + " childNodes.length: " + y.childNodes.length;
+							if (y.childNodes.length==1){
+								itemObj[y.nodeName] = y.firstChild.nodeValue;
+							}
+							else if (y.nodeName =='sense'){
+								
+								sentence_index++;
+								sen_El = y.childNodes
+								for (let k = 0; k < sen_El.length; k++) {
+									if (sen_El[k].nodeType==1){
+										
+										//console.log(sen_El[k].nodeName);
+										if (sen_El[k].childNodes.length==1 && sen_El[k].nodeName == "definition"){
+											itemObj["Kr"+sen_El[k].nodeName.concat(sentence_index)] =sen_El[k].firstChild.nodeValue;
+										}
+										else if (sen_El[k].childNodes.length==1 && sen_El[k].nodeName == "sense_order"){
+											itemObj["Kr"+sen_El[k].nodeName.concat(sentence_index)] =sen_El[k].firstChild.nodeValue;
+										}
+										
+										else if (sen_El[k].nodeName =='translation'){
+											let translation_el = sen_El[k].childNodes;
+											let trans_lang;
+											for (let z = 0; z < translation_el.length; z++) {
+												if (translation_el[z].nodeType==1){
+													if (translation_el[z].nodeName =="trans_lang"){
+														trans_lang = translation_el[z].firstChild.nodeValue;
+													}
+													else if (translation_el[z].nodeName =="trans_dfn"){
+														itemObj[trans_lang+translation_el[z].nodeName.concat(sentence_index)] =translation_el[z].firstChild.nodeValue;
+													}
+													else if (translation_el[z].nodeName =="trans_word"){
+														if (translation_el[z].firstChild !=null){
+															itemObj[trans_lang+translation_el[z].nodeName.concat(sentence_index)] =translation_el[z].firstChild.nodeValue;
+														}
+														else{
+															itemObj[trans_lang+translation_el[z].nodeName.concat(sentence_index)] =null;
+														}
+													}
+												}
+											}
+
+										}
+										
+										
+									}
+									
+								}
+							
+							}
+
+							
+							
+						}
+						y = y.nextSibling;
+					}
+					itemList.push(itemObj);
+					txt = txt+"\n";
+
+				}
+
+			
+				//console.log( txt);
+				console.log( itemObj);
+				console.log( itemList);
+				//console.log( "xml result: " +itemList);
+
+				
+				resolve(xhr.responseText);
+
+
+
+			} catch (e) {
+				reject(e);
+			}
+		});
+
+		xhr.open("GET", "demoKRDictResult_multi_language.xml");
 		xhr.send();
 	});	
 
