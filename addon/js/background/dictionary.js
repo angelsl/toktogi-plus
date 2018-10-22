@@ -106,6 +106,7 @@ dictionary.lookupWords = function(str) {
 					totalDictKeyLookupCount += 1;
 					//console.log("word entry found in both dict1 & dict2 !:" + entryList[entryList.length-1].word + " totalDictKeyLookupCount:" + totalDictKeyLookupCount);
 					entryList[entryList.length-2].defs = entryList[entryList.length-2].defs.concat(entryList[entryList.length-1].defs);
+					entryList[entryList.length-2].defsDictType = entryList[entryList.length-2].defsDictType.concat(entryList[entryList.length-1].defsDictType); 
 					entryList.pop();
 				}
 			}
@@ -134,7 +135,7 @@ dictionary.lookupWords = function(str) {
 		if (info) {
 
 			if (info.defs) {
-				entryList.push({ word: wordList[i], defs: info.defs.split("|") });
+				entryList.push({ word: wordList[i], defs: info.defs.split("|"),defsDictType: new Array(info.defs.split("|").length).fill("offlinedict1") });
 			}
 			// word is a conjugated verb, add root definition
 			if(info.roots) {
@@ -145,8 +146,9 @@ dictionary.lookupWords = function(str) {
 						word: wordList[i],
 						defs: dict[root].defs.split("|"),
 						root: root,
-						dictType:"offlinedict1"
-					});
+						defsDictType: new Array(dict[root].defs.split("|").length).fill("offlinedict1")
+						}
+					);
 				});
 			}
 			return true;
@@ -160,7 +162,8 @@ dictionary.lookupWords = function(str) {
 		//OfflineDict_Mode:"1" ==> Only check dict2 if dict1 entry not found.
 		let info = dict2[wordList[i]];
 		if (info) {
-				entryList.push({ word: wordList[i], defs: info.split("<BR>"),dictType:"offlinedict2" });
+				entryList.push({ word: wordList[i], defs: info.split("<BR>"), defsDictType: new Array(info.split("<BR>").length).fill("offlinedict2") });
+				// defsDictType: new Array( size of defs array).fill("offlinedict2") . Use in inject.js for populating dictbox entry with different color for offlinedict2
 				return true;
 		}	
 		return false;

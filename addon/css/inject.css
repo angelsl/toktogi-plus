@@ -14,7 +14,8 @@
 
 /* to differentiate dictentry from offline dict2 with different color*/
 .offlinedict2{
-	color: rgb(221, 31, 31) !important;
+	color: rgb(5, 65, 155) !important;
+	font-weight: bold !important;
 }
 
 #dict {

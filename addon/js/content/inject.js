@@ -199,7 +199,7 @@ if (window.browser == null) {
 			$dictInner.append($plus);
 
 			for (let j = 0; j < defArray[i].defs.length; j++) {
-				if (defArray[i].dictType =="offlinedict2"){
+				if (defArray[i].defsDictType[j] =="offlinedict2"){
 					$dictInner.append(	$("<span>", { class: 'dict-def offlinedict2' }).text( defArray[i].defs[j]));
 				}
 				else {

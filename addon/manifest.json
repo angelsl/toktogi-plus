@@ -43,6 +43,6 @@
    },
    "permissions": [ "<all_urls>", "unlimitedStorage", "tabs" ,"storage"],
    "short_name": "Toktogi",
-   "version": "0.6.8a",
+   "version": "0.6.8b",
    "web_accessible_resources": [ "images/unlock.png", "images/lock.png", "images/plus.png" ]
 }
