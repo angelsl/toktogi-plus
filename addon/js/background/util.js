@@ -48,6 +48,11 @@ util.getDictSpaceSlashSpaceDelimitedTSV = async function() {
 	return response.text();
 };
 
+util.getKRJP_DictSpaceSlashSpaceDelimitedTSV = async function() {
+	let response = await fetch('KRDict_JP_All_Except_Noun_Verb_PartOfSpeech.csv');
+	return response.text();
+};
+
 util.sendAllMessage = function(name, data) {
 	browser.tabs.query({}, function(tabs) {
 		var message = { name: name, data: data };

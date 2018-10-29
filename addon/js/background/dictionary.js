@@ -388,7 +388,7 @@ function TsvLineToObjectDict(tsv){
 	
 		let lines=tsv.split("\n");
 	
-		dictionary2.dict = {};
+		
 	
 		let headers=lines[0].split("\t");
 		
@@ -398,11 +398,21 @@ function TsvLineToObjectDict(tsv){
 			if (dictionary2.dict[currentline[0]]){
 				// if entry already exist, append
 				//console.log("dict2 entry already exist: "+ currentline[0]);
-				dictionary2.dict[currentline[0]] = dictionary2.dict[currentline[0]] + currentline[1];
-
+				if (headers.length==5){
+					dictionary2.dict[currentline[0]] = dictionary2.dict[currentline[0]] + currentline[2].concat(currentline[3]).concat(currentline[1]).concat(currentline[4]).concat("<BR>");
+				}
+				else{
+					dictionary2.dict[currentline[0]] = dictionary2.dict[currentline[0]] + currentline[1];
+				}
 			}
 			else{
-				dictionary2.dict[currentline[0]] = currentline[1];
+				if (headers.length==5){
+					dictionary2.dict[currentline[0]] = currentline[2].concat(currentline[3]).concat(currentline[1]).concat(currentline[4]).concat("<BR>");
+				}
+				else{
+					dictionary2.dict[currentline[0]] = currentline[1];
+				}
+				
 			}
 			
 		}
@@ -415,9 +425,15 @@ function TsvLineToObjectDict(tsv){
 
 
 dictionary.load = async function() {
+	
 	dictionary.dict = await util.getDictJson();
 	//Important! Makesure TSV file does not have carriage return , otherwise the Saving vocab feature will break. Temp fix is to use \r to catch the and replace them in notepad++
+	dictionary2.dict = {};
 	dictionary2.dictstr = await util.getDictSpaceSlashSpaceDelimitedTSV();
+	TsvLineToObjectDict(dictionary2.dictstr);
+	dictionary2.dictstr = null; //don't need dictstr anymore, use dictionary2.dict obj instead. fotmat dictionary2[Str of  'Dictentry'] = Str 'defs'
+	//Now for the third dict...
+	dictionary2.dictstr = await util.getKRJP_DictSpaceSlashSpaceDelimitedTSV();
 	TsvLineToObjectDict(dictionary2.dictstr);
 	dictionary2.dictstr = null; //don't need dictstr anymore, use dictionary2.dict obj instead. fotmat dictionary2[Str of  'Dictentry'] = Str 'defs'
 }
