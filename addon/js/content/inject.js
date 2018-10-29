@@ -8,6 +8,18 @@ if (window.browser == null) {
 }
 
 ;(function () {
+
+   /**
+   * Check and set a global guard variable.
+   * If this content script is injected into the same page again,
+   * it will do nothing next time.
+   */
+  	if (window.hasRun) {
+		  console.log("window.hasRun is true. blocked double content script inject")
+		  return;
+  	}
+	window.hasRun = true;
+
 	let range;
 	let currentNode;
 	let currentOffset;
