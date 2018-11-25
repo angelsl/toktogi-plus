@@ -214,6 +214,9 @@ if (window.browser == null) {
 				if (defArray[i].defsDictType[j] =="offlinedict2"){
 					$dictInner.append(	$("<span>", { class: 'dict-def offlinedict2' }).text( defArray[i].defs[j]));
 				}
+				else if (defArray[i].defsDictType[j] =="offlinedict3"){
+					$dictInner.append(	$("<span>", { class: 'dict-def offlinedict3' }).text( defArray[i].defs[j]));
+				}
 				else {
 					$dictInner.append(	$("<span>", { class: 'dict-def' }).text( defArray[i].defs[j]));
 				}

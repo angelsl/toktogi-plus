@@ -27,7 +27,7 @@ function restoreOptions() {
     document.getElementById("improved_ConjugatedWord_Recognition_Lb").innerHTML = improved_ConjugatedWord_Recognition;
 
 
-    OfflineDict_Mode = localStorage.getItem('OfflineDict_Mode') == null?  3 :  JSON.parse(localStorage.getItem('OfflineDict_Mode'));
+    OfflineDict_Mode = localStorage.getItem('OfflineDict_Mode') == null?  7 :  JSON.parse(localStorage.getItem('OfflineDict_Mode'));
     
     if (OfflineDict_Mode ==1){
         document.getElementById("OfflineDict_Mode_type1").checked = true;
@@ -37,6 +37,21 @@ function restoreOptions() {
     }
     else if (OfflineDict_Mode ==3) {
         document.getElementById("OfflineDict_Mode_type3").checked = true;
+    }
+    else if (OfflineDict_Mode ==4) {
+        document.getElementById("OfflineDict_Mode_type4").checked = true;
+    }
+    else if (OfflineDict_Mode ==5) {
+        document.getElementById("OfflineDict_Mode_type5").checked = true;
+    }
+    else if (OfflineDict_Mode ==6) {
+        document.getElementById("OfflineDict_Mode_type6").checked = true;
+    }
+    else if (OfflineDict_Mode ==7) {
+        document.getElementById("OfflineDict_Mode_type7").checked = true;
+    }
+    else if (OfflineDict_Mode ==8) {
+        document.getElementById("OfflineDict_Mode_type8").checked = true;
     }
 
     KRDICT_API = localStorage.getItem('KRDICT_API');
@@ -148,6 +163,31 @@ document.getElementById("OfflineDict_Mode_type2").addEventListener("click", func
 
 document.getElementById("OfflineDict_Mode_type3").addEventListener("click", function(){
     localStorage.setItem('OfflineDict_Mode','3');
+    restoreOptions();
+    browser.extension.getBackgroundPage().broadcastStorageChange();
+});
+document.getElementById("OfflineDict_Mode_type4").addEventListener("click", function(){
+    localStorage.setItem('OfflineDict_Mode','4');
+    restoreOptions();
+    browser.extension.getBackgroundPage().broadcastStorageChange();
+});
+document.getElementById("OfflineDict_Mode_type5").addEventListener("click", function(){
+    localStorage.setItem('OfflineDict_Mode','5');
+    restoreOptions();
+    browser.extension.getBackgroundPage().broadcastStorageChange();
+});
+document.getElementById("OfflineDict_Mode_type6").addEventListener("click", function(){
+    localStorage.setItem('OfflineDict_Mode','6');
+    restoreOptions();
+    browser.extension.getBackgroundPage().broadcastStorageChange();
+});
+document.getElementById("OfflineDict_Mode_type7").addEventListener("click", function(){
+    localStorage.setItem('OfflineDict_Mode','7');
+    restoreOptions();
+    browser.extension.getBackgroundPage().broadcastStorageChange();
+});
+document.getElementById("OfflineDict_Mode_type8").addEventListener("click", function(){
+    localStorage.setItem('OfflineDict_Mode','8');
     restoreOptions();
     browser.extension.getBackgroundPage().broadcastStorageChange();
 });

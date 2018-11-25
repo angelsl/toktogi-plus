@@ -8,7 +8,7 @@ let isAndroid =false;
 let TSV_OR_AnkiConnect = localStorage.getItem('TSV_OR_AnkiConnect') || 'TSV';
 let improved_ConjugatedWord_Recognition = localStorage.getItem('improved_ConjugatedWord_Recognition') || 'true';
 let hotkey_Enabled = localStorage.getItem('hotkey_Enabled') == null?  true :  JSON.parse(localStorage.getItem('hotkey_Enabled'));
-let OfflineDict_Mode = localStorage.getItem('OfflineDict_Mode') == null?  3 :  JSON.parse(localStorage.getItem('OfflineDict_Mode'));
+let OfflineDict_Mode = localStorage.getItem('OfflineDict_Mode') == null?  7 :  JSON.parse(localStorage.getItem('OfflineDict_Mode'));
 
 function init() {
 	if (NEW_INSTALL) {
@@ -69,7 +69,7 @@ function broadcastStorageChange() {
 	//util.sendAllMessage("startListeners");
 	TSV_OR_AnkiConnect = localStorage.getItem('TSV_OR_AnkiConnect') || 'TSV';
 	improved_ConjugatedWord_Recognition = localStorage.getItem('improved_ConjugatedWord_Recognition') || 'true';
-	OfflineDict_Mode = localStorage.getItem('OfflineDict_Mode') == null?  3 :  JSON.parse(localStorage.getItem('OfflineDict_Mode'));
+	OfflineDict_Mode = localStorage.getItem('OfflineDict_Mode') == null?  7 :  JSON.parse(localStorage.getItem('OfflineDict_Mode'));
 
 	console.log("broadcastStorageChange, TSV_OR_AnkiConnect: " +TSV_OR_AnkiConnect + " | improved_ConjugatedWord_Recognition: "+improved_ConjugatedWord_Recognition);
 

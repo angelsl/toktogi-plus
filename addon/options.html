@@ -17,14 +17,29 @@
 </div>
 <div class="grid-item"> <br><label class="desc"><b>Offline Dict Config:</b> </label> <br>
 
-	<label class="radio_verticle">Dict1 = default, Dict2 = fallback
+	<label class="radio_verticle">Mode1: Dict1 = default, Dict2 = fallback
 	<input type="radio" name="OfflineDict_Mode" id="OfflineDict_Mode_type1">
   </label><br>
-  <label class="radio_verticle">Use both Dict1 & Dict2, Merge Entry
+  <label class="radio_verticle">Mode2: Use both Dict1 & Dict2, Merge Entry
 	<input type="radio" name="OfflineDict_Mode" id="OfflineDict_Mode_type2">
   </label><br>
-  <label class="radio_verticle">Dict2 = default, Dict1 = fallback
+  <label class="radio_verticle">Mode3: Dict2 = default, Dict1 = fallback
 	<input type="radio" name="OfflineDict_Mode" id="OfflineDict_Mode_type3">
+  </label><br>
+  <label class="radio_verticle">Mode4: Dict1 = default, Dict2,Dict3 = merged_fallback
+	<input type="radio" name="OfflineDict_Mode" id="OfflineDict_Mode_type4">
+  </label><br>
+  <label class="radio_verticle">Mode5: Dict2 = default, Dict1,Dict3 = merged_fallback
+	<input type="radio" name="OfflineDict_Mode" id="OfflineDict_Mode_type5">
+  </label><br>
+  <label class="radio_verticle">Mode6: Dict3 = default, Dict1,Dict2 = merged_fallback 
+	<input type="radio" name="OfflineDict_Mode" id="OfflineDict_Mode_type6">
+  </label><br>
+  <label class="radio_verticle">Mode7: Merge Dict3 & Dict2 & Dict1 Entry
+	<input type="radio" name="OfflineDict_Mode" id="OfflineDict_Mode_type7">
+  </label><br>
+  <label class="radio_verticle">Mode8: Dict2 & Dict3 = merged_default, Dict1 = fallback
+	<input type="radio" name="OfflineDict_Mode" id="OfflineDict_Mode_type8">
   </label>
 
 </div>
@@ -46,6 +61,11 @@
 
 
 <h2>Change log</h2>
+
+<h3>0.7.1j</h3>
+<ul>
+	<li>Offline KRDict3 Has its own dict profile. More Dict Config option</li>
+</ul>
 
 <h3>0.6.9j</h3>
 <ul>

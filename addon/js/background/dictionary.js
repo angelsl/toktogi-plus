@@ -3,6 +3,7 @@
 
 const dictionary = {};
 const dictionary2 = {};
+const dictionary3 = {};
 // To Add, Eng version sample API https://krdict.korean.go.kr/api/search?key={API AUTHENICATION KEY}&q=%22%EC%97%84%ED%95%98%EB%8B%A4%22&translated=y&trans_lang=1 
 // V2, This one includes Hanja and everything , but word entry must be accurate https://krdict.korean.go.kr/api/view?&key={KEY}&type_search=view&method=WORD_INFO&part=word&q=%ED%91%9C%EC%A0%950&sort=dict&translated=y
 // No hanja though, which is a shame  
@@ -13,7 +14,11 @@ let KRDICT_Mode_Enabled = true;
 //OfflineDict_Mode:"1" ==> Dict1 = default, Dict2 = fallback
 //OfflineDict_Mode:"2" ==> Use both Dict1 & Dict2, Merge Entry
 //OfflineDict_Mode:"3" ==> Dict2 = default, Dict1 = fallback 
-
+//OfflineDict_Mode:"4" ==> Dict1 = default, Dict2,Dict3 = merged_fallback
+//OfflineDict_Mode:"5" ==> Dict2 = default, Dict1,Dict3 = merged_fallback
+//OfflineDict_Mode:"6" ==> Dict3 = default, Dict1,Dict2 = merged_fallback 
+//OfflineDict_Mode:"7" ==> Merge Dict3 & Dict2 & Dict1 Entry
+//OfflineDict_Mode:"8" ==> Dict2 & Dict3 = merged_default, Dict1 = fallback
 
 dictionary.lookupWords = function(str) {
 
@@ -31,6 +36,7 @@ dictionary.lookupWords = function(str) {
 
 	const dict = dictionary.dict;
 	const dict2 = dictionary2.dict;
+	const dict3 = dictionary3.dict;
 
 	let entryList = [];
 	//console.log("@@ dictionary.js. improved_ConjugatedWord_Recognition is : " + improved_ConjugatedWord_Recognition);
@@ -118,6 +124,109 @@ dictionary.lookupWords = function(str) {
 				lookupDict1(i);
 			}			
 		}
+		else if (OfflineDict_Mode == 4){
+			//OfflineDict_Mode:"4" ==> Dict1 = default, Dict2,Dict3 = merged_fallback
+			hasEntry = lookupDict1(i);
+			if (!hasEntry){
+				lookupDict2(i);
+				lookupDict3(i);
+				if  (entryList.length>=2){
+					// if word property from last index match word property from current index then merge entry
+					if  (entryList[entryList.length-1].word == entryList[entryList.length-2].word && !entryList[entryList.length-2].root){
+						totalDictKeyLookupCount += 1;
+						//console.log("word entry found in both dict1 & dict2 !:" + entryList[entryList.length-1].word + " totalDictKeyLookupCount:" + totalDictKeyLookupCount);
+						entryList[entryList.length-2].defs = entryList[entryList.length-2].defs.concat(entryList[entryList.length-1].defs);
+						entryList[entryList.length-2].defsDictType = entryList[entryList.length-2].defsDictType.concat(entryList[entryList.length-1].defsDictType); 
+						entryList.pop();
+					}
+				}
+			}		
+		}
+
+		else if (OfflineDict_Mode == 5){
+			//OfflineDict_Mode:"5" ==> Dict2 = default, Dict1,Dict3 = merged_fallback
+			hasEntry = lookupDict2(i);
+			if (!hasEntry){
+				lookupDict1(i);
+				lookupDict3(i);
+				if  (entryList.length>=2){
+					// if word property from last index match word property from current index then merge entry
+					if  (entryList[entryList.length-1].word == entryList[entryList.length-2].word && !entryList[entryList.length-2].root){
+						totalDictKeyLookupCount += 1;
+						//console.log("word entry found in both dict1 & dict2 !:" + entryList[entryList.length-1].word + " totalDictKeyLookupCount:" + totalDictKeyLookupCount);
+						entryList[entryList.length-2].defs = entryList[entryList.length-2].defs.concat(entryList[entryList.length-1].defs);
+						entryList[entryList.length-2].defsDictType = entryList[entryList.length-2].defsDictType.concat(entryList[entryList.length-1].defsDictType); 
+						entryList.pop();
+					}
+				}
+			}		
+		}
+		//OfflineDict_Mode:"6" ==> Dict3 = default, Dict1,Dict2 = merged_fallback 
+		else if (OfflineDict_Mode == 6){
+			
+			hasEntry = lookupDict3(i);
+			if (!hasEntry){
+				lookupDict1(i);
+				lookupDict2(i);
+	
+				if  (entryList.length>=2){
+					// if word property from last index match word property from current index then merge entry
+					if  (entryList[entryList.length-1].word == entryList[entryList.length-2].word && !entryList[entryList.length-2].root){
+						totalDictKeyLookupCount += 1;
+						//console.log("word entry found in both dict1 & dict2 !:" + entryList[entryList.length-1].word + " totalDictKeyLookupCount:" + totalDictKeyLookupCount);
+						entryList[entryList.length-2].defs = entryList[entryList.length-2].defs.concat(entryList[entryList.length-1].defs);
+						entryList[entryList.length-2].defsDictType = entryList[entryList.length-2].defsDictType.concat(entryList[entryList.length-1].defsDictType); 
+						entryList.pop();
+					}
+				}
+			}			
+		}
+		//OfflineDict_Mode:"7" ==> Merge Dict3 & Dict2 & Dict1 Entry
+		else if (OfflineDict_Mode == 7){
+			lookupDict1(i);
+			lookupDict2(i);
+			if  (entryList.length>=2){
+				// if word property from last index match word property from current index then merge entry
+				if  (entryList[entryList.length-1].word == entryList[entryList.length-2].word && !entryList[entryList.length-2].root){
+					totalDictKeyLookupCount += 1;
+					//console.log("word entry found in both dict1 & dict2 !:" + entryList[entryList.length-1].word + " totalDictKeyLookupCount:" + totalDictKeyLookupCount);
+					entryList[entryList.length-2].defs = entryList[entryList.length-2].defs.concat(entryList[entryList.length-1].defs);
+					entryList[entryList.length-2].defsDictType = entryList[entryList.length-2].defsDictType.concat(entryList[entryList.length-1].defsDictType); 
+					entryList.pop();
+				}
+			}
+			lookupDict3(i);	
+			if  (entryList.length>=2){
+				// if word property from last index match word property from current index then merge entry
+				if  (entryList[entryList.length-1].word == entryList[entryList.length-2].word && !entryList[entryList.length-2].root){
+					totalDictKeyLookupCount += 1;
+					//console.log("word entry found in both dict1 & dict2 !:" + entryList[entryList.length-1].word + " totalDictKeyLookupCount:" + totalDictKeyLookupCount);
+					entryList[entryList.length-2].defs = entryList[entryList.length-2].defs.concat(entryList[entryList.length-1].defs);
+					entryList[entryList.length-2].defsDictType = entryList[entryList.length-2].defsDictType.concat(entryList[entryList.length-1].defsDictType); 
+					entryList.pop();
+				}
+			}	
+		}
+
+		//OfflineDict_Mode:"8" ==> Dict2 & Dict3 = merged_default, Dict1 = fallback
+		else if (OfflineDict_Mode == 8){
+			hasEntry = lookupDict2(i);
+			let hasEntry2 = lookupDict3(i);
+			if  (entryList.length>=2){
+				// if word property from last index match word property from current index then merge entry
+				if  (entryList[entryList.length-1].word == entryList[entryList.length-2].word && !entryList[entryList.length-2].root){
+					totalDictKeyLookupCount += 1;
+					//console.log("word entry found in both dict1 & dict2 !:" + entryList[entryList.length-1].word + " totalDictKeyLookupCount:" + totalDictKeyLookupCount);
+					entryList[entryList.length-2].defs = entryList[entryList.length-2].defs.concat(entryList[entryList.length-1].defs);
+					entryList[entryList.length-2].defsDictType = entryList[entryList.length-2].defsDictType.concat(entryList[entryList.length-1].defsDictType); 
+					entryList.pop();
+				}
+			}
+
+			if ((hasEntry && hasEntry2) == false){
+				lookupDict1(i);
+			}	
+		}
 
 
 	}
@@ -157,13 +266,21 @@ dictionary.lookupWords = function(str) {
 	}
 	
 	function lookupDict2(i){
-		//console.log("atlookupdict2 : ")
-
 		//OfflineDict_Mode:"1" ==> Only check dict2 if dict1 entry not found.
 		let info = dict2[wordList[i]];
 		if (info) {
 				entryList.push({ word: wordList[i], defs: info.split("<BR>"), defsDictType: new Array(info.split("<BR>").length).fill("offlinedict2") });
 				// defsDictType: new Array( size of defs array).fill("offlinedict2") . Use in inject.js for populating dictbox entry with different color for offlinedict2
+				return true;
+		}	
+		return false;
+	}
+
+	function lookupDict3(i){
+		let info = dict3[wordList[i]];
+
+		if (info) {
+				entryList.push({ word: wordList[i], defs: info.displaydef.split("<BR>"), pos:info.pos, hanja:info.hanja, defsDictType: new Array(info.displaydef.split("<BR>").length).fill("offlinedict3") });
 				return true;
 		}	
 		return false;
@@ -355,7 +472,7 @@ function DummylookupKRDict(){
 }
 
 //var tsv is the TSV file with headers
-function TsvLineToObjectDict(tsv){
+function TsvLineToObjectDict(tsv,dictNo){
 	/* Given multi-line strings like 
 	"가등기 / [假登記] provisional registration<BR>
 	가뜩 / full; on top of everything else<BR>" 
@@ -384,37 +501,38 @@ function TsvLineToObjectDict(tsv){
 	*/
 	//let arrayOfLines = dictionary2.dict.match(/[^\r\n]+/g);  
 	//let options={"separator" : " / "};
-	
-	
-		let lines=tsv.split("\n");
-	
 		
 	
+		let lines=tsv.split("\n");
+
 		let headers=lines[0].split("\t");
 		
 		for(let i=1;i<lines.length;i++){
 			let currentline=lines[i].split("\t");
-			
-			if (dictionary2.dict[currentline[0]]){
-				// if entry already exist, append
-				//console.log("dict2 entry already exist: "+ currentline[0]);
-				if (headers.length==5){
-					dictionary2.dict[currentline[0]] = dictionary2.dict[currentline[0]] + currentline[2].concat(currentline[3]).concat(currentline[1]).concat(currentline[4]).concat("<BR>");
-				}
-				else{
+			if (dictNo == "dict2"){
+
+				if (dictionary2.dict[currentline[0]]) {
+					// if entry already exist, append
 					dictionary2.dict[currentline[0]] = dictionary2.dict[currentline[0]] + currentline[1];
 				}
+				else {
+					dictionary2.dict[currentline[0]] = currentline[1];	
+				}
 			}
-			else{
-				if (headers.length==5){
-					dictionary2.dict[currentline[0]] = currentline[2].concat(currentline[3]).concat(currentline[1]).concat(currentline[4]).concat("<BR>");
+			else if (dictNo == "dict3"){
+
+				if (dictionary3.dict[currentline[0]]){
+					// if entry already exist, append
+					dictionary3.dict[currentline[0]] = { jp_defs:dictionary3.dict[currentline[0]].jp_defs+"\n"+currentline[1], pos: dictionary3.dict[currentline[0]].pos+"|"+currentline[2], hanja: dictionary3.dict[currentline[0]].hanja+"|"+currentline[3],jp_trans:dictionary3.dict[currentline[0]].jp_trans+"\n"+currentline[4] }
+					dictionary3.dict[currentline[0]].displaydef = dictionary3.dict[currentline[0]].displaydef +"\n"+ currentline[2].concat(currentline[3]).concat(currentline[1]).concat(currentline[4]).concat("<BR>");
+						
 				}
 				else{
-					dictionary2.dict[currentline[0]] = currentline[1];
+					dictionary3.dict[currentline[0]] = { jp_defs:currentline[1], pos: currentline[2], hanja: currentline[3],jp_trans:currentline[4]}
+					dictionary3.dict[currentline[0]].displaydef = currentline[2].concat(currentline[3]).concat(currentline[1]).concat(currentline[4]).concat("<BR>");	
+						
 				}
-				
 			}
-			
 		}
 		
 		//return dictionary2.dict; //JavaScript object
@@ -430,11 +548,12 @@ dictionary.load = async function() {
 	//Important! Makesure TSV file does not have carriage return , otherwise the Saving vocab feature will break. Temp fix is to use \r to catch the and replace them in notepad++
 	dictionary2.dict = {};
 	dictionary2.dictstr = await util.getDictSpaceSlashSpaceDelimitedTSV();
-	TsvLineToObjectDict(dictionary2.dictstr);
+	TsvLineToObjectDict(dictionary2.dictstr,"dict2");
 	dictionary2.dictstr = null; //don't need dictstr anymore, use dictionary2.dict obj instead. fotmat dictionary2[Str of  'Dictentry'] = Str 'defs'
 	//Now for the third dict...
-	dictionary2.dictstr = await util.getKRJP_DictSpaceSlashSpaceDelimitedTSV();
-	TsvLineToObjectDict(dictionary2.dictstr);
-	dictionary2.dictstr = null; //don't need dictstr anymore, use dictionary2.dict obj instead. fotmat dictionary2[Str of  'Dictentry'] = Str 'defs'
+	dictionary3.dict = {};
+	dictionary3.dictstr = await util.getKRJP_DictSpaceSlashSpaceDelimitedTSV();
+	TsvLineToObjectDict(dictionary3.dictstr,"dict3");
+	dictionary3.dictstr = null; //don't need dictstr anymore, use dictionary2.dict obj instead. fotmat dictionary2[Str of  'Dictentry'] = Str 'defs'
 }
 
