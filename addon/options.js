@@ -3,6 +3,7 @@ let isVocabListShowing;
 let hotkey_Enabled;
 let TSV_OR_AnkiConnect;
 let improved_ConjugatedWord_Recognition;
+let Greedy_word_Recognition;
 let OfflineDict_Mode;
 let KRDICT_API; //Either String with value , or Null, Or Empty String "" if submitted blank Value
 //converts List Array to HTML table
@@ -25,7 +26,10 @@ function restoreOptions() {
     improved_ConjugatedWord_Recognition = localStorage.getItem('improved_ConjugatedWord_Recognition') || 'true';
 
     document.getElementById("improved_ConjugatedWord_Recognition_Lb").innerHTML = improved_ConjugatedWord_Recognition;
+    
+    Greedy_word_Recognition = localStorage.getItem('GreedyWordRecognition_Enabled') == null?  false :  JSON.parse(localStorage.getItem('GreedyWordRecognition_Enabled'));
 
+    document.getElementById("Greedy_word_Recognition_Lb").innerHTML = Greedy_word_Recognition;
 
     OfflineDict_Mode = localStorage.getItem('OfflineDict_Mode') == null?  7 :  JSON.parse(localStorage.getItem('OfflineDict_Mode'));
     
@@ -146,6 +150,17 @@ document.getElementById("Dont_Use_improved_Word_Recognition_Btn").addEventListen
     browser.extension.getBackgroundPage().broadcastStorageChange();
 });
 
+document.getElementById("Use_Greedy_word_Recognition_Btn").addEventListener("click", function(){
+    localStorage.setItem('GreedyWordRecognition_Enabled',true);
+    restoreOptions(); 
+    browser.extension.getBackgroundPage().broadcastStorageChange();
+});
+
+document.getElementById("Dont_Use_Greedy_word_Recognition_Btn").addEventListener("click", function(){
+    localStorage.setItem('GreedyWordRecognition_Enabled',false);
+    restoreOptions();
+    browser.extension.getBackgroundPage().broadcastStorageChange();
+});
 
 
    

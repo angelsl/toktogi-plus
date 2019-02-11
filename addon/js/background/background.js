@@ -9,7 +9,7 @@ let TSV_OR_AnkiConnect = localStorage.getItem('TSV_OR_AnkiConnect') || 'TSV';
 let improved_ConjugatedWord_Recognition = localStorage.getItem('improved_ConjugatedWord_Recognition') || 'true';
 let hotkey_Enabled = localStorage.getItem('hotkey_Enabled') == null?  true :  JSON.parse(localStorage.getItem('hotkey_Enabled'));
 let OfflineDict_Mode = localStorage.getItem('OfflineDict_Mode') == null?  7 :  JSON.parse(localStorage.getItem('OfflineDict_Mode'));
-
+let GreedyWordRecognition_Enabled = localStorage.getItem('GreedyWordRecognition_Enabled') == null?  false :  JSON.parse(localStorage.getItem('GreedyWordRecognition_Enabled'));
 function init() {
 	if (NEW_INSTALL) {
 		util.openTab("guide.html");
@@ -35,6 +35,8 @@ function init() {
 	util.addListener("injectedLoaded", sendScriptData);
 	util.addListener("updateIsOn", toggleOnOff);
 	util.addListener("showOptions", showOptions);
+	util.addListener("EnableGreedyWordRecognition", EnableGreedyWordRecognition);
+	util.addListener("DisableGreedyWordRecognition", DisableGreedyWordRecognition);
 	util.addListener("addToList", addToList);
 	//util.addListener("retrieveCachedVocab", util.retrieveVocabList); 
 	util.addListener("setCachedVocab", util.storeVocabList);
@@ -70,7 +72,7 @@ function broadcastStorageChange() {
 	TSV_OR_AnkiConnect = localStorage.getItem('TSV_OR_AnkiConnect') || 'TSV';
 	improved_ConjugatedWord_Recognition = localStorage.getItem('improved_ConjugatedWord_Recognition') || 'true';
 	OfflineDict_Mode = localStorage.getItem('OfflineDict_Mode') == null?  7 :  JSON.parse(localStorage.getItem('OfflineDict_Mode'));
-
+	GreedyWordRecognition_Enabled = localStorage.getItem('GreedyWordRecognition_Enabled') == null?  false :  JSON.parse(localStorage.getItem('GreedyWordRecognition_Enabled'));
 	console.log("broadcastStorageChange, TSV_OR_AnkiConnect: " +TSV_OR_AnkiConnect + " | improved_ConjugatedWord_Recognition: "+improved_ConjugatedWord_Recognition);
 
 	util.sendAllMessage("localStorageChanged", {	TSV_OR_AnkiConnect:TSV_OR_AnkiConnect		});
@@ -105,6 +107,17 @@ function showOptions(tab, data) {
 
 	util.openTab("options.html", tab.id);
 }
+
+function EnableGreedyWordRecognition(tab, data){
+	GreedyWordRecognition_Enabled = true;
+	localStorage.setItem('GreedyWordRecognition_Enabled',true);
+}
+
+function DisableGreedyWordRecognition(tab, data){
+	GreedyWordRecognition_Enabled = false;
+	localStorage.setItem('GreedyWordRecognition_Enabled',false);
+}
+
 
 function toggleOnOff(tab) {
 	isOn = !isOn;

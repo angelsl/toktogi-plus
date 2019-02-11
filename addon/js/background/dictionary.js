@@ -24,7 +24,7 @@ dictionary.lookupWords = function(str) {
 
 		
 	// lookupword for up to 15 char. Vocab length shouldn't be longer
-	str = str.substring(0,Math.max(str.length, 15));
+	str = str.substring(0,Math.min(str.length, 15));
 	// clear all white spaces (Except if first char is white space) so that str query like dict["할 거야"] becomes  dict["할거야"] which has dict entry
 	if (str.charAt(0) == ' '){
 		// check & preserve firt char if firt char == white space.  That is, we want " 먹다" to fail dict lookup & "먹다" to pass
@@ -50,14 +50,17 @@ dictionary.lookupWords = function(str) {
 	 * wordList[] will becomes ['먹','먹었','먹어다','먹었다']
 	 */
 	let  wordList = [];
-	
 	for (let i = 1; i < str.length + 1; i++) {
 		const word = str.substring(0, i);
 		//TODO: More fine criteria i.e. (str.charAt(i-1) =='을' ||  str.charAt(i-1) == '은') && str.charAt(i-2) exist && str.charAt(i-2) has batchim
-		if (str.charAt(i-1) =='니' || str.charAt(i-1) =='을' ||  str.charAt(i-1) == '은'){
+		if (str.charAt(i-1) =='니' || str.charAt(i-1) =='을' ||  str.charAt(i-1) == '은' ||  str.charAt(i-1) == '지' ||  str.charAt(i-1) == '는' || (GreedyWordRecognition_Enabled && str.charAt(i-1) == '네') || (GreedyWordRecognition_Enabled && str.charAt(i-1) == '기')){
 			// to handle 	inquisitive present & past formal low '먹니' & '먹었니'
 			// 을 to handle st like 먹을게요 or ~(으)ㄹ게 
 			// if not already in list, push
+			// '지' to handle  다루지 못하는 (다루다)
+			// 는 to handle 하는
+			// Only if GreedyWordRecognition_Enabled, then change 기 (verb Normalization to noun) to 다 , to deal with 듣기 (to listen)
+			// Only if GreedyWordRecognition_Enabled, then deal with -네요 , i.e. 크네요  ,크다 = to be big 
 			if (!wordList.includes(str.substring(0, i-1).concat('다'))){
 				wordList.push(str.substring(0, i-1).concat('다'));
 				//console.log("@ word ending contains '니' || '을'. "+ word+" becomes :" + str.substring(0, i-1).concat('다'));
@@ -82,7 +85,49 @@ dictionary.lookupWords = function(str) {
 			wordList.push(word);
 		}
 
+
 	}
+	//console.log("@ Check GreedyWordRecognition_Enabled is :" + GreedyWordRecognition_Enabled);
+	if (GreedyWordRecognition_Enabled){
+		// Deal with 노는지  suffix (irregular "whether form" where 'r' is omitted) → 놀다 (to play) 
+		// Greedy Word recognition mode explaination : Handle words like 노는지 ( 놀다 ) by adding batchim to every word (up to the first 6 char)
+		// for input word 노는지, the word list would become  [노r는지 , 노는지, 노는지r]
+		// on average if wordList.length =  15 before, after 60-150 (avg90, max300)
+		//console.log(wordList.length +"@ GreedyWordRecognition_Enabled, wordlist is " + wordList);
+		
+		for (let i = 0; i < wordList.length; i++) {
+				let mStr = wordList[i]
+				
+				//console.log("@ mStr is " + mStr);
+				
+				for (let k = 0; k < Math.min(mStr.length, 6); k++) {
+					//add 'r' batchim only up to the first 6 char of the word to not make it too crazy
+					let already_contains_batchim = typeof mStr.charAt(k).normalize('NFD')[2] !== "undefined"?  true : false;
+					// is_hanguel check if character has korean vowel entry. Obviously 'z' , '.' , etc won't have them
+					let is_hanguel = typeof mStr.charAt(k).normalize('NFD')[1] !== "undefined"?  true : false;
+					
+					//console.log(mStr.charAt(k) +  "@ is_hanguel :" + is_hanguel + ", already_contains_batchim :" + already_contains_batchim);
+					
+					if (is_hanguel && !already_contains_batchim){
+						// if char already contain batchim e.g '는' then ignore, no need to replace 'n' with 'r' batchim
+						let char_with_batchim_r_added = mStr.charAt(k).normalize('NFD')[0].concat(mStr.charAt(k).normalize('NFD')[1]).concat('을'.normalize('NFD')[2]).normalize('NFC');
+						//console.log("@ char_with_batchim_r_added :" + char_with_batchim_r_added);
+						let Str_with_batchim_r_added = mStr.substr(0, k) + char_with_batchim_r_added + mStr.substr(k + 1);
+						//console.log("@ after Str_with_batchim_r_added :" + Str_with_batchim_r_added);
+						if (!wordList.includes(Str_with_batchim_r_added)){
+						
+							wordList.push(Str_with_batchim_r_added);
+						}
+					}
+
+					
+				}
+				
+	}
+	//console.log(wordList.length  + "@ After GreedyWordRecognition_Enabled, wordlist is " + wordList);
+
+	
+}
 
 	wordList.sort(function(a, b) {
 		return a.length - b.length || // sort by length, ASC Order. if equal then  (ASC  -> a.length - b.length) (DESC -> b.length - a.length)

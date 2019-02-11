@@ -436,6 +436,20 @@ if (window.browser == null) {
 
 			}
 
+			else if (ekeyCode ==219){
+				//ekeyCode ==221 == Bracket Left '[' Turn on Greedy word recognition mode (by adding 'r' batchim to every word)
+
+					browser.sendMessage({ name: "EnableGreedyWordRecognition" });
+					showGeneralNotification("pressed '[', EnableGreedyWordRecognition");
+
+			}
+			else if (ekeyCode ==221){
+				//ekeyCode ==221 == Bracket right ']' turn off Greedy word recognition mode
+
+					browser.sendMessage({ name: "DisableGreedyWordRecognition" });
+					showErrorNotification("pressed ']', DisableGreedyWordRecognition");
+
+			}
 			else if (ekeyCode ==77){
 				//ekeyCode ==77 == m
 				if (confirm("Show Toktogi Option?")) {
