@@ -53,7 +53,7 @@ dictionary.lookupWords = function(str) {
 	for (let i = 1; i < str.length + 1; i++) {
 		const word = str.substring(0, i);
 		//TODO: More fine criteria i.e. (str.charAt(i-1) =='을' ||  str.charAt(i-1) == '은') && str.charAt(i-2) exist && str.charAt(i-2) has batchim
-		if (str.charAt(i-1) =='니' || str.charAt(i-1) =='을' ||  str.charAt(i-1) == '은' ||  str.charAt(i-1) == '지' ||  str.charAt(i-1) == '는' || (GreedyWordRecognition_Enabled && str.charAt(i-1) == '네') || (GreedyWordRecognition_Enabled && str.charAt(i-1) == '기')){
+		if (str.charAt(i-1) =='니' || str.charAt(i-1) =='을' ||  str.charAt(i-1) == '은' ||  str.charAt(i-1) == '지' ||  str.charAt(i-1) == '는' || (GreedyWordRecognition_Enabled && str.charAt(i-1) == '네') || (GreedyWordRecognition_Enabled && str.charAt(i-1) == '기')|| (GreedyWordRecognition_Enabled && str.charAt(i-1) == '십')|| (GreedyWordRecognition_Enabled && str.charAt(i-1) == '쇼')||(GreedyWordRecognition_Enabled && str.charAt(i-1) == '죠')||(GreedyWordRecognition_Enabled && str.charAt(i-1) == '듯')){
 			// to handle 	inquisitive present & past formal low '먹니' & '먹었니'
 			// 을 to handle st like 먹을게요 or ~(으)ㄹ게 
 			// if not already in list, push

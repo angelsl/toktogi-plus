@@ -39,7 +39,7 @@ util.sendMessage = function(tab, data) {
 };
 
 util.getDictJson = async function() {
-	let response = await fetch('dict.json');
+	let response = await fetch('dict.jsonx');
 	return response.json();
 };
 
