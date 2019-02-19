@@ -1,5 +1,24 @@
-﻿Handling KRDict
+﻿Getting unicode http://koreanstudies.com/unicode-converter.html
+https://en.wikipedia.org/wiki/Hangul
+'ᆫ' 'ᆻ'  'ᆯ'
+ᅟᅠᆫ ( U+11AB )
 
+Handling KRDict
+
+conjugation Handling
+러 > replace with  다
+세(요) > replace with  다
+'b' batchim > remove 'b', add 다 || replace 'b' with 'r' , add 다 
+'m' batchim (nominal ing) >  remove 'm', add 다
+면
+고
+라
+읍(시다)
+더(니)
+음 (nominal ing 2)
+찌르거나   / ㄹ거나/거나 (찌르다)  (DONE!)
+fix 두렵다 future base (두려울)    ㅂ 불규칙 동사 (irregular verb) https://koreanverb.app/?search=%EB%91%90%EB%A0%B5%EB%8B%A4
+매섭다 (매서운). Todo: if (운 ||울) and previous char no batchim > previous char add b, current char add da
 
 v1 - Auto
 1. if (dictentry!= []) 

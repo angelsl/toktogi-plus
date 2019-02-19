@@ -20,6 +20,9 @@ let KRDICT_Mode_Enabled = true;
 //OfflineDict_Mode:"7" ==> Merge Dict3 & Dict2 & Dict1 Entry
 //OfflineDict_Mode:"8" ==> Dict2 & Dict3 = merged_default, Dict1 = fallback
 
+//TODO: handle -거리다
+//TODO: handle -handle words conjugation where optionally 'wa' can becomes 'eo+a' or 'weo' = 'o + eo'
+
 dictionary.lookupWords = function(str) {
 
 		
@@ -53,7 +56,7 @@ dictionary.lookupWords = function(str) {
 	for (let i = 1; i < str.length + 1; i++) {
 		const word = str.substring(0, i);
 		//TODO: More fine criteria i.e. (str.charAt(i-1) =='을' ||  str.charAt(i-1) == '은') && str.charAt(i-2) exist && str.charAt(i-2) has batchim
-		if (str.charAt(i-1) =='니' || str.charAt(i-1) =='을' ||  str.charAt(i-1) == '은' ||  str.charAt(i-1) == '지' ||  str.charAt(i-1) == '는' || (GreedyWordRecognition_Enabled && str.charAt(i-1) == '네') || (GreedyWordRecognition_Enabled && str.charAt(i-1) == '기')|| (GreedyWordRecognition_Enabled && str.charAt(i-1) == '십')|| (GreedyWordRecognition_Enabled && str.charAt(i-1) == '쇼')||(GreedyWordRecognition_Enabled && str.charAt(i-1) == '죠')||(GreedyWordRecognition_Enabled && str.charAt(i-1) == '듯')){
+		if (str.charAt(i-1) =='니' || str.charAt(i-1) =='며'||(str.charAt(i-1) =='거'&& str.charAt(i) == '나' ) || str.charAt(i-1) =='을' ||  str.charAt(i-1) == '은' ||  str.charAt(i-1) == '으' ||  str.charAt(i-1) == '지' ||  str.charAt(i-1) == '는' || (GreedyWordRecognition_Enabled && str.charAt(i-1) == '네') || (GreedyWordRecognition_Enabled && str.charAt(i-1) == '기')|| (GreedyWordRecognition_Enabled && str.charAt(i-1) == '십')|| (GreedyWordRecognition_Enabled && str.charAt(i-1) == '쇼')||(GreedyWordRecognition_Enabled && str.charAt(i-1) == '죠')||(GreedyWordRecognition_Enabled && str.charAt(i-1) == '듯') ||(GreedyWordRecognition_Enabled && str.charAt(i-1) == '았') ||(GreedyWordRecognition_Enabled && str.charAt(i-1) == '었') ||(GreedyWordRecognition_Enabled && str.charAt(i-1) == '이')  ){
 			// to handle 	inquisitive present & past formal low '먹니' & '먹었니'
 			// 을 to handle st like 먹을게요 or ~(으)ㄹ게 
 			// if not already in list, push
@@ -61,12 +64,14 @@ dictionary.lookupWords = function(str) {
 			// 는 to handle 하는
 			// Only if GreedyWordRecognition_Enabled, then change 기 (verb Normalization to noun) to 다 , to deal with 듣기 (to listen)
 			// Only if GreedyWordRecognition_Enabled, then deal with -네요 , i.e. 크네요  ,크다 = to be big 
+			//  았 to deal with variable conjugation contraction i.e. 바라봤다/  바라보았다 becomes > (바라보다)
+			// 이 to deal with 짓다 /짓이나 
 			if (!wordList.includes(str.substring(0, i-1).concat('다'))){
 				wordList.push(str.substring(0, i-1).concat('다'));
 				//console.log("@ word ending contains '니' || '을'. "+ word+" becomes :" + str.substring(0, i-1).concat('다'));
 			}
 		}
-		else if (str.charAt(i-1).normalize('NFD')[2] == 'ᆫ' || str.charAt(i-1).normalize('NFD')[2] == 'ᆻ' || str.charAt(i-1).normalize('NFD')[2] == 'ᆯ' ){
+		if (str.charAt(i-1).normalize('NFD')[2] == 'ᆫ' || str.charAt(i-1).normalize('NFD')[2] == 'ᆻ' || str.charAt(i-1).normalize('NFD')[2] == 'ᆯ' ){
 			// if final char ends with above batchim 1. Drop batchim & Add 다   AND 2. simply Adds 다  without dropping anything
 			// handle things like 가졌 가질 가진
 
@@ -80,6 +85,28 @@ dictionary.lookupWords = function(str) {
 				wordList.push(str.substring(0, i).concat('다'));
 				//console.log("@ word ending contains 'ᆫ' || 'ᆻ' || 'ᆯ' ,  "+ word +" becomes :" + str.substring(0, i).concat('다'));
 			}
+		}
+
+		if  (  (str.charAt(i-1) =='운' ||(str.charAt(i-1) =='울'))&& i-2>=0  ){
+			// to handle fix 두렵다 future base (두려울)    ㅂ 불규칙 동사 (irregular verb)
+			// 매섭다 (매서운). : if (운 ||울) and previous char no batchim > previous char add b, current char add da
+			let already_contains_batchim = typeof str.charAt(i-2,0).normalize('NFD')[2] !== "undefined"?  true : false;
+			// is_hanguel check if character has korean vowel entry. Obviously 'zᆸ' , '.' , etc won't have them
+			let is_hanguel = typeof str.charAt(i-2,0).normalize('NFD')[1] !== "undefined"?  true : false;
+			
+			if (is_hanguel && !already_contains_batchim){
+
+				let char_with_batchim_b_added = str.charAt(i-2,0).normalize('NFD')[0].concat(str.charAt(i-2,0).normalize('NFD')[1]).concat('섭'.normalize('NFD')[2]).normalize('NFC');
+				//console.log("@ char_with_batchim_r_added :" + char_with_batchim_r_added);
+				let Str_with_batchim_b_added = str.substr(0, i-2,0) + char_with_batchim_b_added + '다';
+				//console.log("@ after Str_with_batchim_r_added :" + Str_with_batchim_r_added);
+				if (!wordList.includes(Str_with_batchim_b_added)){
+				
+					wordList.push(Str_with_batchim_b_added);
+				}
+
+			}
+
 		}
 		if (!wordList.includes(word)){
 			wordList.push(word);
