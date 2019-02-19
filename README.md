@@ -65,6 +65,10 @@ Android Add-on Install Comprehensive Guide (Source : https://developer.mozilla.o
 - [ ] **Toggle Sanseido-like mode for KR-Eng. Maybe naver Dict. Search the manually highlighted keyword.**
 - [ ] **Toggle Sanseido-like mode for KR-JP, and KR-KR. Maybe naver Dict. Search the manually highlighted keyword.**
 - [ ] **Add popup menu when clicked the toktogi logo, easy way to check config, Ankiconnect connection, and how many words saved**
+- [x] **Handle -며 form i.e. 느끼며   (느끼다)**
+- [ ] Handle variable conjugation i.e 이뤄지다/이루어지다    ,  바라봤다/바라보았다 (바라보다)
+- [ ] Add [Korean vocab Frequency List](https://github.com/open-korean-text/open-korean-
+- [ ] Add [Korean vocab Frequency List](https://github.com/open-korean-text/open-korean-
 - [ ] Add [Korean vocab Frequency List](https://github.com/open-korean-text/open-korean-text/tree/master/src/main/resources/org/openkoreantext/processor/util/freq)  to field. Tags 1-5000 as very common , 5001-10000 as common, 10001-20000 as rare, 20001+ as extremely rare
 
 
