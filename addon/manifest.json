@@ -1,5 +1,5 @@
 {
-   "author": "Brad McDermott",
+   "author": "Brad McDermott(Founder), Toktogi Plus team",
    "background": {
       "scripts": [ "js/background/util.js", "js/background/dictionary.js", "js/background/background.js" ]
    },
@@ -43,6 +43,6 @@
    },
    "permissions": [ "<all_urls>", "unlimitedStorage", "tabs" ,"storage"],
    "short_name": "Toktogi",
-   "version": "0.7.3k",
+   "version": "0.7.4a",
    "web_accessible_resources": [ "images/unlock.png", "images/lock.png", "images/plus.png" ]
 }
