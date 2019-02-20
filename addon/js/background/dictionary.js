@@ -56,7 +56,7 @@ dictionary.lookupWords = function(str) {
 	for (let i = 1; i < str.length + 1; i++) {
 		const word = str.substring(0, i);
 		//TODO: More fine criteria i.e. (str.charAt(i-1) =='을' ||  str.charAt(i-1) == '은') && str.charAt(i-2) exist && str.charAt(i-2) has batchim
-		if (str.charAt(i-1) =='니' || str.charAt(i-1) =='며'||(str.charAt(i-1) =='거'&& str.charAt(i) == '나' ) || str.charAt(i-1) =='을' ||  str.charAt(i-1) == '은' ||  str.charAt(i-1) == '으' ||  str.charAt(i-1) == '지' ||  str.charAt(i-1) == '는' || (GreedyWordRecognition_Enabled && str.charAt(i-1) == '네') || (GreedyWordRecognition_Enabled && str.charAt(i-1) == '기')|| (GreedyWordRecognition_Enabled && str.charAt(i-1) == '십')|| (GreedyWordRecognition_Enabled && str.charAt(i-1) == '쇼')||(GreedyWordRecognition_Enabled && str.charAt(i-1) == '죠')||(GreedyWordRecognition_Enabled && str.charAt(i-1) == '듯') ||(GreedyWordRecognition_Enabled && str.charAt(i-1) == '았') ||(GreedyWordRecognition_Enabled && str.charAt(i-1) == '었') ||(GreedyWordRecognition_Enabled && str.charAt(i-1) == '이')  ){
+		if (str.charAt(i-1) =='니' || str.charAt(i-1) =='며'||(str.charAt(i-1) =='거'&& str.charAt(i) == '나' ) || str.charAt(i-1) =='을' ||  str.charAt(i-1) == '은' ||  str.charAt(i-1) == '으' ||  str.charAt(i-1) == '지' ||  str.charAt(i-1) == '는' || (GreedyWordRecognition_Enabled && str.charAt(i-1) == '네') || (GreedyWordRecognition_Enabled && str.charAt(i-1) == '기')|| (GreedyWordRecognition_Enabled && str.charAt(i-1) == '십')|| (GreedyWordRecognition_Enabled && str.charAt(i-1) == '쇼')||(GreedyWordRecognition_Enabled && str.charAt(i-1) == '죠')||(GreedyWordRecognition_Enabled && str.charAt(i-1) == '듯') ||(GreedyWordRecognition_Enabled && str.charAt(i-1) == '았') ||(GreedyWordRecognition_Enabled && str.charAt(i-1) == '었') ||(GreedyWordRecognition_Enabled && str.charAt(i-1) == '이')||(GreedyWordRecognition_Enabled && str.charAt(i-1) == '던') ||( GreedyWordRecognition_Enabled && str.charAt(i-1) == '되')  ){
 			// to handle 	inquisitive present & past formal low '먹니' & '먹었니'
 			// 을 to handle st like 먹을게요 or ~(으)ㄹ게 
 			// if not already in list, push
@@ -155,6 +155,9 @@ dictionary.lookupWords = function(str) {
 
 	
 }
+	for (let i = 0; i < wordList.length + 1; i++) {
+		detectDictFormOfConjugatedDef(i);
+	}
 
 	wordList.sort(function(a, b) {
 		return a.length - b.length || // sort by length, ASC Order. if equal then  (ASC  -> a.length - b.length) (DESC -> b.length - a.length)
@@ -311,6 +314,25 @@ dictionary.lookupWords = function(str) {
 	// DummylookupKRDict();  //to play around with it later
 	return entryList;
 
+	function detectDictFormOfConjugatedDef(i){
+		// Dict1 includes conjugated form of verbs in DB, i.e. It recognise 끄덕인다 as having the rootword/dictionaryform => 끄덕이다
+		// So we'll use that information to  help  dict2/dict3 recognise 끄덕인다 as => 끄덕이다 as well
+		let info = dict[wordList[i]];
+		if (info) {
+			// word is a conjugated verb, add root definition
+			if(info.roots) {
+				let roots = Object.keys(info.roots);
+				// Example info.roots[object Object],  roots  => [선택하다]
+				// info.roots => [object Object], roots   => [서다,설다]
+				roots.forEach(function (root) {
+					if (!wordList.includes(root)){
+						wordList.push(root);
+					};
+				});
+			}
+		}
+	}
+
 	function lookupDict1(i){
 		let info = dict[wordList[i]];
 		if (info) {
@@ -321,7 +343,8 @@ dictionary.lookupWords = function(str) {
 			// word is a conjugated verb, add root definition
 			if(info.roots) {
 				let roots = Object.keys(info.roots);
-
+				// Example info.roots[object Object],  roots  => [선택하다]
+				// info.roots => [object Object], roots   => [서다,설다]
 				roots.forEach(function (root) {
 					entryList.push({
 						word: wordList[i],
