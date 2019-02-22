@@ -422,7 +422,7 @@ if (window.browser == null) {
 
 				browser.downloadTSVFile(SAVED_VOCAB_LIST);
 			}
-			else if (ekeyCode ==80 ){
+			else if (ekeyCode ==80 && false){
 				/* Press P To test querying KRDict for vocab defn*/
 
 

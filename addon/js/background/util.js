@@ -49,7 +49,8 @@ util.getDictSpaceSlashSpaceDelimitedTSV = async function() {
 };
 
 util.getKRJP_DictSpaceSlashSpaceDelimitedTSV = async function() {
-	let response = await fetch('KRDict_JP_All_Except_Noun_Verb_PartOfSpeech.csv');
+	//let response = await fetch('KRDict_JP_All_Except_Noun_Verb_PartOfSpeech.csv');
+	let response = await fetch('KRDict_JP_All_Full_unedited.csv');
 	return response.text();
 };
 
