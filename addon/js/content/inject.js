@@ -49,6 +49,7 @@ if (window.browser == null) {
 	let $notification;
 	//let $plus = $("<img>", { id: 'toktogi-plus', class: 'toktogi-icon', src: browser.getImageUrl("plus.png") });
 	let isAndroid = false;
+	let mouseDown;
 	
 
 
@@ -209,10 +210,34 @@ if (window.browser == null) {
 			var $plus = $("<img>", { class: 'toktogi-plus toktogi-icon', "data-index": i, src: browser.getImageUrl('plus.png') });
 			$plus.click({dataIndex: i}, addPlusToList);
 			$dictInner.append($plus);
+			
+			// Beautify Dictbox Entry, i.e. adding show/hide dict entries which has more that 4 lines , etc.
+			let offlinedict2_entry_counter = 0;
+			let offlinedict2_total_entry = 0;
+			for (let j = 0; j < defArray[i].defs.length; j++) {
+				if (defArray[i].defsDictType[j] =="offlinedict2"){
+				offlinedict2_total_entry++;
+				}
+			}
+			
 
 			for (let j = 0; j < defArray[i].defs.length; j++) {
 				if (defArray[i].defsDictType[j] =="offlinedict2"){
-					$dictInner.append(	$("<span>", { class: 'dict-def offlinedict2' }).text( defArray[i].defs[j]));
+					offlinedict2_entry_counter++;
+					if (offlinedict2_total_entry>6 && offlinedict2_entry_counter==4  ){
+						// This means Entry with 5 or more will toggle show/hide , starting from entry 4. >6 because it counts the <br> linebreak
+						var $details = $("<details>", { class: 'dict-def offlinedict2' });
+						$details.append("<summary>...(Toggle expand)</summary>");
+						$dictInner.append($details);
+						$details.append(	$("<span>", { class: 'dict-def offlinedict2' }).text( defArray[i].defs[j]));
+					}
+					else if (offlinedict2_total_entry>6 &&offlinedict2_entry_counter>4){
+						$details.append(	$("<span>", { class: 'dict-def offlinedict2' }).text( defArray[i].defs[j]));
+					}
+					else{
+						$dictInner.append(	$("<span>", { class: 'dict-def offlinedict2' }).text( defArray[i].defs[j]));
+					}
+
 				}
 				else if (defArray[i].defsDictType[j] =="offlinedict3"){
 					$dictInner.append(	$("<span>", { class: 'dict-def offlinedict3' }).text( defArray[i].defs[j]));
@@ -460,6 +485,17 @@ if (window.browser == null) {
 			});
 			
 		}
+		$(document).on('mousedown mouseup', function mouseState(e) {
+			if (e.type == "mousedown") {
+				//code triggers on hold , use to make sure word lookup won't run when mouse down
+				mouseDown = true;
+			}
+			else{
+				mouseDown = false;
+			}
+	
+		});
+
 		$(document).on("mousemove", function (event) {
 			clearTimeout(lookupTimeout);
 
@@ -467,7 +503,10 @@ if (window.browser == null) {
 			const pageY = event.clientY;
 
 			range = browser.getRange(pageX, pageY);
-
+			if (mouseDown){
+				//don't look up word when mouse down(holding)
+				return;
+			}
 			if (!isShowing) {
 				savedX = $(window).scrollLeft() + pageX;
 				savedY = $(window).scrollTop() + pageY;

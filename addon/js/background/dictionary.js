@@ -616,22 +616,34 @@ function TsvLineToObjectDict(tsv,dictNo){
 			}
 			else if (dictNo == "dict3"){
 
+				/* HANDLES EOMI */	
+				if (currentline[0].charAt(0)=='-'){
+					// -대요	んですよ。そうですよ  > Becomes 대요	(-대요)んですよ。そうですよ
+					currentline[1] = "("+ currentline[0] +")  ".concat(currentline[1])
+					currentline[0] = currentline[0].replace("-", "");
+				}
+
 				if (dictionary3.dict[currentline[0]]){
 					// if entry already exist, append
-					dictionary3.dict[currentline[0]] = { jp_defs:dictionary3.dict[currentline[0]].jp_defs+"\n"+currentline[1], pos: dictionary3.dict[currentline[0]].pos+"|"+currentline[2], hanja: dictionary3.dict[currentline[0]].hanja+"|"+currentline[3],jp_trans:dictionary3.dict[currentline[0]].jp_trans+"\n"+currentline[4] }
-					dictionary3.dict[currentline[0]].displaydef = dictionary3.dict[currentline[0]].displaydef +"\n"+ currentline[2].concat(currentline[3]).concat(currentline[1]).concat(currentline[4]).concat("<BR>");
-						
+					dictionary3.dict[currentline[0]] = { jp_defs:dictionary3.dict[currentline[0]].jp_defs+"\n"+currentline[1], pos: dictionary3.dict[currentline[0]].pos+"|"+currentline[2], hanja: dictionary3.dict[currentline[0]].hanja+"|"+currentline[3],jp_trans:dictionary3.dict[currentline[0]].jp_trans+"\n"+currentline[4], displaydef:dictionary3.dict[currentline[0]].displaydef }
+					let temp =  currentline[2].concat(currentline[3]).concat(currentline[1]).concat(currentline[4]).concat("<BR>");
+					dictionary3.dict[currentline[0]].displaydef = dictionary3.dict[currentline[0]].displaydef +"\n" + temp
+					
+
 				}
 				else{
 					dictionary3.dict[currentline[0]] = { jp_defs:currentline[1], pos: currentline[2], hanja: currentline[3],jp_trans:currentline[4]}
 					dictionary3.dict[currentline[0]].displaydef = currentline[2].concat(currentline[3]).concat(currentline[1]).concat(currentline[4]).concat("<BR>");	
-						
 				}
 			}
 		}
 		
 		//return dictionary2.dict; //JavaScript object
 		console.log("dictionary2.dict[가량없다] : ", dictionary2.dict['가량없다']);
+		/*
+		if (dictNo == "dict3"){
+			console.log("dictionary3.dict['가구'] : ", dictionary3.dict['가구']);
+		}*/
 		return JSON.stringify(dictionary2.dict); //JSON
 	}
 
