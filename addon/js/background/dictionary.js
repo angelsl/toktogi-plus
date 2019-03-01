@@ -25,7 +25,7 @@ let KRDICT_Mode_Enabled = true;
 
 dictionary.lookupWords = function(str) {
 
-		
+	let initial_str = str.length; //for Debug purpose
 	// lookupword for up to 15 char. Vocab length shouldn't be longer
 	str = str.substring(0,Math.min(str.length, 15));
 	// clear all white spaces (Except if first char is white space) so that str query like dict["할 거야"] becomes  dict["할거야"] which has dict entry
@@ -37,6 +37,7 @@ dictionary.lookupWords = function(str) {
 		str = str.replace(/\s/g, '');
 	}
 
+	let len_limited_str = str.length; //for Debug purpose
 	const dict = dictionary.dict;
 	const dict2 = dictionary2.dict;
 	const dict3 = dictionary3.dict;
@@ -90,9 +91,9 @@ dictionary.lookupWords = function(str) {
 		if  (  (str.charAt(i-1) =='운' ||(str.charAt(i-1) =='울'))&& i-2>=0  ){
 			// to handle fix 두렵다 future base (두려울)    ㅂ 불규칙 동사 (irregular verb)
 			// 매섭다 (매서운). : if (운 ||울) and previous char no batchim > previous char add b, current char add da
-			let already_contains_batchim = typeof str.charAt(i-2,0).normalize('NFD')[2] !== "undefined"?  true : false;
+			let already_contains_batchim = typeof str.charAt(i-2).normalize('NFD')[2] !== "undefined"?  true : false;
 			// is_hanguel check if character has korean vowel entry. Obviously 'zᆸ' , '.' , etc won't have them
-			let is_hanguel = typeof str.charAt(i-2,0).normalize('NFD')[1] !== "undefined"?  true : false;
+			let is_hanguel = isHanguel(str.charAt(i-2));
 			
 			if (is_hanguel && !already_contains_batchim){
 
@@ -115,6 +116,7 @@ dictionary.lookupWords = function(str) {
 
 	}
 	//console.log("@ Check GreedyWordRecognition_Enabled is :" + GreedyWordRecognition_Enabled);
+	let inital_wordList_len = wordList.length;
 	if (GreedyWordRecognition_Enabled){
 		// Deal with 노는지  suffix (irregular "whether form" where 'r' is omitted) → 놀다 (to play) 
 		// Greedy Word recognition mode explaination : Handle words like 노는지 ( 놀다 ) by adding batchim to every word (up to the first 6 char)
@@ -131,7 +133,7 @@ dictionary.lookupWords = function(str) {
 					//add 'r' batchim only up to the first 6 char of the word to not make it too crazy
 					let already_contains_batchim = typeof mStr.charAt(k).normalize('NFD')[2] !== "undefined"?  true : false;
 					// is_hanguel check if character has korean vowel entry. Obviously 'z' , '.' , etc won't have them
-					let is_hanguel = typeof mStr.charAt(k).normalize('NFD')[1] !== "undefined"?  true : false;
+					let is_hanguel = isHanguel(mStr.charAt(k));
 					
 					//console.log(mStr.charAt(k) +  "@ is_hanguel :" + is_hanguel + ", already_contains_batchim :" + already_contains_batchim);
 					
@@ -155,6 +157,7 @@ dictionary.lookupWords = function(str) {
 
 	
 }
+	let final_wordList_len = wordList.length; //for Debug purpose
 	for (let i = 0; i < wordList.length + 1; i++) {
 		detectDictFormOfConjugatedDef(i);
 	}
@@ -312,6 +315,7 @@ dictionary.lookupWords = function(str) {
 		//lookupKRDict(entryList);
 	}
 	// DummylookupKRDict();  //to play around with it later
+	//console.log("initial_str: "+ initial_str+", len_limited_str: "+len_limited_str + ", totalDictKeyLookupCount"+totalDictKeyLookupCount + ", inital_wordList_len: "+ inital_wordList_len + ", final_wordList_len: "+ final_wordList_len);
 	return entryList;
 
 	function detectDictFormOfConjugatedDef(i){
@@ -380,6 +384,15 @@ dictionary.lookupWords = function(str) {
 		}	
 		return false;
 	}
+	
+	function isHanguel(c){
+		c = c.charCodeAt(0);
+		if (c < 0xAC00 || c > 0xD7A3) {
+			return false;
+		  }
+		return true;
+	}
+
 }
 
 
