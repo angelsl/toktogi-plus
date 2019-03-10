@@ -45,6 +45,9 @@ if (window.browser == null) {
 	// box jquery object
 	let $dict;
 	let $dictInner;
+	let $manualhightlight_left;
+	let $manualhightlight_right;
+	let $manualrefreshdictentry;
 	let $lock;
 	let $notification;
 	//let $plus = $("<img>", { id: 'toktogi-plus', class: 'toktogi-icon', src: browser.getImageUrl("plus.png") });
@@ -146,8 +149,14 @@ if (window.browser == null) {
 	}
 
 	/// Highlight the matched text (but not if its in a field).
-	function highlightMatch(length) {
-		if (currentNode.nodeType === 3) {
+	function highlightMatch(length, manualhighlight = false) {
+		if (manualhighlight == true) {
+			let direction = length >= 1?  'forward' : 'backward';
+			window.getSelection().modify('extend', direction, 'character');
+			rect = wordRange.getBoundingClientRect();
+		  }
+		
+		else if (currentNode.nodeType === 3) {
 			const wordRange = document.createRange();
 			wordRange.setStart(currentNode, currentOffset);
 
@@ -443,9 +452,10 @@ if (window.browser == null) {
 
 			}
 			else if (ekeyCode ==88 && TSV_OR_AnkiConnect == 'TSV'){
+				/*
 				console.log("pressed 'x', downloading ");
 
-				browser.downloadTSVFile(SAVED_VOCAB_LIST);
+				browser.downloadTSVFile(SAVED_VOCAB_LIST);*/
 			}
 			else if (ekeyCode ==80 && false){
 				/* Press P To test querying KRDict for vocab defn*/
@@ -477,9 +487,11 @@ if (window.browser == null) {
 			}
 			else if (ekeyCode ==77){
 				//ekeyCode ==77 == m
+				/*
 				if (confirm("Show Toktogi Option?")) {
 					browser.sendMessage({ name: "showOptions" });
 				}
+				*/
 			}
 			//alert('keypress event\n\n' + 'key: ' + ekeyName+ '  key code:' +ekeyCode + 'isOn var: '+ isOn) ;
 			});
@@ -527,6 +539,14 @@ if (window.browser == null) {
 		$lock.click(function (event) {
 			isLocked = !isLocked;
 			updateLock();
+		});
+
+		$manualhightlight_left.click(function (event) {
+			highlightMatch(-1,true);
+		});
+
+		$manualhightlight_right.click(function (event) {
+			highlightMatch(1,true);
 		});
 
 		isLocked = false;
@@ -633,7 +653,12 @@ if (window.browser == null) {
 			.addClass("card-panel grey lighten-4")
 			.appendTo("body");
 		$dictInner = $("<div>", { id: 'dict-inner' }).appendTo($dict);
+		$manualhightlight_left = $("<button>", { id: 'toktogi-highlight_left', class: 'toktogi-button' }).text("⇤").appendTo($dict);
+		$manualhightlight_right = $("<button>", { id: 'toktogi-highlight_right', class: 'toktogi-button' }).text("⇥").appendTo($dict);
+		$manualrefreshdictentry = $("<button>", { id: 'toktogi-refresh_dict', class: 'toktogi-button' }).text("✔").appendTo($dict);
 		$lock = $("<img>", { id: 'toktogi-lock', class: 'toktogi-icon' }).appendTo($dict);
+		
+		
 		updateLock();
 		$notification = $("<div>", { id: 'toktogi-notification' })
 			.text("Toktogi is on")

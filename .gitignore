@@ -1,2 +1,5 @@
 test_Ideas_And_Notes_To_Self/Dict_Dump/*
 addon/*.xpi
+addon/addon.zip
+addon.crx
+addon.pem
