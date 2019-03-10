@@ -1,5 +1,5 @@
 {
-   "author": "Brad McDermott(Founder), Toktogi Plus team",
+   "author": "Toktogi Plus team, Brad McDermott(Founder, whose add-on we based on),",
    "background": {
       "scripts": [ "js/background/util.js", "js/background/dictionary.js", "js/background/background.js" ]
    },
@@ -42,7 +42,7 @@
       "open_in_tab": true
    },
    "permissions": [ "<all_urls>", "unlimitedStorage", "tabs" ,"storage"],
-   "short_name": "Toktogi",
-   "version": "0.7.7.1",
+   "short_name": "ToktogiPlus",
+   "version": "0.7.8.3",
    "web_accessible_resources": [ "images/unlock.png", "images/lock.png", "images/plus.png" ]
 }

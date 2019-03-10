@@ -145,15 +145,36 @@
 	clear: both;
 }
 
-#toktogi-lock {
+#toktogi-lock, #toktogi-highlight_left ,#toktogi-highlight_right,  #toktogi-refresh_dict{
 	position: absolute;
-	right: 8px;
 	top: 8px;
 }
+
+#toktogi-lock{
+	right: 8px;
+}
+
+#toktogi-refresh_dict{
+	right: 25px;
+}
+#toktogi-highlight_right{
+	right: 45px;
+}
+
+#toktogi-highlight_left{
+	right: 65px;
+}
+
 
 .toktogi-icon {
 	height: 15px;
 	width: 15px;
+	opacity: .54;
+}
+
+.toktogi-button {
+	height: 20px;
+	width: 20px;
 	opacity: .54;
 }
 
