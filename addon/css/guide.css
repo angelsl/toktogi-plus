@@ -21,13 +21,13 @@ h1 {
 h2 {
 	color: #b2001e;
 	font-family: 'Jura-DemiBold';
-	font-size: 32pt;
-	margin: 40px 0 0 0;
+	font-size: 25pt;
+	margin: 35px 0 0 0;
 }
 
 p {
-	font-size: 18pt;
-	padding-bottom: 40px;
+	font-size: 16pt;
+	padding-bottom: 30px;
 }
 
 #korean {
@@ -36,6 +36,6 @@ p {
 	padding: 0;
 }
 
-img {
+#arrowtoicon {
 	float: right;
 }

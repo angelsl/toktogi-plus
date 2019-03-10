@@ -57,7 +57,7 @@ dictionary.lookupWords = function(str) {
 	for (let i = 1; i < str.length + 1; i++) {
 		const word = str.substring(0, i);
 		//TODO: More fine criteria i.e. (str.charAt(i-1) =='을' ||  str.charAt(i-1) == '은') && str.charAt(i-2) exist && str.charAt(i-2) has batchim
-		if (str.charAt(i-1) =='니' || str.charAt(i-1) =='며'||(str.charAt(i-1) =='느'&& str.charAt(i) == '라' ) ||(str.charAt(i-1) =='거'&& str.charAt(i) == '나' ) || str.charAt(i-1) =='을' ||  str.charAt(i-1) == '은' ||  str.charAt(i-1) == '으' ||  str.charAt(i-1) == '지' ||  str.charAt(i-1) == '는' || (GreedyWordRecognition_Enabled && str.charAt(i-1) == '네') || (GreedyWordRecognition_Enabled && str.charAt(i-1) == '기')|| (GreedyWordRecognition_Enabled && str.charAt(i-1) == '십')|| (GreedyWordRecognition_Enabled && str.charAt(i-1) == '쇼')||(GreedyWordRecognition_Enabled && str.charAt(i-1) == '죠')||(GreedyWordRecognition_Enabled && str.charAt(i-1) == '듯') ||(GreedyWordRecognition_Enabled && str.charAt(i-1) == '았') ||(GreedyWordRecognition_Enabled && str.charAt(i-1) == '었') ||(GreedyWordRecognition_Enabled && str.charAt(i-1) == '이')||(GreedyWordRecognition_Enabled && str.charAt(i-1) == '던') ||( GreedyWordRecognition_Enabled && str.charAt(i-1) == '되')||( str.charAt(i-1) == '게')  ){
+		if (['니','며','느','라','을','은','으','지','는','게','네','잖','쇼','죠','고','듯','던'].includes(str.charAt(i-1)) || ['거나','거든','도록'].includes(str.substring(i-1,i+1)) || (GreedyWordRecognition_Enabled && ['기','십','았','었','이','되'].includes(str.charAt(i-1))) ){
 			// to handle 	inquisitive present & past formal low '먹니' & '먹었니'
 			// 을 to handle st like 먹을게요 or ~(으)ㄹ게 
 			// if not already in list, push
@@ -109,6 +109,15 @@ dictionary.lookupWords = function(str) {
 			}
 
 		}
+		if (['해','했'].includes(str.charAt(i-1))){
+			// to handle -하다 vocab not in dict 1 (meaning no conjugation table)
+			// without this, 치사해요 will fail.
+
+			if (!wordList.includes(str.substring(0, i-1).concat('하다'))){
+				wordList.push(str.substring(0, i-1).concat('하다'));
+			}
+		}
+		
 		if (!wordList.includes(word)){
 			wordList.push(word);
 		}
@@ -151,12 +160,18 @@ dictionary.lookupWords = function(str) {
 
 					
 				}
+
+				
 				
 	}
 	//console.log(wordList.length  + "@ After GreedyWordRecognition_Enabled, wordlist is " + wordList);
 
 	
-}
+	}
+
+	if (GreedyWordRecognition_Enabled){
+		append_Da_to_List(str,wordList);
+	}
 	let final_wordList_len = wordList.length; //for Debug purpose
 	for (let i = 0; i < wordList.length + 1; i++) {
 		detectDictFormOfConjugatedDef(i);
@@ -397,6 +412,16 @@ dictionary.lookupWords = function(str) {
 
 
 
+function append_Da_to_List(input_str, wordList){
+	// example: Input = "복세편살" , processed_wordlist_output  = ['복세편다','복세다','복다']
+	// useful for dealing with  verb stem + unknown eomi
+	let mstr = input_str;
+	for (let i = 1; i < mstr.length ; i++) {
+		if (!wordList.includes(mstr.substring(0,mstr.length-i).concat('다'))){
+			wordList.push(mstr.substring(0,mstr.length-i).concat('다'));
+		}
+	}
+}
 
 function lookupKRDict(entryList){
 	let KRDict_entryList = [];
@@ -648,6 +673,21 @@ function TsvLineToObjectDict(tsv,dictNo){
 					dictionary3.dict[currentline[0]] = { jp_defs:currentline[1], pos: currentline[2], hanja: currentline[3],jp_trans:currentline[4]}
 					dictionary3.dict[currentline[0]].displaydef = currentline[2].concat(currentline[3]).concat(currentline[1]).concat(currentline[4]).concat("<BR>");	
 				}
+
+				if (false){
+					//todo: nicer jp def formatting
+					//   /(\d\..*?[\s$])/  will match [4] for 1.ととのえる【整える】 2.ととのえる【整える】 3.きりまわす【切り回す】 4.ととのえる【整える】。おさえる【抑える】
+					
+					let jpdefs = splitjp_Def_str_to_list(currentline[1]); // "1.が 2.に" > ['1.が', '2.に']  &&  "がい【街】。がいく【街区" > ["がい【街】。がいく【街区】"]
+					let jptrans = splitjp_Trans_str_to_list(currentline[4]); // ensure line count == splitjpDefStr(), if jp_Def < jp_trans.length, put the rest of jp_trans[] into last jp_def[-1]  
+					// Also, for jp_Trans, regex match "。", unless it's  "。また、"  
+					let kptrans = splitkp_Trans_str_to_list(currentline[5]); // same as above, but regex match ".", unless it's  ". 또는"  
+					split_en_Def_str_to_list(); //low priority
+					split_en_Trans_str_to_list(); //low priority
+					ensure_def_andTrans_SameLength();
+					generate_table();
+				}
+				
 			}
 		}
 		
@@ -658,6 +698,42 @@ function TsvLineToObjectDict(tsv,dictNo){
 			console.log("dictionary3.dict['가구'] : ", dictionary3.dict['가구']);
 		}*/
 		return JSON.stringify(dictionary2.dict); //JSON
+
+		function splitjp_Def_str_to_list(jpdef){
+			//str "1.が 2.に" => ['1.が', '2.に']  &&  "がい【街】。がいく【街区" => ["がい【街】。がいく【街区】"]
+			let l = jpdef.match(/(\d\..*?\s|\d\..*?$)/gm); //[number]+[dot]+[.*?]+[ ] OR [number]+[dot]+[.*?]+[End of line]
+			if (!l){ // if null
+				l = []
+				l.push(jpdef);
+			}
+			return l
+		}
+		function splitjp_Trans_str_to_list(jptrans){
+			//str jptrans "糸車で糸をつむぐとき。また、その金軸。 細くて長く。 かぞえる単位。" => ["糸車で糸をつむぐとき。また、その金軸。", "細くて長く。", "かぞえる単位。" ]
+			let l = jptrans.match(/(.*?。また.*?。|.*?。)/gm); //[.*?] + ['。', but not '。また']  
+			if (!l){
+				l = []
+				l.push(jptrans);
+			}
+			return l
+		}
+		function splitkp_Trans_str_to_list(kptrans){
+			//str jpdef "물레. 또는 그 꼬챙. 가늘고. 세는 단위.";
+			let l = kptrans.match(/(.*?\.\s또는.*?\.|.*?\.)/gm); //split by '.' but ignore '. 또는'
+			if (!l){
+				// if null
+				l = []
+				l.push(kptrans);
+			}
+			return l
+		}
+
+		function ensure_def_andTrans_SameLength(){
+			
+		}
+		function generate_table(){
+
+		}
 	}
 
 
