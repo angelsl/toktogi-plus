@@ -84,8 +84,8 @@ if (window.browser == null) {
 		else{
 			// TSV_OR_AnkiConnect == 'AnkiConnect', Import Vocab directly to Anki via AnkiConnect Add-on
 			ankiConnect_addNote({
-				"Korean_Vocab": highlightedvocabObj['word'+i],
-				"Meaning_E":highlightedvocabObj['defs'+i],
+				"Korean": highlightedvocabObj['word'+i],
+				"English":highlightedvocabObj['defs'+i],
 				"Context_Sentence":highlightedvocab_CurrentSentence,
 				"Source_Title":document.title
 				}).then((value) => {
