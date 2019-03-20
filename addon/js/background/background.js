@@ -65,6 +65,13 @@ function toggleHotkey(command) {
 	}
   }
 
+
+// Listener callbacks
+function reloadGoogleSpreadSheetDict() {
+	console.log("@ background.js . Calling reloadGoogleSpreadSheetDict()");
+	dictionary.reloadFromGoogleSpreadSheet_TSV();
+	console.log("@ background.js . Completed reloadGoogleSpreadSheetDict()");
+}
 // Listener callbacks
 function broadcastStorageChange() {
 	// i.e local storage changed from option page

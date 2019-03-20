@@ -48,6 +48,11 @@ util.getDictSpaceSlashSpaceDelimitedTSV = async function() {
 	return response.text();
 };
 
+util.getGoogleSpreadSheetTSVDict = async function() {
+	let response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRx3emMmjh07vucKBs5x_I3uwtF3ldPybucONoNsNk7-_ob5ML2uJNEs28vzv6t-zTMYqJW5ZSgKUjo/pub?gid=0&single=true&output=tsv');
+	return response.text();
+};
+
 util.getKRJP_DictSpaceSlashSpaceDelimitedTSV = async function() {
 	//let response = await fetch('KRDict_JP_All_Except_Noun_Verb_PartOfSpeech.csv');
 	let response = await fetch('KRDict_JP_All_Full_unedited.csv');

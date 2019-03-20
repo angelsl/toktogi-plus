@@ -162,7 +162,12 @@ document.getElementById("Dont_Use_Greedy_word_Recognition_Btn").addEventListener
     browser.extension.getBackgroundPage().broadcastStorageChange();
 });
 
-
+document.getElementById("LoadSpreadSheetDict").addEventListener("click", function(){
+    restoreOptions();
+    browser.extension.getBackgroundPage().reloadGoogleSpreadSheetDict();
+    console.log("@Options, Google Speadsheet Dict Re-downloaded !");
+    alert("Dict Re-downloaded !");
+});
    
 document.getElementById("OfflineDict_Mode_type1").addEventListener("click", function(){
     localStorage.setItem('OfflineDict_Mode','1');

@@ -753,3 +753,10 @@ dictionary.load = async function() {
 	dictionary3.dictstr = null; //don't need dictstr anymore, use dictionary2.dict obj instead. fotmat dictionary2[Str of  'Dictentry'] = Str 'defs'
 }
 
+dictionary.reloadFromGoogleSpreadSheet_TSV = async function() {
+	
+	dictionary2.dictstr = await util.getGoogleSpreadSheetTSVDict();
+	TsvLineToObjectDict(dictionary2.dictstr,"dict2");
+	dictionary2.dictstr = null; //don't need dictstr anymore, use dictionary2.dict obj instead. fotmat dictionary2[Str of  'Dictentry'] = Str 'defs'
+
+}
