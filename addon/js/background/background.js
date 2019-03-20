@@ -155,4 +155,4 @@ function addToList(tab, data) {
 	console.log("Received definition object:", data);
 }
 
-dictionary.load().then(() => init());
+dictionary.load().then(reloadGoogleSpreadSheetDict()).then(() => init());
