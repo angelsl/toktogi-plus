@@ -57,7 +57,7 @@ dictionary.lookupWords = function(str) {
 	for (let i = 1; i < str.length + 1; i++) {
 		const word = str.substring(0, i);
 		//TODO: More fine criteria i.e. (str.charAt(i-1) =='을' ||  str.charAt(i-1) == '은') && str.charAt(i-2) exist && str.charAt(i-2) has batchim
-		if (['니','며','느','라','을','은','으','지','는','게','네','잖','쇼','죠','고','듯','던'].includes(str.charAt(i-1)) || ['거나','거든','도록'].includes(str.substring(i-1,i+1)) || (GreedyWordRecognition_Enabled && ['기','십','았','었','이','되'].includes(str.charAt(i-1))) ){
+		if (['니','며','느','라','을','은','으','지','는','게','네','잖','쇼','죠','고','듯','던','더'].includes(str.charAt(i-1)) || ['거나','거든','도록'].includes(str.substring(i-1,i+1)) || (GreedyWordRecognition_Enabled && ['기','십','았','었','이','되'].includes(str.charAt(i-1))) ){
 			// to handle 	inquisitive present & past formal low '먹니' & '먹었니'
 			// 을 to handle st like 먹을게요 or ~(으)ㄹ게 
 			// if not already in list, push
@@ -85,6 +85,14 @@ dictionary.lookupWords = function(str) {
 			if (!wordList.includes(str.substring(0, i).concat('다'))){
 				wordList.push(str.substring(0, i).concat('다'));
 				//console.log("@ word ending contains 'ᆫ' || 'ᆻ' || 'ᆯ' ,  "+ word +" becomes :" + str.substring(0, i).concat('다'));
+			}
+
+
+			// Deal with ㅎ irregular verbs , 커다란  >> 커다랗다
+			let char_with_batchim_h_added = str.charAt(i-1).normalize('NFD')[0].concat(str.charAt(i-1).normalize('NFD')[1]).concat('랗'.normalize('NFD')[2]).normalize('NFC');
+			//console.log("i"+i+ " str.substring(0, i-1)" + str.substring(0, i-1)+ " char_with_batchim_h_added "+char_with_batchim_h_added+" str.charAt(i-1)"+ str.charAt(i-1) + "@ word to add" + str.substring(0, i-1).concat(char_with_batchim_h_added+"다"));
+			if(!wordList.includes(str.substring(0, i-1).concat(char_with_batchim_h_added+"다"))){
+				wordList.push(str.substring(0, i-1).concat(char_with_batchim_h_added+"다"));
 			}
 		}
 
@@ -115,6 +123,13 @@ dictionary.lookupWords = function(str) {
 
 			if (!wordList.includes(str.substring(0, i-1).concat('하다'))){
 				wordList.push(str.substring(0, i-1).concat('하다'));
+			}
+		}
+
+		if (['런'].includes(str.charAt(i-1))){
+			// to handle 게걸스런 >> 게걸스럽다
+			if (!wordList.includes(str.substring(0, i-1).concat('럽다'))){
+				wordList.push(str.substring(0, i-1).concat('럽다'));
 			}
 		}
 		
@@ -692,7 +707,9 @@ function TsvLineToObjectDict(tsv,dictNo){
 		}
 		
 		//return dictionary2.dict; //JavaScript object
-		console.log("dictionary2.dict[가량없다] : ", dictionary2.dict['가량없다']);
+		if (dictNo == "dict2"){
+			console.log("dictionary2.dict[가량없다] : ", dictionary2.dict['가량없다']);
+		}
 		/*
 		if (dictNo == "dict3"){
 			console.log("dictionary3.dict['가구'] : ", dictionary3.dict['가구']);
@@ -755,8 +772,8 @@ dictionary.load = async function() {
 
 dictionary.reloadFromGoogleSpreadSheet_TSV = async function() {
 	
-	dictionary2.dictstr = await util.getGoogleSpreadSheetTSVDict();
-	TsvLineToObjectDict(dictionary2.dictstr,"dict2");
-	dictionary2.dictstr = null; //don't need dictstr anymore, use dictionary2.dict obj instead. fotmat dictionary2[Str of  'Dictentry'] = Str 'defs'
+	dictionary2.dictstr2 = await util.getGoogleSpreadSheetTSVDict();
+	TsvLineToObjectDict(dictionary2.dictstr2,"dict2");
+	dictionary2.dictstr2 = null; //don't need dictstr anymore, use dictionary2.dict obj instead. fotmat dictionary2[Str of  'Dictentry'] = Str 'defs'
 
 }

@@ -356,6 +356,7 @@ if (window.browser == null) {
 
 		if (isTextOrField) {
 			currentNode = startNode;
+			//console.log({"currentNode.nodeType":currentNode.nodeType, "currentNode.nodeName":currentNode.nodeName, "currentNode.data":currentNode.data,"currentNode.value":currentNode.value})
 			currentOffset = browser.getOffset(range);
 			// TODO more efficient searching, check for adjacent nodes
 			const text = getCurrentNodeContents().slice(currentOffset);
@@ -446,7 +447,7 @@ if (window.browser == null) {
 				}
 				
 
-				if (isShowing && currentNode.nodeType === 3 && highlightedvocabObj['word'+ChosenDictVocabEntryIndex] !=  null){
+				if (isShowing && (currentNode.nodeType === 3 ||currentNode.nodeName === "INPUT" ||currentNode.nodeName === "TEXTAREA") && highlightedvocabObj['word'+ChosenDictVocabEntryIndex] !=  null){
 					saveVocab(ChosenDictVocabEntryIndex);
 				}
 
@@ -457,17 +458,19 @@ if (window.browser == null) {
 
 				browser.downloadTSVFile(SAVED_VOCAB_LIST);*/
 			}
-			else if (ekeyCode ==80 && false){
+			else if (ekeyCode ==80 ){
 				/* Press P To test querying KRDict for vocab defn*/
 
-
+				let tempNode = browser.getStartNode(range);
+				console.log({"tempNode.nodeType":tempNode.nodeType, "tempNode.nodeName":tempNode.nodeName, "tempNode.data":tempNode.data,"tempNode.value":tempNode.value})
+				/*	
 				if (confirm("querying KRDict for vocab defn ?")) {
 
 					//browser.sendMessage({ name: "deleteCachedVocab" });
 					getSelectionText();
 					showGeneralNotification("pressed 'p', querying KRDict");
 				
-				}
+				}*/
 
 			}
 
