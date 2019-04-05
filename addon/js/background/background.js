@@ -25,6 +25,7 @@ function init() {
 		isAndroid = true;
 	}
 
+
 	browser.browserAction.setTitle({ title: "Toktogi:KR-En Popup Dict (Off)" });
 
 	// Update version after setting JUST_UPDATED
@@ -41,6 +42,10 @@ function init() {
 	//util.addListener("retrieveCachedVocab", util.retrieveVocabList); 
 	util.addListener("setCachedVocab", util.storeVocabList);
 	util.addListener("deleteCachedVocab", util.clearVocabList);
+	util.addListener("openHighlightedWord_OnNaver", openHighlightedWord_OnNaver);
+	util.addListener("openHighlighted_OnGoogleTranslate", openHighlighted_OnGoogleTranslate);
+	util.addListener("openHighlighted_OnPapagoTranslate", openHighlighted_OnPapagoTranslate);
+	
 
 	try {
 		browser.commands.onCommand.addListener(toggleHotkey);
@@ -154,5 +159,19 @@ function addToList(tab, data) {
 	const definition = data.definition;
 	console.log("Received definition object:", data);
 }
+
+function openHighlightedWord_OnNaver(tab, data) {
+	util.openTab("https://endic.naver.com/search.nhn?sLn=en&query="+data+"&searchOption=all&preQuery=&forceRedirect=N");
+}
+
+function openHighlighted_OnGoogleTranslate(tab, data) {
+	util.openTab("https://translate.google.com/#auto/ja/"+data+"");
+	//https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=ja&dt=t&q=미소를짓다"
+}
+
+function openHighlighted_OnPapagoTranslate(tab, data) {
+	util.openTab("https://papago.naver.com/?sk=ko&tk=ja&st="+data+"");
+}
+
 
 dictionary.load().then(reloadGoogleSpreadSheetDict()).then(() => init());

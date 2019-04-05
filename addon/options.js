@@ -229,21 +229,25 @@ document.getElementById("downloadVocabList_Btn").addEventListener("click", funct
         console.log('Clicked downloadVocabList_Btn');
         let VList = localStorage.getItem('vocabList');
         if (!VList){
-            console.log('@Option.showVocabList_Btn, VList is null, converting VList to empty list ' + VList)
+            console.log('@Option.showVocabList_Btn, VList is null, converting VList to empty list ' + VList);
             VList = []
         }
     
         else{
             VList = JSON.parse(VList);
+            console.log("Vlist :",VList);
         }
-
+        
 		var tsv = '';
         VList.forEach(function(row) {
-                tsv += row.join('\t');
-                tsv += "\n";
+                //console.log(row.join('\t'));
+                let joinedrow = row.join('\t');
+                joinedrow = joinedrow.replace(/(\r\n|\n|\r)/gm, ""); //remove any existing new line in dictdef (i.e. used for shoowing def entry with line break when showing dict popups)
+                tsv += joinedrow;
+                tsv += "\r\n"; //added \r for windows compatability
         });
      
-        console.log('tsv:' + tsv);
+        console.log('tsv: ' , tsv);
         var hiddenElement = document.createElement('a');
         hiddenElement.href = 'data:text/tsv;charset=utf-8,' + encodeURI(tsv);
         hiddenElement.target = '_blank';

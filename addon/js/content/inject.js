@@ -48,11 +48,16 @@ if (window.browser == null) {
 	let $manualhightlight_left;
 	let $manualhightlight_right;
 	let $manualrefreshdictentry;
+	let $openNaverLink;
+	let $openHighlightedOnNaverLink;
+	let $openHighlightedOnGoogleTranslateLink;
+	let $openHighlightedOnPapagoTranslateLink;
 	let $lock;
 	let $notification;
 	//let $plus = $("<img>", { id: 'toktogi-plus', class: 'toktogi-icon', src: browser.getImageUrl("plus.png") });
 	let isAndroid = false;
 	let mouseDown;
+	let mouseDownCoolDown;
 	
 
 
@@ -212,13 +217,14 @@ if (window.browser == null) {
 				$("<span>", { class: 'dict-word' }).text(word)
 				
 			);
-
+			
 			
 			// TODO turn this back on when vocab list is working. 
 			// Got-Cha bud !
 			var $plus = $("<img>", { class: 'toktogi-plus toktogi-icon', "data-index": i, src: browser.getImageUrl('plus.png') });
 			$plus.click({dataIndex: i}, addPlusToList);
 			$dictInner.append($plus);
+			$openNaverLink = $("<a>", { href: 'https://endic.naver.com/search.nhn?sLn=en&query='+word+'&searchOption=all&preQuery=&forceRedirect=N', class: 'naverlink', target:"_blank" }).text("🔍").appendTo($dictInner);
 			
 			// Beautify Dictbox Entry, i.e. adding show/hide dict entries which has more that 4 lines , etc.
 			let offlinedict2_entry_counter = 0;
@@ -503,14 +509,32 @@ if (window.browser == null) {
 		$(document).on('mousedown mouseup', function mouseState(e) {
 			if (e.type == "mousedown") {
 				//code triggers on hold , use to make sure word lookup won't run when mouse down
+				clearTimeout(mouseDownCoolDown);
 				mouseDown = true;
 			}
 			else{
-				mouseDown = false;
+				// mouseDown = false;
+				if (isAndroid){
+					mouseDown = false; //Cooldown not neccessary for android device.
+				}
+				else{
+					mouseDownCoolDown = setTimeout(function(){ mouseDown = false; }, 500);  //When mouse up, wait 0.5 seconds before changing variable. This way user have 0.5 seconds before dictlookup() starts
+				}
+				
 			}
 	
 		});
+		
+		if (!isAndroid){
+			$(document).on('contextmenu', function() {
+				//Postpone lookup words when context menu opened
+				clearTimeout(mouseDownCoolDown);
+				mouseDown = true;
+				setTimeout(function(){ mouseDown = false; }, 2000);
+			});
+		}
 
+		
 		$(document).on("mousemove", function (event) {
 			clearTimeout(lookupTimeout);
 
@@ -550,6 +574,21 @@ if (window.browser == null) {
 
 		$manualhightlight_right.click(function (event) {
 			highlightMatch(1,true);
+		});
+
+		$openHighlightedOnNaverLink.click(function (event) {
+			let x = getSelectionText();
+			browser.sendMessage({ name: "openHighlightedWord_OnNaver" , data:x });
+		});
+
+		$openHighlightedOnGoogleTranslateLink.click(function (event) {
+			let x = getSelectionText();
+			browser.sendMessage({ name: "openHighlighted_OnGoogleTranslate" , data:x });
+		});
+
+		$openHighlightedOnPapagoTranslateLink.click(function (event) {
+			let x = getSelectionText();
+			browser.sendMessage({ name: "openHighlighted_OnPapagoTranslate" , data:x });
 		});
 
 		isLocked = false;
@@ -658,9 +697,12 @@ if (window.browser == null) {
 		$dictInner = $("<div>", { id: 'dict-inner' }).appendTo($dict);
 		$manualhightlight_left = $("<button>", { id: 'toktogi-highlight_left', class: 'toktogi-button' }).text("⇤").appendTo($dict);
 		$manualhightlight_right = $("<button>", { id: 'toktogi-highlight_right', class: 'toktogi-button' }).text("⇥").appendTo($dict);
-		$manualrefreshdictentry = $("<button>", { id: 'toktogi-refresh_dict', class: 'toktogi-button' }).text("✔").appendTo($dict);
+		//$manualrefreshdictentry = $("<button>", { id: 'toktogi-refresh_dict', class: 'toktogi-button' }).text("✔").appendTo($dict);
+		$openHighlightedOnNaverLink = $("<button>", { id: 'toktogi-openhightlightedOnNaver',class: 'toktogi-button'}).text("🔎").appendTo($dict);
+		$openHighlightedOnGoogleTranslateLink = $("<button>", { id: 'toktogi-openHighlightedOnGoogleTranslateLink',class: 'toktogi-button'}).text("Ⓖ").appendTo($dict);
+		$openHighlightedOnPapagoTranslateLink = $("<button>", { id: 'toktogi-openHighlightedOnPapagoTranslateLink',class: 'toktogi-button'}).text("Ⓟ").appendTo($dict);
 		$lock = $("<img>", { id: 'toktogi-lock', class: 'toktogi-icon' }).appendTo($dict);
-		
+		//🕵️
 		
 		updateLock();
 		$notification = $("<div>", { id: 'toktogi-notification' })
@@ -696,10 +738,17 @@ if (window.browser == null) {
 		} else if (document.selection && document.selection.type != "Control") {
 			text = document.selection.createRange().text;
 		}
-		alert("highlighted text is: " + text);
+		console.log("highlighted text is: " + text);
 
 		return text;
 	}
+
+	function openGoogleTranslate() {
+		//
+		// More info: from stackoverflow.com/questions/5379120/get-the-highlighted-selected-text
+		//	https://translate.google.com/?oe=utf-8&client=firefox-b-ab&um=1&ie=UTF-8&hl=en&client=tw-ob#view=home&op=translate&sl=ko&tl=ja&text=%EB%AD%90%ED%95%98%EB%83%90
+	}
+
 	browser.addListener("injectedData", loadData);
 	browser.addListener("found", displayDef);
 	browser.addListener("startListeners", turnOn);
