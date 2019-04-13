@@ -9,7 +9,7 @@
 
 <button id="refreshpage">Refresh Page</button><br>
 <label>Re-Download Dict from Live Feed Update Channel <a href="https://docs.google.com/spreadsheets/u/2/d/e/2PACX-1vRx3emMmjh07vucKBs5x_I3uwtF3ldPybucONoNsNk7-_ob5ML2uJNEs28vzv6t-zTMYqJW5ZSgKUjo/pubhtml">(HTML)</a> <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRx3emMmjh07vucKBs5x_I3uwtF3ldPybucONoNsNk7-_ob5ML2uJNEs28vzv6t-zTMYqJW5ZSgKUjo/pub?gid=0&single=true&output=tsv">(TSV)</a></label> <button id="LoadSpreadSheetDict">Load SpreadSheetDict</button><br>
-<label >Save Vocab To TSV List or AnkiConnect?: (Restart required) </label><label id="TSV_OR_AnkiConnect_Lb"></label><button id="Use_TSV_Btn">Use TSV List</button><button id="Use_AnkiConnect_Btn">Use Anki Connect</button><br>
+<label >Save Vocab To TSV List or AnkiConnect?: (Restart required) </label><label id="TSV_OR_AnkiConnect_Lb"></label><button id="Use_TSV_Btn">Use TSV List</button><button id="Use_AnkiConnect_Btn">Use Anki Connect</button> Need Anki-Connect Add-on (Anki 2.1 Windows/Mac Add-on) for Anki direct import<br>
 <label >Turn on "Conjugated Word Recognition Improvement"? : </label><label id="improved_ConjugatedWord_Recognition_Lb"></label><button id="Use_improved_Word_Recognition_Btn">Turn on</button><button id="Dont_Use_improved_Word_Recognition_Btn">Turn Off</button><br>
 <label >Turn on "Greedy word Recognition" (Add 'r' batchim to every hanguel)? : </label><label id="Greedy_word_Recognition_Lb"></label><button id="Use_Greedy_word_Recognition_Btn">Turn on</button><button id="Dont_Use_Greedy_word_Recognition_Btn">Turn Off</button><br>
 <label >KeyPress_Hotkey Enabled: </label><label id="hotkey_Enabled_Lb"></label><button id="KeyPressToggle_Btn">Toggle</button><br>
@@ -48,11 +48,52 @@
 
 </div>
 
-<br><br>
+<div class="grid-item"> <br><label class="desc"><b>Supplement Dict Config: (Place Holder, Doesn't work yet)</b> </label> <br>
 
+	<label class="radio_verticle">Mode1: KR > EN def , EN Explaination
+	<input type="radio" name="DictLanguageMode" id="En">
+  </label><br>
+  <label class="radio_verticle">Mode2: KR > JP def, JP Explaination
+	<input type="radio" name="DictLanguageMode" id="Jp">
+  </label><br>
+  <label class="radio_verticle">Mode3: KR > EN def, KR Explaination
+	<input type="radio" name="DictLanguageMode" id="EnKr">
+  </label><br>
+  <label class="radio_verticle">Mode4: KR > JP def, KR Explaination
+	<input type="radio" name="DictLanguageMode" id="JpKr">
+  </label>
+</div>
+
+<div class="grid-item"> <br><label class="desc"><b>Papago MTL Setup</b> </label> <br>
+	<label class="radio_verticle">Mode1: Don't Use, Manual Trigger Only
+	<input type="radio" name="DictLanguageMode" id="En">
+  </label><br>
+  <label class="radio_verticle">Mode2: Manual Drag/Highlight To Trigger MTL
+	<input type="radio" name="DictLanguageMode" id="Jp">
+  </label><br>
+  <label class="radio_verticle">Mode3: Ctrl + Manual Drag/Highlight To Trigger MTL
+	<input type="radio" name="DictLanguageMode" id="EnKr">
+  </label><br>
+</div>
+
+<br><br>
+<div class="grid-item"> <form class="form-inline">
+    <label class="desc"><b>Anki Korean Field Name:</b></label><input type="form" id="AnkiFieldName_Korean" placeholder="Korean">  </input> <br>
+	<label class="desc"><b>Anki English Field Name:</b></label><input type="form" id="AnkiFieldName_English" placeholder="English">  </input><br>
+	<label class="desc"><b>Anki Context_Sentence Field Name:</b></label><input type="form" id="AnkiFieldName_Context_Sentence" placeholder="Context_Sentence">  </input><br>
+	<label class="desc"><b>Anki Source_Title Field Name:</b></label><input type="form" id="AnkiFieldName_Source_Title" placeholder="Source_Title">  </input><br>
+	<label class="desc"><b>Anki MTL_Output Field Name:</b></label><input type="form" id="AnkiFieldName_MTL_Output" placeholder="MTL_Output">  </input><br>
+	<label class="desc"><b>Anki Deck Name:</b></label><input type="form" id="AnkiDeckName" placeholder="Vocab_Toktogi">  </input><br>
+	<label class="desc"><b>Anki Model Name:</b></label><input type="form" id="AnkiModelName" placeholder="Toktogi">  </input><br>
+	<label >Save MTL? </label><label id="Save_MTL_Lb"></label><button id="Save_MTL_Lb">Toggle</button><br>
+	<label>Restore Default: </label></label><button id="AnkiForm_RestoreDefault">Restore Default</button><br>
+	<button type="submit" id ='AnkiFieldName_Form'>Save & Apply (Place Holder form, You can't change default field name yet !)</button><br>
+  </form>Default field name not implemented yet ! Sorry !</div>
+
+  <br><br>
 <div class="grid-item"> <form class="form-inline">
     <label class="desc"><b>Online_KR_Dict_API:</b></label>
-    <input type="form" id="Online_KR_Dict_API_id" placeholder="Online KRDict_API Key">  </label>  <button type="submit" id ='Online_KR_Dict_Form'>Submit</button>
+    <input type="form" id="Online_KR_Dict_API_id" placeholder="Online KRDict_API Key">  </input>  <button type="submit" id ='Online_KR_Dict_Form'>Submit</button>
   </form>Required for Querying Word to KRDict website (Similar to Rikai-sama's "Sanseidō Mode").<br> If you don't plan to use this feature. it's fine to leave blank</div>
 
 <script src="options.js"></script>
@@ -65,6 +106,15 @@
 
 
 <h2>Change log</h2>
+
+<h3>0.7.8.7</h3>
+<ul>
+	<li>Todo: Fix bug. Toggling Toktogi-plus on and off cause many of its instances to run.</li>
+	<li>Todo: Option page link from popup</li>
+	<li>Basic Frequency rank</li>
+	<li>Fixed stoplistener bug (Naver dict lookup tab opened several times instead of just once) </li>
+	<li>Fixed Saving vocab to TSV line break functions was not working correctly </li>
+</ul>
 
 <h3>0.7.8.6b</h3>
 <ul>

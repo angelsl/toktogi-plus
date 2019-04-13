@@ -678,15 +678,15 @@ function TsvLineToObjectDict(tsv,dictNo){
 
 				if (dictionary3.dict[currentline[0]]){
 					// if entry already exist, append
-					dictionary3.dict[currentline[0]] = { jp_defs:dictionary3.dict[currentline[0]].jp_defs+"\n"+currentline[1], pos: dictionary3.dict[currentline[0]].pos+"|"+currentline[2], hanja: dictionary3.dict[currentline[0]].hanja+"|"+currentline[3],jp_trans:dictionary3.dict[currentline[0]].jp_trans+"\n"+currentline[4], displaydef:dictionary3.dict[currentline[0]].displaydef }
-					let temp =  currentline[2].concat(currentline[3]).concat(currentline[1]).concat(currentline[4]).concat("<BR>");
+					dictionary3.dict[currentline[0]] = { jp_defs:dictionary3.dict[currentline[0]].jp_defs+"\n"+currentline[1], pos: dictionary3.dict[currentline[0]].pos+"|"+currentline[2], freq: dictionary3.dict[currentline[0]].freq+"|"+currentline[6], hanja: dictionary3.dict[currentline[0]].hanja+"|"+currentline[3],jp_trans:dictionary3.dict[currentline[0]].jp_trans+"\n"+currentline[4], displaydef:dictionary3.dict[currentline[0]].displaydef }
+					let temp =  (currentline[6]).concat(currentline[2]).concat(currentline[3]).concat(currentline[1]).concat(currentline[4]).concat("<BR>");
 					dictionary3.dict[currentline[0]].displaydef = dictionary3.dict[currentline[0]].displaydef +"\n" + temp
 					
 
 				}
 				else{
-					dictionary3.dict[currentline[0]] = { jp_defs:currentline[1], pos: currentline[2], hanja: currentline[3],jp_trans:currentline[4]}
-					dictionary3.dict[currentline[0]].displaydef = currentline[2].concat(currentline[3]).concat(currentline[1]).concat(currentline[4]).concat("<BR>");	
+					dictionary3.dict[currentline[0]] = { jp_defs:currentline[1], pos: currentline[2], hanja: currentline[3],jp_trans:currentline[4],freq:currentline[6]}
+					dictionary3.dict[currentline[0]].displaydef = concat(currentline[6]).concat(currentline[2]).concat(currentline[3]).concat(currentline[1]).concat(currentline[4]).concat("<BR>");	
 				}
 
 				if (false){

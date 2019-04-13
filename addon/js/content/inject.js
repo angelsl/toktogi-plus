@@ -607,7 +607,15 @@ if (window.browser == null) {
 	function stopListeners() {
 		$(document).off("mousemove");
 		$(document).off("keyup");
+		$(document).off("mousedown");
+		$(document).off("mouseup");
+		$(document).off("contextmenu");
 		$lock.off("click");
+		$manualhightlight_left.off("click");
+		$manualhightlight_right.off("click");
+		$openHighlightedOnNaverLink.off("click");
+		$openHighlightedOnGoogleTranslateLink.off("click");
+		$openHighlightedOnPapagoTranslateLink.off("click");
 		showErrorNotification("Toktogi Turned Off ");
 	}
 
