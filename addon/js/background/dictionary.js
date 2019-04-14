@@ -46,7 +46,29 @@ dictionary.lookupWords = function(str) {
 	//console.log("@@ dictionary.js. improved_ConjugatedWord_Recognition is : " + improved_ConjugatedWord_Recognition);
 	// https://jsfiddle.net/4tfgoucx/ This will be helpful for improving Conjugated WordRecognition
 
-
+	/*
+	let is_first_char_hanguel = isHanguel(str.charAt(0));
+	let firstcharbatchim;
+	if (is_first_char_hanguel){
+		firstcharbatchim = typeof str.charAt(0).normalize('NFD')[2] !== "undefined"? str.charAt(0).normalize('NFD')[2] : false; 
+		//Convert "Trailing Hangul Jamo Area" to "Hangul Compatibility" . for dict3
+		if (firstcharbatchim == 'ᆫ'){
+			firstcharbatchim = 'ㄴ'
+		}
+		else if (firstcharbatchim == 'ᆯ'){
+			firstcharbatchim = 'ㄹ'
+		}
+		else if (firstcharbatchim == 'ᆷ'){
+			firstcharbatchim = 'ㅁ'
+		}
+		else if (firstcharbatchim == 'ᆸ'){
+			firstcharbatchim = 'ㅂ'
+		}
+		else{
+			firstcharbatchim = false;
+		}
+	}
+	*/
 	let totalDictKeyLookupCount = 0;
 
 	/**
@@ -67,6 +89,7 @@ dictionary.lookupWords = function(str) {
 			// Only if GreedyWordRecognition_Enabled, then deal with -네요 , i.e. 크네요  ,크다 = to be big 
 			//  았 to deal with variable conjugation contraction i.e. 바라봤다/  바라보았다 becomes > (바라보다)
 			// 이 to deal with 짓다 /짓이나 
+			// substring is exclusiveor, var str = 'Mozilla' , str.substring(0, 1) >> "M"
 			if (!wordList.includes(str.substring(0, i-1).concat('다'))){
 				wordList.push(str.substring(0, i-1).concat('다'));
 				//console.log("@ word ending contains '니' || '을'. "+ word+" becomes :" + str.substring(0, i-1).concat('다'));
@@ -132,7 +155,15 @@ dictionary.lookupWords = function(str) {
 				wordList.push(str.substring(0, i-1).concat('럽다'));
 			}
 		}
-		
+		/*
+		if (firstcharbatchim){
+			//if first char has batchim ie. str = 난듯하다. then lookup [ㄴ, ㄴ듯, ㄴ듯하, ㄴ듯하다]
+			if (!wordList.includes(firstcharbatchim.concat(str.substring(1, i)))){
+				console.log(firstcharbatchim.concat(str.substring(1, i)))
+				wordList.push(firstcharbatchim.concat(str.substring(1, i)));
+			}
+		}
+		*/
 		if (!wordList.includes(word)){
 			wordList.push(word);
 		}
@@ -407,7 +438,6 @@ dictionary.lookupWords = function(str) {
 
 	function lookupDict3(i){
 		let info = dict3[wordList[i]];
-
 		if (info) {
 				entryList.push({ word: wordList[i], defs: info.displaydef.split("<BR>"), pos:info.pos, hanja:info.hanja, defsDictType: new Array(info.displaydef.split("<BR>").length).fill("offlinedict3") });
 				return true;
@@ -417,7 +447,7 @@ dictionary.lookupWords = function(str) {
 	
 	function isHanguel(c){
 		c = c.charCodeAt(0);
-		if (c < 0xAC00 || c > 0xD7A3) {
+		if (c < 0xAC00 || c > 0xD7A3 || Number.isNaN(c)) {
 			return false;
 		  }
 		return true;
@@ -657,6 +687,8 @@ function TsvLineToObjectDict(tsv,dictNo){
 		
 		for(let i=1;i<lines.length;i++){
 			let currentline=lines[i].split("\t");
+			//we want no white space. Otherwise dict like this "로스트 제너레이션" will be hard to catch if input without spacing
+			currentline[0] = currentline[0].replace(/\s/g, '');
 			if (dictNo == "dict2"){
 
 				if (dictionary2.dict[currentline[0]]) {
@@ -687,6 +719,28 @@ function TsvLineToObjectDict(tsv,dictNo){
 				else{
 					dictionary3.dict[currentline[0]] = { jp_defs:currentline[1], pos: currentline[2], hanja: currentline[3],jp_trans:currentline[4],freq:currentline[6]}
 					dictionary3.dict[currentline[0]].displaydef = currentline[6].concat(currentline[2]).concat(currentline[3]).concat(currentline[1]).concat(currentline[4]).concat("<BR>");	
+				}
+
+
+				/* HANDLES leading batchim */	
+				if (['ㄴ','ㄹ','ㅁ','ㅂ'].includes(currentline[0].charAt(0))){
+					
+					//  ㄴ적이있다	ことがある	 Becomes>  적이있다	(ㄴ적이있다) ことがある
+					// currentline[1] = "("+ currentline[0] +")  ".concat(currentline[1]) This line not needed. Done from Handle EOMI part above
+					currentline[0] = currentline[0].substring(1); //bypass firstchar
+					//TODO: factorise this function
+					if (dictionary3.dict[currentline[0]]){
+						// if entry already exist, append
+						dictionary3.dict[currentline[0]] = { jp_defs:dictionary3.dict[currentline[0]].jp_defs+"\n"+currentline[1], pos: dictionary3.dict[currentline[0]].pos+"|"+currentline[2], freq: dictionary3.dict[currentline[0]].freq+"|"+currentline[6], hanja: dictionary3.dict[currentline[0]].hanja+"|"+currentline[3],jp_trans:dictionary3.dict[currentline[0]].jp_trans+"\n"+currentline[4], displaydef:dictionary3.dict[currentline[0]].displaydef }
+						let temp =  currentline[6].concat(currentline[2]).concat(currentline[3]).concat(currentline[1]).concat(currentline[4]).concat("<BR>");
+						dictionary3.dict[currentline[0]].displaydef = dictionary3.dict[currentline[0]].displaydef +"\n" + temp
+						
+	
+					}
+					else{
+						dictionary3.dict[currentline[0]] = { jp_defs:currentline[1], pos: currentline[2], hanja: currentline[3],jp_trans:currentline[4],freq:currentline[6]}
+						dictionary3.dict[currentline[0]].displaydef = currentline[6].concat(currentline[2]).concat(currentline[3]).concat(currentline[1]).concat(currentline[4]).concat("<BR>");	
+					}
 				}
 
 				if (false){
