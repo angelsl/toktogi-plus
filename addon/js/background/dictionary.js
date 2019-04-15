@@ -225,9 +225,13 @@ dictionary.lookupWords = function(str) {
 		detectDictFormOfConjugatedDef(i);
 	}
 
+	//let sortPriority = str   sort( (a, b) => priority.indexOf(a.id) - priority.indexOf(b.id) )
+	//uniq = [...new Set(array)];
+	//TODO: maybe do the sorting after got entrylist from dict. Otherwise waste cpu time sorting 10+length strs without hit entries.
 	wordList.sort(function(a, b) {
 		return a.length - b.length || // sort by length, ASC Order. if equal then  (ASC  -> a.length - b.length) (DESC -> b.length - a.length)
-			   a.localeCompare(b);    // sort by dictionary order. No Idea how it accomplishes the task, but I trust Stackoverflow's top voted.
+				str.indexOf(a)-str.indexOf(b)|| // If same length, sort by closet to input str. (보니) >>  보니 , 보다 , 보
+				a.localeCompare(b);    // Otherwise, sort by dictionary order. No Idea how it accomplishes the task, but I trust Stackoverflow's top voted.
 	  });
 
 
