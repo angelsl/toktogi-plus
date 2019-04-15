@@ -45,6 +45,7 @@ function init() {
 	util.addListener("openHighlightedWord_OnNaver", openHighlightedWord_OnNaver);
 	util.addListener("openHighlighted_OnGoogleTranslate", openHighlighted_OnGoogleTranslate);
 	util.addListener("openHighlighted_OnPapagoTranslate", openHighlighted_OnPapagoTranslate);
+	util.addListener("openHighlighted_OnLingq", openHighlighted_OnLingq);
 	
 
 	try {
@@ -171,6 +172,10 @@ function openHighlighted_OnGoogleTranslate(tab, data) {
 
 function openHighlighted_OnPapagoTranslate(tab, data) {
 	util.openTab("https://papago.naver.com/?sk=ko&tk=ja&st="+data+"");
+}
+
+function openHighlighted_OnLingq(tab, data) {
+	util.openTab("https://www.lingq.com/en/translate/ko/"+data+"");
 }
 
 

@@ -52,6 +52,7 @@ if (window.browser == null) {
 	let $openHighlightedOnNaverLink;
 	let $openHighlightedOnGoogleTranslateLink;
 	let $openHighlightedOnPapagoTranslateLink;
+	let $openHighlightedOnLingqLink;
 	let $lock;
 	let $notification;
 	//let $plus = $("<img>", { id: 'toktogi-plus', class: 'toktogi-icon', src: browser.getImageUrl("plus.png") });
@@ -591,6 +592,11 @@ if (window.browser == null) {
 			browser.sendMessage({ name: "openHighlighted_OnPapagoTranslate" , data:x });
 		});
 
+		$openHighlightedOnLingqLink.click(function (event) {
+			let x = getSelectionText();
+			browser.sendMessage({ name: "openHighlighted_OnLingq" , data:x });
+		});
+
 		isLocked = false;
 	}
 
@@ -616,6 +622,7 @@ if (window.browser == null) {
 		$openHighlightedOnNaverLink.off("click");
 		$openHighlightedOnGoogleTranslateLink.off("click");
 		$openHighlightedOnPapagoTranslateLink.off("click");
+		$openHighlightedOnLingqLink.off("click");
 		showErrorNotification("Toktogi Turned Off ");
 	}
 
@@ -708,7 +715,8 @@ if (window.browser == null) {
 		//$manualrefreshdictentry = $("<button>", { id: 'toktogi-refresh_dict', class: 'toktogi-button' }).text("✔").appendTo($dict);
 		$openHighlightedOnNaverLink = $("<button>", { id: 'toktogi-openhightlightedOnNaver',class: 'toktogi-button'}).text("🔎").appendTo($dict);
 		$openHighlightedOnGoogleTranslateLink = $("<button>", { id: 'toktogi-openHighlightedOnGoogleTranslateLink',class: 'toktogi-button'}).text("Ⓖ").appendTo($dict);
-		$openHighlightedOnPapagoTranslateLink = $("<button>", { id: 'toktogi-openHighlightedOnPapagoTranslateLink',class: 'toktogi-button'}).text("Ⓟ").appendTo($dict);
+		$openHighlightedOnPapagoTranslateLink = $("<button>", { id: 'toktogi-openHighlightedOnPapagoTranslateLink',class: 'toktogi-button'}).text("🅿").appendTo($dict);
+		$openHighlightedOnLingqLink = $("<button>", { id: 'toktogi-openHighlightedOnLingqLink',class: 'toktogi-button'}).text("🅻").appendTo($dict);
 		$lock = $("<img>", { id: 'toktogi-lock', class: 'toktogi-icon' }).appendTo($dict);
 		//🕵️
 		

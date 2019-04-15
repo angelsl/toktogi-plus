@@ -95,10 +95,11 @@ dictionary.lookupWords = function(str) {
 				//console.log("@ word ending contains '니' || '을'. "+ word+" becomes :" + str.substring(0, i-1).concat('다'));
 			}
 		}
-		if (str.charAt(i-1).normalize('NFD')[2] == 'ᆫ' || str.charAt(i-1).normalize('NFD')[2] == 'ᆻ' || str.charAt(i-1).normalize('NFD')[2] == 'ᆯ' ){
+		if (str.charAt(i-1).normalize('NFD')[2] == 'ᆫ' || str.charAt(i-1).normalize('NFD')[2] == 'ᆻ' || str.charAt(i-1).normalize('NFD')[2] == 'ᆯ' || str.charAt(i-1).normalize('NFD')[2] == 'ᆷ'){
+
 			// if final char ends with above batchim 1. Drop batchim & Add 다   AND 2. simply Adds 다  without dropping anything
 			// handle things like 가졌 가질 가진
-
+			// 'ᆷ' handle 건방짐>>건방지다. 도도함>>도도하다 , 오만함 >> 오만하다<BR>
 			let char_no_batchim = str.charAt(i-1).normalize('NFD')[0].concat(str.charAt(i-1).normalize('NFD')[1]).normalize('NFC');
 			if (!wordList.includes(str.substring(0, i-1).concat(char_no_batchim).concat('다'))){
 				wordList.push(str.substring(0, i-1).concat(char_no_batchim).concat('다'));
@@ -119,8 +120,9 @@ dictionary.lookupWords = function(str) {
 			}
 		}
 
-		if  (  (str.charAt(i-1) =='운' ||(str.charAt(i-1) =='울'))&& i-2>=0  ){
+		if  (  (str.charAt(i-1) =='운' ||(str.charAt(i-1) =='울')||(str.charAt(i-1) =='웠'||(str.charAt(i-1) =='워') ||(str.charAt(i-1) =='움') ))&& i-2>=0  ){
 			// to handle fix 두렵다 future base (두려울)    ㅂ 불규칙 동사 (irregular verb)
+			// Will recognise 혐오스러웠,혐오스러워 as 혐오스럽다
 			// 매섭다 (매서운). : if (운 ||울) and previous char no batchim > previous char add b, current char add da
 			let already_contains_batchim = typeof str.charAt(i-2).normalize('NFD')[2] !== "undefined"?  true : false;
 			// is_hanguel check if character has korean vowel entry. Obviously 'zᆸ' , '.' , etc won't have them
