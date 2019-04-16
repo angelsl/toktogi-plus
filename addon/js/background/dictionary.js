@@ -79,7 +79,7 @@ dictionary.lookupWords = function(str) {
 	for (let i = 1; i < str.length + 1; i++) {
 		const word = str.substring(0, i);
 		//TODO: More fine criteria i.e. (str.charAt(i-1) =='을' ||  str.charAt(i-1) == '은') && str.charAt(i-2) exist && str.charAt(i-2) has batchim
-		if (['니','며','느','라','을','은','으','지','는','게','네','잖','쇼','죠','고','듯','던','더','았','었','셔'].includes(str.charAt(i-1)) || ['거나','거든','도록'].includes(str.substring(i-1,i+1)) || (GreedyWordRecognition_Enabled && ['기','십','이','되'].includes(str.charAt(i-1))) ){
+		if (['니','며','느','라','긴','을','은','으','지','는','게','네','잖','쇼','죠','고','듯','던','더','았','었','셔','기','십','되'].includes(str.charAt(i-1)) || ['거나','거든','도록'].includes(str.substring(i-1,i+1)) || (GreedyWordRecognition_Enabled && ['이'].includes(str.charAt(i-1))) ){
 			// to handle 	inquisitive present & past formal low '먹니' & '먹었니'
 			// 을 to handle st like 먹을게요 or ~(으)ㄹ게 
 			// if not already in list, push
