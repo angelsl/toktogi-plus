@@ -23,7 +23,65 @@ let KRDICT_Mode_Enabled = true;
 //TODO: handle -거리다
 //TODO: handle -handle words conjugation where optionally 'wa' can becomes 'eo+a' or 'weo' = 'o + eo'
 
+/**
+ * Figure out how long it takes for a method to execute.
+ * 
+ * @param {Function} method to test 
+ * @param {number} iterations number of executions.
+ * @param {Array} args to pass in. 
+ * @param {T} context the context to call the method in.
+ * @return {number} the time it took, in milliseconds to execute.
+ */
+
+var bench = function (method, iterations, args, context) {
+
+    var time = 0;
+    var timer = function (action) {
+        var d = Date.now();
+        if (time < 1 || action === 'start') {
+            time = d;
+            return 0;
+        } else if (action === 'stop') {
+            var t = d - time;
+            time = 0;    
+            return t;
+        } else {
+            return d - time;    
+        }
+    };
+
+    var result = [];
+    var i = 0;
+    timer('start');
+    while (i < iterations) {
+        result.push(method.apply(context, args));
+        i++;
+    }
+
+    var execTime = timer('stop');
+
+    if ( typeof console === "object") {
+        console.log("Mean execution time was: ", execTime / iterations, "ms");
+        console.log("Sum execution time was: ", execTime, "ms");
+        console.log("Result of the method call was:", result[0]);
+    }
+
+    return execTime;  
+};
+
+var timerF = function(name) {
+    var start = new Date();
+    return {
+        stop: function() {
+            var end  = new Date();
+            var time = end.getTime() - start.getTime();
+            console.log('Timer:', name, 'finished in', time, 'ms');
+        }
+    }
+};
+
 dictionary.lookupWords = function(str) {
+	//let t = timerF('lookupwords');
 
 	let initial_str = str.length; //for Debug purpose
 	// lookupword for up to 15 char. Vocab length shouldn't be longer
@@ -79,7 +137,7 @@ dictionary.lookupWords = function(str) {
 	for (let i = 1; i < str.length + 1; i++) {
 		const word = str.substring(0, i);
 		//TODO: More fine criteria i.e. (str.charAt(i-1) =='을' ||  str.charAt(i-1) == '은') && str.charAt(i-2) exist && str.charAt(i-2) has batchim
-		if (['니','며','느','라','긴','을','은','으','지','는','게','네','잖','쇼','죠','고','듯','던','더','았','었','셔','기','십','되'].includes(str.charAt(i-1)) || ['거나','거든','도록'].includes(str.substring(i-1,i+1)) || (GreedyWordRecognition_Enabled && ['이'].includes(str.charAt(i-1))) ){
+		if (['니','며','느','라','긴','렴','을','은','으','지','는','게','네','러','잖','쇼','죠','고','듯','던','더','았','었','셔','기','십','되'].includes(str.charAt(i-1)) || ['거나','거든','도록'].includes(str.substring(i-1,i+1)) || (GreedyWordRecognition_Enabled && ['이'].includes(str.charAt(i-1))) ){
 			// to handle 	inquisitive present & past formal low '먹니' & '먹었니'
 			// 을 to handle st like 먹을게요 or ~(으)ㄹ게 
 			// if not already in list, push
@@ -142,6 +200,26 @@ dictionary.lookupWords = function(str) {
 			}
 
 		}
+
+		if  (  (isHanguel(str.charAt(i-1)))){
+			// to handle things like 튕겨	>> 튕기다
+			
+			/*
+			if (is_hanguel && !already_contains_batchim){
+
+				let char_with_batchim_b_added = str.charAt(i-2,0).normalize('NFD')[0].concat(str.charAt(i-2,0).normalize('NFD')[1]).concat('섭'.normalize('NFD')[2]).normalize('NFC');
+				//console.log("@ char_with_batchim_r_added :" + char_with_batchim_r_added);
+				let Str_with_batchim_b_added = str.substr(0, i-2,0) + char_with_batchim_b_added + '다';
+				//console.log("@ after Str_with_batchim_r_added :" + Str_with_batchim_r_added);
+				if (!wordList.includes(Str_with_batchim_b_added)){
+				
+					wordList.push(Str_with_batchim_b_added);
+				}
+
+			}
+			*/
+		}
+
 		if (['해','했'].includes(str.charAt(i-1))){
 			// to handle -하다 vocab not in dict 1 (meaning no conjugation table)
 			// without this, 치사해요 will fail.
@@ -383,6 +461,7 @@ dictionary.lookupWords = function(str) {
 	}
 	// DummylookupKRDict();  //to play around with it later
 	//console.log("initial_str: "+ initial_str+", len_limited_str: "+len_limited_str + ", totalDictKeyLookupCount"+totalDictKeyLookupCount + ", inital_wordList_len: "+ inital_wordList_len + ", final_wordList_len: "+ final_wordList_len);
+
 	return entryList;
 
 	function detectDictFormOfConjugatedDef(i){
@@ -461,8 +540,97 @@ dictionary.lookupWords = function(str) {
 
 }
 
+function filterRangeSearch(str, method){
+	let initial_str = str.length; //for Debug purpose
+	// lookupword for up to 15 char. Vocab length shouldn't be longer
+	str = str.substring(0,Math.min(str.length, 5));
+	// clear all white spaces (Except if first char is white space) so that str query like dict["할 거야"] becomes  dict["할거야"] which has dict entry
+	if (str.charAt(0) == ' '){
+		// check & preserve firt char if firt char == white space.  That is, we want " 먹다" to fail dict lookup & "먹다" to pass
+		str = ' '.concat(str.replace(/\s/g, ''));
+	}
+	else{
+		str = str.replace(/\s/g, '');
+	}
+	const dict2keys = dictionary2.keysL;
+	const dict2 = dictionary2.dict;
+	const dict3keys = dictionary3.keysL;
+	const dict3 = dictionary3.dict;
 
 
+	
+	let entryList = [];
+	let entryList2 = [];
+
+	if (method == "a*"){
+		entryList = dict2keys.filter((entry)=> entry.startsWith(str));
+		entryList2 = dict3keys.filter((entry)=> entry.startsWith(str));
+	}
+	else if (method == "a*da"){
+		entryList = dict2keys.filter((entry)=> entry.startsWith(str) && entry.endsWith('다'));
+		entryList2 = dict3keys.filter((entry)=> entry.startsWith(str)&& entry.endsWith('다'));
+	}
+	else if (method == "*a*"){
+		entryList = dict2keys.filter((entry)=> entry.includes(str));
+		entryList2 = dict3keys.filter((entry)=> entry.includes(str));
+	}
+	else if (method == "*a*da"){
+		entryList = dict2keys.filter((entry)=> entry.includes(str) && entry.endsWith('다'));
+		entryList2 = dict3keys.filter((entry)=> entry.includes(str)&& entry.endsWith('다'));
+	}
+
+
+	for (let k in entryList2){
+		if (!entryList.includes(entryList2[k])){
+			//combine dict2 dict3
+			entryList.push(entryList2[k])
+		}
+	}
+
+	//entryList = ["장전as","장전zzzxc","weqr"].filter((entry)=> entry.startsWith(str));
+
+
+	
+
+	entryList.sort(function(a, b) {
+	return a.length - b.length || // sort by length, ASC Order. if equal then  (ASC  -> a.length - b.length) (DESC -> b.length - a.length)
+			str.indexOf(a)-str.indexOf(b)|| // If same length, sort by closet to input str. (보니) >>  보니 , 보다 , 보
+			a.localeCompare(b);    // Otherwise, sort by dictionary order. No Idea how it accomplishes the task, but I trust Stackoverflow's top voted.
+	});
+
+	if (is_debugMode){
+			
+		console.log(entryList.length);
+	
+		for (let i = 0; i < Math.min(entryList.length,4); i++) {
+			console.log(i);
+			console.log(i + " " + entryList[i]);
+			}
+		 }
+	
+	let resultL = []
+	for (let i = 0; i < Math.min(entryList.length,8); i++) {
+			let info1 = dict2[entryList[i]];
+			let info2 = dict3[entryList[i]];
+			if (info1 && info2) {
+				let mergeddef = info1.split("<BR>").concat(info2.displaydef.split("<BR>"));
+				let defsDictType = new Array(info1.split("<BR>").length).fill("offlinedict2").concat(new Array(info2.displaydef.split("<BR>").length).fill("offlinedict3"));
+				resultL.push({ word: entryList[i], defs: mergeddef, defsDictType: defsDictType, pos:info2.pos, hanja:info2.hanja });
+			}
+			else if (info1) {
+				resultL.push({ word: entryList[i], defs: info1.split("<BR>"), defsDictType: new Array(info1.split("<BR>").length).fill("offlinedict2") });
+			}
+			else if (info2) {
+				resultL.push({ word: entryList[i], defs: info2.displaydef.split("<BR>"), pos:info2.pos, hanja:info2.hanja, defsDictType: new Array(info2.displaydef.split("<BR>").length).fill("offlinedict3") });
+			}
+		}
+
+	return resultL;
+}
+
+function getVowel(){
+	// example getVowel('쳤')  : ㅕ
+}
 function append_Da_to_List(input_str, wordList){
 	// example: Input = "복세편살" , processed_wordlist_output  = ['복세편다','복세다','복다']
 	// useful for dealing with  verb stem + unknown eomi
@@ -774,6 +942,14 @@ function TsvLineToObjectDict(tsv,dictNo){
 		if (dictNo == "dict3"){
 			console.log("dictionary3.dict['가구'] : ", dictionary3.dict['가구']);
 		}*/
+
+		if (dictNo == "dict2"){
+			dictionary2.keysL = Object.keys(dictionary2.dict);
+		}
+		else if (dictNo == "dict3"){
+			dictionary3.keysL = Object.keys(dictionary3.dict);
+		}
+
 		return JSON.stringify(dictionary2.dict); //JSON
 
 		function splitjp_Def_str_to_list(jpdef){
@@ -828,11 +1004,14 @@ dictionary.load = async function() {
 	dictionary3.dictstr = await util.getKRJP_DictSpaceSlashSpaceDelimitedTSV();
 	TsvLineToObjectDict(dictionary3.dictstr,"dict3");
 	dictionary3.dictstr = null; //don't need dictstr anymore, use dictionary2.dict obj instead. fotmat dictionary2[Str of  'Dictentry'] = Str 'defs'
+
+	await dictionary.reloadFromGoogleSpreadSheet_TSV();
 }
 
 dictionary.reloadFromGoogleSpreadSheet_TSV = async function() {
 	
 	dictionary2.dictstr2 = await util.getGoogleSpreadSheetTSVDict();
+	console.log(dictionary2.dictstr2);
 	TsvLineToObjectDict(dictionary2.dictstr2,"dict2");
 	dictionary2.dictstr2 = null; //don't need dictstr anymore, use dictionary2.dict obj instead. fotmat dictionary2[Str of  'Dictentry'] = Str 'defs'
 

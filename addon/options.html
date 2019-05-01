@@ -10,7 +10,7 @@
 <button id="refreshpage">Refresh Page</button><br>
 <label>Re-Download Dict from Live Feed Update Channel <a href="https://docs.google.com/spreadsheets/u/2/d/e/2PACX-1vRx3emMmjh07vucKBs5x_I3uwtF3ldPybucONoNsNk7-_ob5ML2uJNEs28vzv6t-zTMYqJW5ZSgKUjo/pubhtml">(HTML)</a> <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRx3emMmjh07vucKBs5x_I3uwtF3ldPybucONoNsNk7-_ob5ML2uJNEs28vzv6t-zTMYqJW5ZSgKUjo/pub?gid=0&single=true&output=tsv">(TSV)</a></label> <button id="LoadSpreadSheetDict">Load SpreadSheetDict</button><br>
 <label >Save Vocab To TSV List or AnkiConnect?: (Restart required) </label><label id="TSV_OR_AnkiConnect_Lb"></label><button id="Use_TSV_Btn">Use TSV List</button><button id="Use_AnkiConnect_Btn">Use Anki Connect</button> Need Anki-Connect Add-on (Anki 2.1 Windows/Mac Add-on) for Anki direct import<br>
-<label >Turn on "Conjugated Word Recognition Improvement"? : </label><label id="improved_ConjugatedWord_Recognition_Lb"></label><button id="Use_improved_Word_Recognition_Btn">Turn on</button><button id="Dont_Use_improved_Word_Recognition_Btn">Turn Off</button><br>
+<label >Turn on "Debug Mode"? : </label><label id="debugMode_Lb"></label><button id="Use_debugMode_Btn">Turn on</button><button id="Dont_Use_debugMode_Btn">Turn Off</button><br>
 <label >Turn on "Greedy word Recognition" (Add 'r' batchim to every hanguel)? : </label><label id="Greedy_word_Recognition_Lb"></label><button id="Use_Greedy_word_Recognition_Btn">Turn on</button><button id="Dont_Use_Greedy_word_Recognition_Btn">Turn Off</button><br>
 <label >KeyPress_Hotkey Enabled: </label><label id="hotkey_Enabled_Lb"></label><button id="KeyPressToggle_Btn">Toggle</button><br>
 <label >Vocab List Count: </label><label id="VocabCount_Lb"> 0 </label><button id="showVocabList_Btn">Show</button>
@@ -106,6 +106,15 @@
 
 
 <h2>Change log</h2>
+
+<h3>0.7.8.9</h3>
+<ul>
+	<li>Added Naver, Papago, Google Translate link</li>
+	<li>Range search. i.e. 건방* == Any words that starts with "건방". </li>
+	<li>Press Ctrl to temporary stop dictlookup </li>
+	<li>Updated Dict</li>
+	<li>Fixed dict from googlespreadsheet not loaded on startup</li>
+</ul>
 
 <h3>0.7.8.8</h3>
 <ul>

@@ -53,12 +53,28 @@ if (window.browser == null) {
 	let $openHighlightedOnGoogleTranslateLink;
 	let $openHighlightedOnPapagoTranslateLink;
 	let $openHighlightedOnLingqLink;
+	let $lookupStartsWith;
+	let $lookupVerbStartsWith;
+	let $lookupContains;
+	let $lookupVerbContains;
 	let $lock;
 	let $notification;
 	//let $plus = $("<img>", { id: 'toktogi-plus', class: 'toktogi-icon', src: browser.getImageUrl("plus.png") });
 	let isAndroid = false;
 	let mouseDown;
 	let mouseDownCoolDown;
+	let is_debugMode = false;
+
+	var timerF = function(name) {
+		var start = new Date();
+		return {
+			stop: function() {
+				var end  = new Date();
+				var time = end.getTime() - start.getTime();
+				console.log('Timer:', name, 'finished in', time, 'ms');
+			}
+		}
+	};
 	
 
 
@@ -123,10 +139,21 @@ if (window.browser == null) {
 
 		// TODO make sure the user hasn't moved the mouse since request
 		if (currentNode) {
-
+			let pTimer;
+			let highlightTimer;
+			let populateDictBoxTimer;
+			if (is_debugMode){		
+				pTimer = timerF('displayDef'); 	
+				highlightTimer = timerF('highlightTimer'); 	
+			}
 			highlightMatch(longestMatch.length);
+			if (is_debugMode){		
+				highlightTimer.stop();	
+				populateDictBoxTimer = timerF('populateDictBoxTimer'); 	
+			 }
 
 			populateDictBox(defArray);
+			if (is_debugMode){	populateDictBoxTimer.stop();}
 
 			// Save highlighted word coordinates
 
@@ -151,6 +178,8 @@ if (window.browser == null) {
 			boxBottom = boxTop + $dict.height();
 
 			isShowing = true;
+			if (is_debugMode){	pTimer.stop();}
+			
 		}
 	}
 
@@ -535,14 +564,18 @@ if (window.browser == null) {
 			});
 		}
 
+
 		
 		$(document).on("mousemove", function (event) {
 			clearTimeout(lookupTimeout);
 
 			const pageX = event.clientX;
 			const pageY = event.clientY;
-
 			range = browser.getRange(pageX, pageY);
+			if(event.ctrlKey){
+				//don't look up word when ctrl Key down(holding)
+				return;
+			}
 			if (mouseDown){
 				//don't look up word when mouse down(holding)
 				return;
@@ -580,6 +613,26 @@ if (window.browser == null) {
 		$openHighlightedOnNaverLink.click(function (event) {
 			let x = getSelectionText();
 			browser.sendMessage({ name: "openHighlightedWord_OnNaver" , data:x });
+		});
+
+		$lookupStartsWith.click(function (event) {
+			let x = getSelectionText();
+			browser.sendMessage({ name: "lookupRangeSearch" , data:{text:x, method:"a*"} });
+		});
+
+		$lookupVerbStartsWith.click(function (event) {
+			let x = getSelectionText();
+			browser.sendMessage({ name: "lookupRangeSearch" , data:{text:x, method:"a*da"} });
+		});
+
+		$lookupContains.click(function (event) {
+			let x = getSelectionText();
+			browser.sendMessage({ name: "lookupRangeSearch" , data:{text:x, method:"*a*"} });
+		});
+
+		$lookupVerbContains.click(function (event) {
+			let x = getSelectionText();
+			browser.sendMessage({ name: "lookupRangeSearch" , data:{text:x, method:"*a*da"} });
 		});
 
 		$openHighlightedOnGoogleTranslateLink.click(function (event) {
@@ -620,6 +673,10 @@ if (window.browser == null) {
 		$manualhightlight_left.off("click");
 		$manualhightlight_right.off("click");
 		$openHighlightedOnNaverLink.off("click");
+		$lookupStartsWith.off("click");
+		$lookupVerbStartsWith.off("click");
+		$lookupContains.off("click");
+		$lookupVerbContains.off("click");
 		$openHighlightedOnGoogleTranslateLink.off("click");
 		$openHighlightedOnPapagoTranslateLink.off("click");
 		$openHighlightedOnLingqLink.off("click");
@@ -702,6 +759,7 @@ if (window.browser == null) {
 		TSV_OR_AnkiConnect = data.TSV_OR_AnkiConnect;
 		hotkey_Enabled = data.hotkey_Enabled;
 		isAndroid = data.isAndroid;
+		is_debugMode = is_debugMode
 		if (data.JUST_UPDATED) {
 			showUpdateNotification();
 		}
@@ -714,6 +772,10 @@ if (window.browser == null) {
 		$manualhightlight_right = $("<button>", { id: 'toktogi-highlight_right', class: 'toktogi-button' }).text("⇥").appendTo($dict);
 		//$manualrefreshdictentry = $("<button>", { id: 'toktogi-refresh_dict', class: 'toktogi-button' }).text("✔").appendTo($dict);
 		$openHighlightedOnNaverLink = $("<button>", { id: 'toktogi-openhightlightedOnNaver',class: 'toktogi-button'}).text("🔎").appendTo($dict);
+		$lookupStartsWith = $("<button>", { id: 'toktogi-lookupStartsWith',class: 'toktogi-button'}).text("a*").appendTo($dict);
+		$lookupVerbStartsWith = $("<button>", { id: 'toktogi-lookupVerbStartsWith',class: 'toktogi-longbutton'}).text("a*다").appendTo($dict);
+		$lookupContains = $("<button>", { id: 'toktogi-lookupContains',class: 'toktogi-midlongbutton'}).text("*a*").appendTo($dict);
+		$lookupVerbContains = $("<button>", { id: 'toktogi-lookupVerbContains',class: 'toktogi-longbutton'}).text("*a*다").appendTo($dict);
 		$openHighlightedOnGoogleTranslateLink = $("<button>", { id: 'toktogi-openHighlightedOnGoogleTranslateLink',class: 'toktogi-button'}).text("Ⓖ").appendTo($dict);
 		$openHighlightedOnPapagoTranslateLink = $("<button>", { id: 'toktogi-openHighlightedOnPapagoTranslateLink',class: 'toktogi-button'}).text("🅿").appendTo($dict);
 		$openHighlightedOnLingqLink = $("<button>", { id: 'toktogi-openHighlightedOnLingqLink',class: 'toktogi-button'}).text("🅻").appendTo($dict);
@@ -734,6 +796,7 @@ if (window.browser == null) {
 	function onlocalStorageChanged(data){
 		//TSV_OR_AnkiConnect = browser.extension.getBackgroundPage().localStorage.getItem('TSV_OR_AnkiConnect') || 'TSV';
 		TSV_OR_AnkiConnect = data.TSV_OR_AnkiConnect;
+		is_debugMode = data.is_debugMode;
 		console.log("@Content inject.js onlocalStorageChanged, TSV_OR_AnkiConnect:" + TSV_OR_AnkiConnect);
 	}
 

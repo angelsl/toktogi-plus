@@ -6,7 +6,7 @@ let NEW_INSTALL = util.getSavedVersion() === undefined;
 let JUST_UPDATED = !NEW_INSTALL && version !== util.getSavedVersion();
 let isAndroid =false;
 let TSV_OR_AnkiConnect = localStorage.getItem('TSV_OR_AnkiConnect') || 'TSV';
-let improved_ConjugatedWord_Recognition = localStorage.getItem('improved_ConjugatedWord_Recognition') || 'true';
+let is_debugMode =  null?  false :  JSON.parse(localStorage.getItem('is_debugMode'));
 let hotkey_Enabled = localStorage.getItem('hotkey_Enabled') == null?  true :  JSON.parse(localStorage.getItem('hotkey_Enabled'));
 let OfflineDict_Mode = localStorage.getItem('OfflineDict_Mode') == null?  7 :  JSON.parse(localStorage.getItem('OfflineDict_Mode'));
 let GreedyWordRecognition_Enabled = localStorage.getItem('GreedyWordRecognition_Enabled') == null?  false :  JSON.parse(localStorage.getItem('GreedyWordRecognition_Enabled'));
@@ -46,6 +46,7 @@ function init() {
 	util.addListener("openHighlighted_OnGoogleTranslate", openHighlighted_OnGoogleTranslate);
 	util.addListener("openHighlighted_OnPapagoTranslate", openHighlighted_OnPapagoTranslate);
 	util.addListener("openHighlighted_OnLingq", openHighlighted_OnLingq);
+	util.addListener("lookupRangeSearch", lookupRangeSearch);
 	
 
 	try {
@@ -83,16 +84,24 @@ function broadcastStorageChange() {
 	// i.e local storage changed from option page
 	//util.sendAllMessage("startListeners");
 	TSV_OR_AnkiConnect = localStorage.getItem('TSV_OR_AnkiConnect') || 'TSV';
-	improved_ConjugatedWord_Recognition = localStorage.getItem('improved_ConjugatedWord_Recognition') || 'true';
+	is_debugMode =  null?  false :  JSON.parse(localStorage.getItem('is_debugMode'));
 	OfflineDict_Mode = localStorage.getItem('OfflineDict_Mode') == null?  7 :  JSON.parse(localStorage.getItem('OfflineDict_Mode'));
 	GreedyWordRecognition_Enabled = localStorage.getItem('GreedyWordRecognition_Enabled') == null?  false :  JSON.parse(localStorage.getItem('GreedyWordRecognition_Enabled'));
-	console.log("broadcastStorageChange, TSV_OR_AnkiConnect: " +TSV_OR_AnkiConnect + " | improved_ConjugatedWord_Recognition: "+improved_ConjugatedWord_Recognition);
-
-	util.sendAllMessage("localStorageChanged", {	TSV_OR_AnkiConnect:TSV_OR_AnkiConnect		});
+	console.log("broadcastStorageChange, TSV_OR_AnkiConnect: " +TSV_OR_AnkiConnect + " | is_debugMode: "+is_debugMode);
+	//bench(function(){return dictionary.lookupWords("나는 슬그머니 뒤로 빠졌다. 여기서 내가 할 일은 없다. 이 마인은 김수");}, 100, [], this) ;
+	util.sendAllMessage("localStorageChanged", {	
+		TSV_OR_AnkiConnect:TSV_OR_AnkiConnect,
+		is_debugMode: is_debugMode		
+	});
 }
 
 function handleLookup(tab, data) {
+	if (is_debugMode){		var t = timerF('lookupwords'); 	}
+
 	const found = dictionary.lookupWords(data.text);
+
+	if (is_debugMode){		t.stop();	 }
+
 	if (found.length > 0) {
 		util.sendMessage(tab, { name: "found", data: found });
 	}
@@ -108,7 +117,8 @@ function sendScriptData(tab, data) {
 			JUST_UPDATED: JUST_UPDATED,
 			TSV_OR_AnkiConnect: TSV_OR_AnkiConnect,
 			hotkey_Enabled: hotkey_Enabled,
-			isAndroid:isAndroid
+			isAndroid:isAndroid,
+			is_debugMode:is_debugMode
 		}
 	});
 	JUST_UPDATED = false;
@@ -178,5 +188,20 @@ function openHighlighted_OnLingq(tab, data) {
 	util.openTab("https://www.lingq.com/en/translate/ko/"+data+"");
 }
 
+function lookupRangeSearch(tab, data) {
 
-dictionary.load().then(reloadGoogleSpreadSheetDict()).then(() => init());
+	var t_RangeSearch = timerF('lookupRangeSearch'); 
+
+	const found = filterRangeSearch(data.text, data.method);
+
+	t_RangeSearch.stop();
+
+	if (found.length > 0) {
+		util.sendMessage(tab, { name: "found", data: found });
+	}
+	
+	
+	
+}
+
+dictionary.load().then(() => init());

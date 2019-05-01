@@ -36,7 +36,7 @@
 	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 	margin: 0.5rem 0 1rem 0;
 	border-radius: 2px;
-	min-width: 200px;
+	min-width: 300px;
 	display: none;
   	background-color: #f5f5f5;
 	position: absolute;
@@ -151,7 +151,7 @@
 	clear: both;
 }
 
-#toktogi-lock, #toktogi-highlight_left ,#toktogi-highlight_right,  #toktogi-openhightlightedOnNaver, #toktogi-openHighlightedOnGoogleTranslateLink, #toktogi-openHighlightedOnPapagoTranslateLink, #toktogi-openHighlightedOnLingqLink{
+#toktogi-lock, #toktogi-highlight_left ,#toktogi-highlight_right,  #toktogi-openhightlightedOnNaver, #toktogi-openHighlightedOnGoogleTranslateLink, #toktogi-openHighlightedOnPapagoTranslateLink, #toktogi-lookupStartsWith, #toktogi-lookupVerbStartsWith,#toktogi-lookupContains,#toktogi-lookupVerbContains, #toktogi-openHighlightedOnLingqLink{
 	position: absolute;
 	top: 8px;
 }
@@ -183,6 +183,19 @@
 	right: 150px;
 }
 
+#toktogi-lookupStartsWith{
+	right: 330px;
+}
+
+#toktogi-lookupVerbStartsWith{
+	right: 270px;
+}
+#toktogi-lookupContains{
+	right: 235px;
+}
+#toktogi-lookupVerbContains{
+	right: 175px;
+}
 
 .toktogi-icon {
 	height: 15px;
@@ -194,6 +207,19 @@
 	height: 25px;
 	width: 25px;
 	opacity: .54;
+}
+
+.toktogi-midlongbutton {
+	height: 25px;
+	width: 35px;
+	opacity: .54;
+	font-size: 10px;
+}
+.toktogi-longbutton {
+	height: 25px;
+	width: 60px;
+	opacity: .54;
+	font-size: 10px;
 }
 
 .toktogi-icon:hover {
