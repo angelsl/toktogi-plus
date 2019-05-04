@@ -1021,8 +1021,16 @@ dictionary.load = async function() {
 dictionary.reloadFromGoogleSpreadSheet_TSV = async function() {
 	
 	dictionary2.dictstr2 = await util.getGoogleSpreadSheetTSVDict();
-	console.log(dictionary2.dictstr2);
-	TsvLineToObjectDict(dictionary2.dictstr2,"dict2");
+	
+	if (dictionary2.dictstr2){
+		//only if result not null.
+		console.log(dictionary2.dictstr2);
+		TsvLineToObjectDict(dictionary2.dictstr2,"dict2");
+	}
+	else{
+		console.log("Could not fetch data from google Spreadsheeet. No internet connection ?");
+	}
+	
 	dictionary2.dictstr2 = null; //don't need dictstr anymore, use dictionary2.dict obj instead. fotmat dictionary2[Str of  'Dictentry'] = Str 'defs'
 
 }

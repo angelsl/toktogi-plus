@@ -49,8 +49,16 @@ util.getDictSpaceSlashSpaceDelimitedTSV = async function() {
 };
 
 util.getGoogleSpreadSheetTSVDict = async function() {
-	let response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRx3emMmjh07vucKBs5x_I3uwtF3ldPybucONoNsNk7-_ob5ML2uJNEs28vzv6t-zTMYqJW5ZSgKUjo/pub?gid=0&single=true&output=tsv');
-	return response.text();
+	try {
+		let response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRx3emMmjh07vucKBs5x_I3uwtF3ldPybucONoNsNk7-_ob5ML2uJNEs28vzv6t-zTMYqJW5ZSgKUjo/pub?gid=0&single=true&output=tsv');
+		return response.text();
+	}
+	catch(err) {
+		//handle things like no internet connection
+		console.log(err.message);
+		return "";
+	}
+	
 };
 
 util.getKRJP_DictSpaceSlashSpaceDelimitedTSV = async function() {
