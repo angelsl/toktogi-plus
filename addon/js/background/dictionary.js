@@ -137,7 +137,7 @@ dictionary.lookupWords = function(str) {
 	for (let i = 1; i < str.length + 1; i++) {
 		const word = str.substring(0, i);
 		//TODO: More fine criteria i.e. (str.charAt(i-1) =='을' ||  str.charAt(i-1) == '은') && str.charAt(i-2) exist && str.charAt(i-2) has batchim
-		if (['니','며','느','라','긴','렴','을','은','으','지','는','게','신','시','심','실','네','러','셨','잖','쇼','죠','고','듯','던','더','았','었','셔','기','십','되'].includes(str.charAt(i-1)) || ['거나','거든','도록','세요'].includes(str.substring(i-1,i+1)) || (GreedyWordRecognition_Enabled && ['이'].includes(str.charAt(i-1))) ){
+		if (['니','며','느','라','긴','렴','을','은','으','지','는','게','신','시','심','실','네','러','셨','잖','쇼','죠','고','듯','던','더','았','었','셔','기','십','되','면','려','길','냐'].includes(str.charAt(i-1)) || ['거나','거든','도록','세요'].includes(str.substring(i-1,i+1)) || (GreedyWordRecognition_Enabled && ['이'].includes(str.charAt(i-1))) ){
 			// to handle 	inquisitive present & past formal low '먹니' & '먹었니'
 			// 을 to handle st like 먹을게요 or ~(으)ㄹ게 
 			// if not already in list, push
@@ -173,6 +173,14 @@ dictionary.lookupWords = function(str) {
 				wordList.push(str.substring(0, i-1).concat(char_no_batchim).concat('다'));
 				//console.log("@ word ending contains 'ᆫ' || 'ᆻ' || 'ᆯ' ,  "+ word +" becomes :" + str.substring(0, i-1).concat(char_no_batchim).concat('다'));
 			}
+			if (GreedyWordRecognition_Enabled){
+				if (!wordList.includes(str.substring(0, i-1).concat(char_no_batchim))){
+					wordList.push(str.substring(0, i-1).concat(char_no_batchim));
+					// 진짠데 will becomes 진짜
+					// str.substring(0, i-1) = 진.   (Current char excluded)
+					// char_no_batchim = 짜
+				}
+			}
 			
 			if (!wordList.includes(str.substring(0, i).concat('다'))){
 				wordList.push(str.substring(0, i).concat('다'));
@@ -188,9 +196,10 @@ dictionary.lookupWords = function(str) {
 			}
 		}
 
-		if  (  (str.charAt(i-1) =='운' ||(str.charAt(i-1) =='울')||(str.charAt(i-1) =='웠'||(str.charAt(i-1) =='워') ||(str.charAt(i-1) =='움') ))&& i-2>=0  ){
+		if  (  (str.charAt(i-1) =='운' ||(str.charAt(i-1) =='울')||(str.charAt(i-1) =='웠'||(str.charAt(i-1) =='워') ||(str.charAt(i-1) =='움')||(str.charAt(i-1) =='우') ))&& i-2>=0  ){
 			// to handle fix 두렵다 future base (두려울)    ㅂ 불규칙 동사 (irregular verb)
 			// Will recognise 혐오스러웠,혐오스러워 as 혐오스럽다
+			// '우' to handle 날카로우나 >> 날카롭다
 			// 매섭다 (매서운). : if (운 ||울) and previous char no batchim > previous char add b, current char add da
 			let already_contains_batchim = typeof str.charAt(i-2).normalize('NFD')[2] !== "undefined"?  true : false;
 			// is_hanguel check if character has korean vowel entry. Obviously 'zᆸ' , '.' , etc won't have them
@@ -209,6 +218,26 @@ dictionary.lookupWords = function(str) {
 
 			}
 
+		}
+
+		//HANDLES basic 르 irregular verbs. i.e. 짤라 & 타일렀다
+		
+		
+		if (str.charAt(i-1).normalize('NFD')[2]  == 'ᆯ'){
+			// if '일', (charAt(i-1)) from 타일렀다 contains  'ᆯ'
+			//then check if next char is hanguel & not null
+			let next_char_isHanguel = isHanguel(str.charAt(i));
+			if (next_char_isHanguel){
+				// if charAt(i) a.k.a. '렀', a.k.a. next char without batchim is either '러' or '라' then, add
+				let next_char_no_batchim = str.charAt(i).normalize('NFD')[0].concat(str.charAt(i).normalize('NFD')[1]).normalize('NFC');
+				if (['러','라'].includes(next_char_no_batchim)){
+					let current_char_no_batchim = str.charAt(i-1).normalize('NFD')[0].concat(str.charAt(i-1).normalize('NFD')[1]).normalize('NFC');
+					if (!wordList.includes(str.substring(0, i-1).concat(current_char_no_batchim+'르다'))){
+						// adds 타이르다 ,  current_char_no_batchim == 이
+						wordList.push(str.substring(0, i-1).concat(current_char_no_batchim+'르다'));
+					}
+				}
+			}
 		}
 
 		if  (  (isHanguel(str.charAt(i-1)))){
@@ -550,18 +579,24 @@ dictionary.lookupWords = function(str) {
 
 }
 
+function isItHanguel(c){
+	c = c.charCodeAt(0);
+	if (c < 0xAC00 || c > 0xD7A3 || Number.isNaN(c)) {
+		return false;
+	  }
+	return true;
+}
 function filterRangeSearch(str, method){
 	let initial_str = str.length; //for Debug purpose
 	// lookupword for up to 15 char. Vocab length shouldn't be longer
-	str = str.substring(0,Math.min(str.length, 5));
-	// clear all white spaces (Except if first char is white space) so that str query like dict["할 거야"] becomes  dict["할거야"] which has dict entry
-	if (str.charAt(0) == ' '){
-		// check & preserve firt char if firt char == white space.  That is, we want " 먹다" to fail dict lookup & "먹다" to pass
-		str = ' '.concat(str.replace(/\s/g, ''));
+	str = str.substring(0,Math.min(str.length, 30));
+	// clear all white spaces so that str query like dict["할 거야"] becomes  dict["할거야"] which has dict entry
+	str = str.replace(/\s/g, '');
+
+	if (str ==""){
+		return [];
 	}
-	else{
-		str = str.replace(/\s/g, '');
-	}
+	let hanguelentry = isItHanguel(str.charAt(0));
 	const dict2keys = dictionary2.keysL;
 	const dict2 = dictionary2.dict;
 	const dict3keys = dictionary3.keysL;
@@ -572,21 +607,66 @@ function filterRangeSearch(str, method){
 	let entryList = [];
 	let entryList2 = [];
 
-	if (method == "a*"){
-		entryList = dict2keys.filter((entry)=> entry.startsWith(str));
-		entryList2 = dict3keys.filter((entry)=> entry.startsWith(str));
+	if (hanguelentry){
+		//First Input Str == Hanguel. 
+		if (method == "a*"){
+			entryList = dict2keys.filter((entry)=> entry.startsWith(str));
+			entryList2 = dict3keys.filter((entry)=> entry.startsWith(str));
+		}
+		else if (method == "a*da"){
+			entryList = dict2keys.filter((entry)=> entry.startsWith(str) && entry.endsWith('다'));
+			entryList2 = dict3keys.filter((entry)=> entry.startsWith(str)&& entry.endsWith('다'));
+		}
+		else if (method == "*a*"){
+			entryList = dict2keys.filter((entry)=> entry.includes(str));
+			entryList2 = dict3keys.filter((entry)=> entry.includes(str));
+		}
+		else if (method == "*a*da"){
+			entryList = dict2keys.filter((entry)=> entry.includes(str) && entry.endsWith('다'));
+			entryList2 = dict3keys.filter((entry)=> entry.includes(str)&& entry.endsWith('다'));
+		}
 	}
-	else if (method == "a*da"){
-		entryList = dict2keys.filter((entry)=> entry.startsWith(str) && entry.endsWith('다'));
-		entryList2 = dict3keys.filter((entry)=> entry.startsWith(str)&& entry.endsWith('다'));
-	}
-	else if (method == "*a*"){
-		entryList = dict2keys.filter((entry)=> entry.includes(str));
-		entryList2 = dict3keys.filter((entry)=> entry.includes(str));
-	}
-	else if (method == "*a*da"){
-		entryList = dict2keys.filter((entry)=> entry.includes(str) && entry.endsWith('다'));
-		entryList2 = dict3keys.filter((entry)=> entry.includes(str)&& entry.endsWith('다'));
+	else{
+		//first str not hanguel. Perform range search on definition 
+		if (method == "*a*" || method == "a*"){
+			//e.g. Search Entry which has def containing "to eat" 
+			for(let key in dict2) {
+				if (dict2.hasOwnProperty(key)) {
+				  if (dict2[key].replace(/\s/g, '').includes(str)){
+					entryList.push(key);
+				  }
+				}
+			}
+			for(let key in dict3) {
+				if (dict3.hasOwnProperty(key)) {
+				  if (dict3[key].displaydef.replace(/\s/g, '').includes(str)){
+					entryList2.push(key);
+				  }
+				}
+			}
+		}
+		
+		else if (method == "*a*da" || method == "a*da"){
+				//e.g. Search Entry which has def containing "to eat" , and hanguel ends with "다"
+				for(let key in dict2) {
+					if (dict2.hasOwnProperty(key)) {
+						if (key.endsWith('다')){
+							if (dict2[key].replace(/\s/g, '').includes(str)){
+								entryList.push(key);
+							}
+						}
+					}
+				}
+				for(let key in dict3) {
+					if (dict3.hasOwnProperty(key)) {
+						if (key.endsWith('다')){
+					 		if (dict3[key].displaydef.replace(/\s/g, '').includes(str)){
+								entryList2.push(key);
+							 }
+					  	}
+					}
+				}
+		}
 	}
 
 
@@ -884,25 +964,43 @@ function TsvLineToObjectDict(tsv,dictNo){
 				}
 			}
 			else if (dictNo == "dict3"){
+				let target_def;
+				let target_tran;
+				if (DictLanguageMode== "En"){
+					target_def = currentline[8];
+					target_tran = currentline[9];
+				}
+				else if (DictLanguageMode== "Jp"){
+					target_def = currentline[1];
+					target_tran = currentline[4];
+				}
+				else if (DictLanguageMode== "EnKr"){
+					target_def = currentline[1];
+					target_tran = currentline[5];
+				}
+				else if (DictLanguageMode== "JpKr"){
+					target_def = currentline[8];
+					target_tran = currentline[5];
+				}
 
 				/* HANDLES EOMI */	
 				if (currentline[0].charAt(0)=='-'){
 					// -대요	んですよ。そうですよ  > Becomes 대요	(-대요)んですよ。そうですよ
-					currentline[1] = "("+ currentline[0] +")  ".concat(currentline[1])
+					target_def = "("+ currentline[0] +")  ".concat(target_def)
 					currentline[0] = currentline[0].replace("-", "");
 				}
 
 				if (dictionary3.dict[currentline[0]]){
 					// if entry already exist, append
-					dictionary3.dict[currentline[0]] = { jp_defs:dictionary3.dict[currentline[0]].jp_defs+"\n"+currentline[1], pos: dictionary3.dict[currentline[0]].pos+"|"+currentline[2], freq: dictionary3.dict[currentline[0]].freq+"|"+currentline[6], hanja: dictionary3.dict[currentline[0]].hanja+"|"+currentline[3],jp_trans:dictionary3.dict[currentline[0]].jp_trans+"\n"+currentline[4], displaydef:dictionary3.dict[currentline[0]].displaydef }
-					let temp =  currentline[6].concat(currentline[2]).concat(currentline[3]).concat(currentline[1]).concat(currentline[4]).concat("<BR>");
+					dictionary3.dict[currentline[0]] = { jp_defs:dictionary3.dict[currentline[0]].jp_defs+"\n"+target_def, pos: dictionary3.dict[currentline[0]].pos+"|"+currentline[2], freq: dictionary3.dict[currentline[0]].freq+"|"+currentline[6], hanja: dictionary3.dict[currentline[0]].hanja+"|"+currentline[3],jp_trans:dictionary3.dict[currentline[0]].jp_trans+"\n"+target_tran, displaydef:dictionary3.dict[currentline[0]].displaydef }
+					let temp =  currentline[6].concat(currentline[2]).concat(currentline[3]).concat(target_def).concat(target_tran).concat("<BR>");
 					dictionary3.dict[currentline[0]].displaydef = dictionary3.dict[currentline[0]].displaydef +"\n" + temp
 					
 
 				}
 				else{
-					dictionary3.dict[currentline[0]] = { jp_defs:currentline[1], pos: currentline[2], hanja: currentline[3],jp_trans:currentline[4],freq:currentline[6]}
-					dictionary3.dict[currentline[0]].displaydef = currentline[6].concat(currentline[2]).concat(currentline[3]).concat(currentline[1]).concat(currentline[4]).concat("<BR>");	
+					dictionary3.dict[currentline[0]] = { jp_defs:target_def, pos: currentline[2], hanja: currentline[3],jp_trans:target_tran,freq:currentline[6]}
+					dictionary3.dict[currentline[0]].displaydef = currentline[6].concat(currentline[2]).concat(currentline[3]).concat(target_def).concat(target_tran).concat("<BR>");	
 				}
 
 
@@ -910,20 +1008,20 @@ function TsvLineToObjectDict(tsv,dictNo){
 				if (['ㄴ','ㄹ','ㅁ','ㅂ'].includes(currentline[0].charAt(0))){
 					
 					//  ㄴ적이있다	ことがある	 Becomes>  적이있다	(ㄴ적이있다) ことがある
-					// currentline[1] = "("+ currentline[0] +")  ".concat(currentline[1]) This line not needed. Done from Handle EOMI part above
+					// target_def = "("+ currentline[0] +")  ".concat(target_def) This line not needed. Done from Handle EOMI part above
 					currentline[0] = currentline[0].substring(1); //bypass firstchar
 					//TODO: factorise this function
 					if (dictionary3.dict[currentline[0]]){
 						// if entry already exist, append
-						dictionary3.dict[currentline[0]] = { jp_defs:dictionary3.dict[currentline[0]].jp_defs+"\n"+currentline[1], pos: dictionary3.dict[currentline[0]].pos+"|"+currentline[2], freq: dictionary3.dict[currentline[0]].freq+"|"+currentline[6], hanja: dictionary3.dict[currentline[0]].hanja+"|"+currentline[3],jp_trans:dictionary3.dict[currentline[0]].jp_trans+"\n"+currentline[4], displaydef:dictionary3.dict[currentline[0]].displaydef }
-						let temp =  currentline[6].concat(currentline[2]).concat(currentline[3]).concat(currentline[1]).concat(currentline[4]).concat("<BR>");
+						dictionary3.dict[currentline[0]] = { jp_defs:dictionary3.dict[currentline[0]].jp_defs+"\n"+target_def, pos: dictionary3.dict[currentline[0]].pos+"|"+currentline[2], freq: dictionary3.dict[currentline[0]].freq+"|"+currentline[6], hanja: dictionary3.dict[currentline[0]].hanja+"|"+currentline[3],jp_trans:dictionary3.dict[currentline[0]].jp_trans+"\n"+target_tran, displaydef:dictionary3.dict[currentline[0]].displaydef }
+						let temp =  currentline[6].concat(currentline[2]).concat(currentline[3]).concat(target_def).concat(target_tran).concat("<BR>");
 						dictionary3.dict[currentline[0]].displaydef = dictionary3.dict[currentline[0]].displaydef +"\n" + temp
 						
 	
 					}
 					else{
-						dictionary3.dict[currentline[0]] = { jp_defs:currentline[1], pos: currentline[2], hanja: currentline[3],jp_trans:currentline[4],freq:currentline[6]}
-						dictionary3.dict[currentline[0]].displaydef = currentline[6].concat(currentline[2]).concat(currentline[3]).concat(currentline[1]).concat(currentline[4]).concat("<BR>");	
+						dictionary3.dict[currentline[0]] = { jp_defs:target_def, pos: currentline[2], hanja: currentline[3],jp_trans:target_tran,freq:currentline[6]}
+						dictionary3.dict[currentline[0]].displaydef = currentline[6].concat(currentline[2]).concat(currentline[3]).concat(target_def).concat(target_tran).concat("<BR>");	
 					}
 				}
 
@@ -931,8 +1029,8 @@ function TsvLineToObjectDict(tsv,dictNo){
 					//todo: nicer jp def formatting
 					//   /(\d\..*?[\s$])/  will match [4] for 1.ととのえる【整える】 2.ととのえる【整える】 3.きりまわす【切り回す】 4.ととのえる【整える】。おさえる【抑える】
 					
-					let jpdefs = splitjp_Def_str_to_list(currentline[1]); // "1.が 2.に" > ['1.が', '2.に']  &&  "がい【街】。がいく【街区" > ["がい【街】。がいく【街区】"]
-					let jptrans = splitjp_Trans_str_to_list(currentline[4]); // ensure line count == splitjpDefStr(), if jp_Def < jp_trans.length, put the rest of jp_trans[] into last jp_def[-1]  
+					let jpdefs = splitjp_Def_str_to_list(target_def); // "1.が 2.に" > ['1.が', '2.に']  &&  "がい【街】。がいく【街区" > ["がい【街】。がいく【街区】"]
+					let jptrans = splitjp_Trans_str_to_list(target_tran); // ensure line count == splitjpDefStr(), if jp_Def < jp_trans.length, put the rest of jp_trans[] into last jp_def[-1]  
 					// Also, for jp_Trans, regex match "。", unless it's  "。また、"  
 					let kptrans = splitkp_Trans_str_to_list(currentline[5]); // same as above, but regex match ".", unless it's  ". 또는"  
 					split_en_Def_str_to_list(); //low priority

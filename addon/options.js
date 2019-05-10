@@ -5,6 +5,7 @@ let TSV_OR_AnkiConnect;
 let is_debugMode;
 let Greedy_word_Recognition;
 let OfflineDict_Mode;
+let DictLanguageMode;
 let KRDICT_API; //Either String with value , or Null, Or Empty String "" if submitted blank Value
 //converts List Array to HTML table
 function ulify(mList){
@@ -32,7 +33,7 @@ function restoreOptions() {
     document.getElementById("Greedy_word_Recognition_Lb").innerHTML = Greedy_word_Recognition;
 
     OfflineDict_Mode = localStorage.getItem('OfflineDict_Mode') == null?  7 :  JSON.parse(localStorage.getItem('OfflineDict_Mode'));
-    
+    DictLanguageMode = localStorage.getItem('DictLanguageMode') == null?  "Jp" :  JSON.parse(localStorage.getItem('DictLanguageMode'));
     if (OfflineDict_Mode ==1){
         document.getElementById("OfflineDict_Mode_type1").checked = true;
     }
@@ -57,6 +58,9 @@ function restoreOptions() {
     else if (OfflineDict_Mode ==8) {
         document.getElementById("OfflineDict_Mode_type8").checked = true;
     }
+
+    document.getElementById(DictLanguageMode).checked = true;
+
 
     KRDICT_API = localStorage.getItem('KRDICT_API');
     TSV_OR_AnkiConnect = localStorage.getItem('TSV_OR_AnkiConnect') || 'TSV';
@@ -208,6 +212,27 @@ document.getElementById("OfflineDict_Mode_type7").addEventListener("click", func
 });
 document.getElementById("OfflineDict_Mode_type8").addEventListener("click", function(){
     localStorage.setItem('OfflineDict_Mode','8');
+    restoreOptions();
+    browser.extension.getBackgroundPage().broadcastStorageChange();
+});
+
+document.getElementById("En").addEventListener("click", function(){
+    localStorage.setItem('DictLanguageMode','En');
+    restoreOptions();
+    browser.extension.getBackgroundPage().broadcastStorageChange();
+});
+document.getElementById("Jp").addEventListener("click", function(){
+    localStorage.setItem('DictLanguageMode','Jp');
+    restoreOptions();
+    browser.extension.getBackgroundPage().broadcastStorageChange();
+});
+document.getElementById("EnKr").addEventListener("click", function(){
+    localStorage.setItem('DictLanguageMode','EnKr');
+    restoreOptions();
+    browser.extension.getBackgroundPage().broadcastStorageChange();
+});
+document.getElementById("JpKr").addEventListener("click", function(){
+    localStorage.setItem('DictLanguageMode','JpKr');
     restoreOptions();
     browser.extension.getBackgroundPage().broadcastStorageChange();
 });

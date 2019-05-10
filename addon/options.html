@@ -48,33 +48,22 @@
 
 </div>
 
-<div class="grid-item"> <br><label class="desc"><b>Supplement Dict Config: (Place Holder, Doesn't work yet)</b> </label> <br>
+<div class="grid-item"> <br><label class="desc"><b>Supplement Dict Config: (Restart Required)</b> </label> <br>
 
-	<label class="radio_verticle">Mode1: KR > EN def , EN Explaination
+	<label class="radio_verticle">Mode1: EN def , EN Explaination
 	<input type="radio" name="DictLanguageMode" id="En">
   </label><br>
-  <label class="radio_verticle">Mode2: KR > JP def, JP Explaination
+  <label class="radio_verticle">Mode2: JP def, JP Explaination
 	<input type="radio" name="DictLanguageMode" id="Jp">
   </label><br>
-  <label class="radio_verticle">Mode3: KR > EN def, KR Explaination
+  <label class="radio_verticle">Mode3: EN def, KR Explaination
 	<input type="radio" name="DictLanguageMode" id="EnKr">
   </label><br>
-  <label class="radio_verticle">Mode4: KR > JP def, KR Explaination
+  <label class="radio_verticle">Mode4: JP def, KR Explaination
 	<input type="radio" name="DictLanguageMode" id="JpKr">
   </label>
 </div>
 
-<div class="grid-item"> <br><label class="desc"><b>Papago MTL Setup</b> </label> <br>
-	<label class="radio_verticle">Mode1: Don't Use, Manual Trigger Only
-	<input type="radio" name="DictLanguageMode" id="En">
-  </label><br>
-  <label class="radio_verticle">Mode2: Manual Drag/Highlight To Trigger MTL
-	<input type="radio" name="DictLanguageMode" id="Jp">
-  </label><br>
-  <label class="radio_verticle">Mode3: Ctrl + Manual Drag/Highlight To Trigger MTL
-	<input type="radio" name="DictLanguageMode" id="EnKr">
-  </label><br>
-</div>
 
 <br><br>
 <div class="grid-item"> <form class="form-inline">
@@ -82,10 +71,8 @@
 	<label class="desc"><b>Anki English Field Name:</b></label><input type="form" id="AnkiFieldName_English" placeholder="English">  </input><br>
 	<label class="desc"><b>Anki Context_Sentence Field Name:</b></label><input type="form" id="AnkiFieldName_Context_Sentence" placeholder="Context_Sentence">  </input><br>
 	<label class="desc"><b>Anki Source_Title Field Name:</b></label><input type="form" id="AnkiFieldName_Source_Title" placeholder="Source_Title">  </input><br>
-	<label class="desc"><b>Anki MTL_Output Field Name:</b></label><input type="form" id="AnkiFieldName_MTL_Output" placeholder="MTL_Output">  </input><br>
 	<label class="desc"><b>Anki Deck Name:</b></label><input type="form" id="AnkiDeckName" placeholder="Vocab_Toktogi">  </input><br>
 	<label class="desc"><b>Anki Model Name:</b></label><input type="form" id="AnkiModelName" placeholder="Toktogi">  </input><br>
-	<label >Save MTL? </label><label id="Save_MTL_Lb"></label><button id="Save_MTL_Lb">Toggle</button><br>
 	<label>Restore Default: </label></label><button id="AnkiForm_RestoreDefault">Restore Default</button><br>
 	<button type="submit" id ='AnkiFieldName_Form'>Save & Apply (Place Holder form, You can't change default field name yet !)</button><br>
   </form>Default field name not implemented yet ! Sorry !</div>
@@ -107,9 +94,18 @@
 
 <h2>Change log</h2>
 
+<h3>0.7.9.4</h3>
+<ul>
+		<li>Dict config. Now supports both En & JP & Kr definition (See option page)</li>
+	<li>Allow reverse range search. e.g. search for Kr def which has english definition containing "office" word or "江原" hanja</li>
+</ul>
+
 <h3>0.7.9.2</h3>
 <ul>
 	<li>Fix toktogi not working when offline (Due to error when trying to fetch dict entries from Google Spreadsheet)</li>
+	<li>Handles -려, -길, -냐 </li>
+	<li>In Greedy Recog mode, also tries to drop the last ᆫ, ᆻ, ᆯ, ᆷ i.e.  진짠데 >> 진짜  </li>
+	<li>Basic 르 irregular verbs recog. i.e. will recognise 짤라 & 타일렀다 as (타이르다)</li>
 </ul>
 
 <h3>0.7.9.1</h3>

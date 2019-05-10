@@ -5,10 +5,11 @@ let version = util.getVersion();
 let NEW_INSTALL = util.getSavedVersion() === undefined;
 let JUST_UPDATED = !NEW_INSTALL && version !== util.getSavedVersion();
 let isAndroid =false;
-let TSV_OR_AnkiConnect = localStorage.getItem('TSV_OR_AnkiConnect') || 'TSV';
-let is_debugMode =  null?  false :  JSON.parse(localStorage.getItem('is_debugMode'));
+let TSV_OR_AnkiConnect = localStorage.getItem('TSV_OR_AnkiConnect') == null? 'TSV' : JSON.parse(localStorage.getItem('TSV_OR_AnkiConnect'));;
+let is_debugMode =  localStorage.getItem('is_debugMode') == null?  false :  JSON.parse(localStorage.getItem('is_debugMode'));
 let hotkey_Enabled = localStorage.getItem('hotkey_Enabled') == null?  true :  JSON.parse(localStorage.getItem('hotkey_Enabled'));
 let OfflineDict_Mode = localStorage.getItem('OfflineDict_Mode') == null?  7 :  JSON.parse(localStorage.getItem('OfflineDict_Mode'));
+let DictLanguageMode = localStorage.getItem('DictLanguageMode') == null?  "Jp" :  JSON.parse(localStorage.getItem('DictLanguageMode'));
 let GreedyWordRecognition_Enabled = localStorage.getItem('GreedyWordRecognition_Enabled') == null?  false :  JSON.parse(localStorage.getItem('GreedyWordRecognition_Enabled'));
 function init() {
 	if (NEW_INSTALL) {
@@ -29,7 +30,7 @@ function init() {
 	browser.browserAction.setTitle({ title: "Toktogi:KR-En Popup Dict (Off)" });
 
 	// Update version after setting JUST_UPDATED
-	console.log("loaded hotkey_Enabled", hotkey_Enabled);
+	console.log("Init. loaded hotkey_Enabled", hotkey_Enabled, " DictLanguageMode: ", DictLanguageMode, " , TSV_OR_AnkiConnect: " , TSV_OR_AnkiConnect , " | is_debugMode: ", is_debugMode);
 	util.setVersion(util.getVersion());
 
 	util.addListener("text", handleLookup);
@@ -86,8 +87,9 @@ function broadcastStorageChange() {
 	TSV_OR_AnkiConnect = localStorage.getItem('TSV_OR_AnkiConnect') || 'TSV';
 	is_debugMode =  null?  false :  JSON.parse(localStorage.getItem('is_debugMode'));
 	OfflineDict_Mode = localStorage.getItem('OfflineDict_Mode') == null?  7 :  JSON.parse(localStorage.getItem('OfflineDict_Mode'));
+	DictLanguageMode = localStorage.getItem('DictLanguageMode') == null?  "Jp" :  JSON.parse(localStorage.getItem('DictLanguageMode'));
 	GreedyWordRecognition_Enabled = localStorage.getItem('GreedyWordRecognition_Enabled') == null?  false :  JSON.parse(localStorage.getItem('GreedyWordRecognition_Enabled'));
-	console.log("broadcastStorageChange, TSV_OR_AnkiConnect: " +TSV_OR_AnkiConnect + " | is_debugMode: "+is_debugMode);
+	console.log("broadcastStorageChange, TSV_OR_AnkiConnect: " +TSV_OR_AnkiConnect + " | is_debugMode: "+is_debugMode + " DictLanguageMode: "+DictLanguageMode);
 	//bench(function(){return dictionary.lookupWords("나는 슬그머니 뒤로 빠졌다. 여기서 내가 할 일은 없다. 이 마인은 김수");}, 100, [], this) ;
 	util.sendAllMessage("localStorageChanged", {	
 		TSV_OR_AnkiConnect:TSV_OR_AnkiConnect,
