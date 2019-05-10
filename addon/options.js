@@ -24,7 +24,7 @@ function ulify(mList){
 
 function restoreOptions() {
 
-    is_debugMode = localStorage.getItem('is_debugMode') || 'false';
+    is_debugMode =  localStorage.getItem('is_debugMode') == null?  false :  JSON.parse(localStorage.getItem('is_debugMode'));
 
     document.getElementById("debugMode_Lb").innerHTML = is_debugMode;
     
@@ -33,7 +33,7 @@ function restoreOptions() {
     document.getElementById("Greedy_word_Recognition_Lb").innerHTML = Greedy_word_Recognition;
 
     OfflineDict_Mode = localStorage.getItem('OfflineDict_Mode') == null?  7 :  JSON.parse(localStorage.getItem('OfflineDict_Mode'));
-    DictLanguageMode = localStorage.getItem('DictLanguageMode') == null?  "Jp" :  JSON.parse(localStorage.getItem('DictLanguageMode'));
+    DictLanguageMode = localStorage.getItem('DictLanguageMode') == null?  "Jp" :  localStorage.getItem('DictLanguageMode');
     if (OfflineDict_Mode ==1){
         document.getElementById("OfflineDict_Mode_type1").checked = true;
     }
@@ -63,7 +63,7 @@ function restoreOptions() {
 
 
     KRDICT_API = localStorage.getItem('KRDICT_API');
-    TSV_OR_AnkiConnect = localStorage.getItem('TSV_OR_AnkiConnect') || 'TSV';
+    TSV_OR_AnkiConnect = localStorage.getItem('TSV_OR_AnkiConnect') == null? 'TSV' : localStorage.getItem('TSV_OR_AnkiConnect');
     document.getElementById("TSV_OR_AnkiConnect_Lb").innerHTML = TSV_OR_AnkiConnect;
     //if null , then = true, else JSON.parse( <'true'/'false'>) into boolean
     hotkey_Enabled = localStorage.getItem('hotkey_Enabled') == null?  true :  JSON.parse(localStorage.getItem('hotkey_Enabled'));
@@ -143,13 +143,13 @@ document.getElementById("Use_AnkiConnect_Btn").addEventListener("click", functio
 });
 
 document.getElementById("Use_debugMode_Btn").addEventListener("click", function(){
-    localStorage.setItem('is_debugMode','true');
+    localStorage.setItem('is_debugMode',true);
     restoreOptions();
     browser.extension.getBackgroundPage().broadcastStorageChange();
 });
 
 document.getElementById("Dont_Use_debugMode_Btn").addEventListener("click", function(){
-    localStorage.setItem('is_debugMode','false');
+    localStorage.setItem('is_debugMode',false);
     restoreOptions();
     browser.extension.getBackgroundPage().broadcastStorageChange();
 });

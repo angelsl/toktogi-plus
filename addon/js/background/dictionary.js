@@ -975,11 +975,11 @@ function TsvLineToObjectDict(tsv,dictNo){
 					target_tran = currentline[4];
 				}
 				else if (DictLanguageMode== "EnKr"){
-					target_def = currentline[1];
+					target_def = currentline[8];
 					target_tran = currentline[5];
 				}
 				else if (DictLanguageMode== "JpKr"){
-					target_def = currentline[8];
+					target_def = currentline[1];
 					target_tran = currentline[5];
 				}
 
