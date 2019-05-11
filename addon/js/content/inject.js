@@ -136,7 +136,6 @@ if (window.browser == null) {
 	function displayDef (defArray) {
 		// Finds longest word in array of results for highlighting
 		const longestMatch = defArray[defArray.length - 1].word;
-
 		// TODO make sure the user hasn't moved the mouse since request
 		if (currentNode) {
 			let pTimer;
@@ -286,6 +285,8 @@ if (window.browser == null) {
 				}
 				else if (defArray[i].defsDictType[j] =="offlinedict3"){
 					$dictInner.append(	$("<span>", { class: 'dict-def offlinedict3' }).text( defArray[i].defs[j]));
+					$dictInner.append(	$("<span>", { class: 'dict-def offlinedict3tran' }).text( defArray[i].trans[j]));
+					//$dictInner.append(	"<span><ul>	<li>Dict config. Now supports both En & JP & Kr definition (See option page)</li><li>Fixed bug. Option page configurations stored and retrieved incorrectly</li><li>Allow reverse range search. e.g. search for Kr def which has english definition containing 'office' word or '江原' hanja</li></ul></span>");
 				}
 				else {
 					$dictInner.append(	$("<span>", { class: 'dict-def' }).text( defArray[i].defs[j]));
@@ -524,13 +525,13 @@ if (window.browser == null) {
 					showErrorNotification("pressed ']', DisableGreedyWordRecognition");
 
 			}
-			else if (ekeyCode ==77){
+			else if (ekeyCode ==77 && event.altKey){
 				//ekeyCode ==77 == m
-				/*
+				
 				if (confirm("Show Toktogi Option?")) {
 					browser.sendMessage({ name: "showOptions" });
 				}
-				*/
+				
 			}
 			//alert('keypress event\n\n' + 'key: ' + ekeyName+ '  key code:' +ekeyCode + 'isOn var: '+ isOn) ;
 			});

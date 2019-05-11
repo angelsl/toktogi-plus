@@ -20,8 +20,16 @@
 
 /* to differentiate dictentry from offline dict2 with different color*/
 .offlinedict3{
-	color: rgb(99, 0, 0) !important;
+	color: rgb(160, 0, 0) !important;
 	font-weight: bold !important;
+}
+
+
+.offlinedict3tran{
+	color: rgb(12, 97, 0)  !important;
+	/*823, 128, 2*/
+	font-weight: bold !important;
+	text-indent:10px; 
 }
 
 .freq {

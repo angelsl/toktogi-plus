@@ -399,6 +399,7 @@ dictionary.lookupWords = function(str) {
 						//console.log("word entry found in both dict1 & dict2 !:" + entryList[entryList.length-1].word + " totalDictKeyLookupCount:" + totalDictKeyLookupCount);
 						entryList[entryList.length-2].defs = entryList[entryList.length-2].defs.concat(entryList[entryList.length-1].defs);
 						entryList[entryList.length-2].defsDictType = entryList[entryList.length-2].defsDictType.concat(entryList[entryList.length-1].defsDictType); 
+						entryList[entryList.length-2].trans = new Array(entryList[entryList.length-2].defsDictType.length - entryList[entryList.length-1].defsDictType.length ).fill("polyfil").concat(entryList[entryList.length-1].trans);
 						entryList.pop();
 					}
 				}
@@ -418,6 +419,7 @@ dictionary.lookupWords = function(str) {
 						//console.log("word entry found in both dict1 & dict2 !:" + entryList[entryList.length-1].word + " totalDictKeyLookupCount:" + totalDictKeyLookupCount);
 						entryList[entryList.length-2].defs = entryList[entryList.length-2].defs.concat(entryList[entryList.length-1].defs);
 						entryList[entryList.length-2].defsDictType = entryList[entryList.length-2].defsDictType.concat(entryList[entryList.length-1].defsDictType); 
+						entryList[entryList.length-2].trans = new Array(entryList[entryList.length-2].defsDictType.length - entryList[entryList.length-1].defsDictType.length ).fill("polyfil").concat(entryList[entryList.length-1].trans);
 						entryList.pop();
 					}
 				}
@@ -465,6 +467,7 @@ dictionary.lookupWords = function(str) {
 					//console.log("word entry found in both dict1 & dict2 !:" + entryList[entryList.length-1].word + " totalDictKeyLookupCount:" + totalDictKeyLookupCount);
 					entryList[entryList.length-2].defs = entryList[entryList.length-2].defs.concat(entryList[entryList.length-1].defs);
 					entryList[entryList.length-2].defsDictType = entryList[entryList.length-2].defsDictType.concat(entryList[entryList.length-1].defsDictType); 
+					entryList[entryList.length-2].trans = new Array(entryList[entryList.length-2].defsDictType.length - entryList[entryList.length-1].defsDictType.length ).fill("polyfil").concat(entryList[entryList.length-1].trans);
 					entryList.pop();
 				}
 			}	
@@ -481,6 +484,7 @@ dictionary.lookupWords = function(str) {
 					//console.log("word entry found in both dict1 & dict2 !:" + entryList[entryList.length-1].word + " totalDictKeyLookupCount:" + totalDictKeyLookupCount);
 					entryList[entryList.length-2].defs = entryList[entryList.length-2].defs.concat(entryList[entryList.length-1].defs);
 					entryList[entryList.length-2].defsDictType = entryList[entryList.length-2].defsDictType.concat(entryList[entryList.length-1].defsDictType); 
+					entryList[entryList.length-2].trans = new Array(entryList[entryList.length-2].defsDictType.length - entryList[entryList.length-1].defsDictType.length ).fill("polyfil").concat(entryList[entryList.length-1].trans);
 					entryList.pop();
 				}
 			}
@@ -563,7 +567,7 @@ dictionary.lookupWords = function(str) {
 	function lookupDict3(i){
 		let info = dict3[wordList[i]];
 		if (info) {
-				entryList.push({ word: wordList[i], defs: info.displaydef.split("<BR>"), pos:info.pos, hanja:info.hanja, defsDictType: new Array(info.displaydef.split("<BR>").length).fill("offlinedict3") });
+				entryList.push({ word: wordList[i], defs: info.displaydef.split("<BR>"), trans: info.displaytran.split("<BR>"), pos:info.pos, hanja:info.hanja, defsDictType: new Array(info.displaydef.split("<BR>").length).fill("offlinedict3") });
 				return true;
 		}	
 		return false;
@@ -641,7 +645,10 @@ function filterRangeSearch(str, method){
 				if (dict3.hasOwnProperty(key)) {
 				  if (dict3[key].displaydef.replace(/\s/g, '').includes(str)){
 					entryList2.push(key);
-				  }
+					}
+					else if (dict3[key].displaytran.replace(/\s/g, '').includes(str)){
+						entryList2.push(key);
+					}
 				}
 			}
 		}
@@ -663,6 +670,9 @@ function filterRangeSearch(str, method){
 					 		if (dict3[key].displaydef.replace(/\s/g, '').includes(str)){
 								entryList2.push(key);
 							 }
+							 else if (dict3[key].displaytran.replace(/\s/g, '').includes(str)){
+								entryList2.push(key);
+							}
 					  	}
 					}
 				}
@@ -692,26 +702,27 @@ function filterRangeSearch(str, method){
 			
 		console.log(entryList.length);
 	
-		for (let i = 0; i < Math.min(entryList.length,4); i++) {
+		for (let i = 0; i < Math.min(entryList.length,6); i++) {
 			console.log(i);
 			console.log(i + " " + entryList[i]);
 			}
 		 }
 	
 	let resultL = []
-	for (let i = 0; i < Math.min(entryList.length,8); i++) {
+	for (let i = 0; i < Math.min(entryList.length,12); i++) {
 			let info1 = dict2[entryList[i]];
 			let info2 = dict3[entryList[i]];
 			if (info1 && info2) {
 				let mergeddef = info1.split("<BR>").concat(info2.displaydef.split("<BR>"));
 				let defsDictType = new Array(info1.split("<BR>").length).fill("offlinedict2").concat(new Array(info2.displaydef.split("<BR>").length).fill("offlinedict3"));
-				resultL.push({ word: entryList[i], defs: mergeddef, defsDictType: defsDictType, pos:info2.pos, hanja:info2.hanja });
+				let prev_dicttypelen =  info1.split("<BR>").length
+				resultL.push({ word: entryList[i], defs: mergeddef  , trans: new Array(prev_dicttypelen).fill("polyfil").concat(info2.displaytran.split("<BR>")) , defsDictType: defsDictType, pos:info2.pos, hanja:info2.hanja });
 			}
 			else if (info1) {
 				resultL.push({ word: entryList[i], defs: info1.split("<BR>"), defsDictType: new Array(info1.split("<BR>").length).fill("offlinedict2") });
 			}
 			else if (info2) {
-				resultL.push({ word: entryList[i], defs: info2.displaydef.split("<BR>"), pos:info2.pos, hanja:info2.hanja, defsDictType: new Array(info2.displaydef.split("<BR>").length).fill("offlinedict3") });
+				resultL.push({ word: entryList[i], defs: info2.displaydef.split("<BR>"), trans: info2.displaytran.split("<BR>"), pos:info2.pos, hanja:info2.hanja, defsDictType: new Array(info2.displaydef.split("<BR>").length).fill("offlinedict3") });
 			}
 		}
 
@@ -992,15 +1003,15 @@ function TsvLineToObjectDict(tsv,dictNo){
 
 				if (dictionary3.dict[currentline[0]]){
 					// if entry already exist, append
-					dictionary3.dict[currentline[0]] = { jp_defs:dictionary3.dict[currentline[0]].jp_defs+"\n"+target_def, pos: dictionary3.dict[currentline[0]].pos+"|"+currentline[2], freq: dictionary3.dict[currentline[0]].freq+"|"+currentline[6], hanja: dictionary3.dict[currentline[0]].hanja+"|"+currentline[3],jp_trans:dictionary3.dict[currentline[0]].jp_trans+"\n"+target_tran, displaydef:dictionary3.dict[currentline[0]].displaydef }
-					let temp =  currentline[6].concat(currentline[2]).concat(currentline[3]).concat(target_def).concat(target_tran).concat("<BR>");
+					dictionary3.dict[currentline[0]] = { jp_defs:dictionary3.dict[currentline[0]].jp_defs+"\n"+target_def, pos: dictionary3.dict[currentline[0]].pos+"|"+currentline[2], freq: dictionary3.dict[currentline[0]].freq+"|"+currentline[6], hanja: dictionary3.dict[currentline[0]].hanja+"|"+currentline[3],jp_trans:dictionary3.dict[currentline[0]].jp_trans+"\n"+target_tran, displaydef:dictionary3.dict[currentline[0]].displaydef, displaytran:dictionary3.dict[currentline[0]].displaytran }
+					let temp =  currentline[6].concat(currentline[2]).concat(currentline[3]).concat(target_def).concat("<BR>");
 					dictionary3.dict[currentline[0]].displaydef = dictionary3.dict[currentline[0]].displaydef +"\n" + temp
-					
-
+					dictionary3.dict[currentline[0]].displaytran = dictionary3.dict[currentline[0]].displaytran +"\n" + target_tran.concat("<BR>");
 				}
 				else{
 					dictionary3.dict[currentline[0]] = { jp_defs:target_def, pos: currentline[2], hanja: currentline[3],jp_trans:target_tran,freq:currentline[6]}
-					dictionary3.dict[currentline[0]].displaydef = currentline[6].concat(currentline[2]).concat(currentline[3]).concat(target_def).concat(target_tran).concat("<BR>");	
+					dictionary3.dict[currentline[0]].displaydef = currentline[6].concat(currentline[2]).concat(currentline[3]).concat(target_def).concat("<BR>");	
+					dictionary3.dict[currentline[0]].displaytran = target_tran.concat("<BR>");
 				}
 
 
@@ -1013,15 +1024,16 @@ function TsvLineToObjectDict(tsv,dictNo){
 					//TODO: factorise this function
 					if (dictionary3.dict[currentline[0]]){
 						// if entry already exist, append
-						dictionary3.dict[currentline[0]] = { jp_defs:dictionary3.dict[currentline[0]].jp_defs+"\n"+target_def, pos: dictionary3.dict[currentline[0]].pos+"|"+currentline[2], freq: dictionary3.dict[currentline[0]].freq+"|"+currentline[6], hanja: dictionary3.dict[currentline[0]].hanja+"|"+currentline[3],jp_trans:dictionary3.dict[currentline[0]].jp_trans+"\n"+target_tran, displaydef:dictionary3.dict[currentline[0]].displaydef }
-						let temp =  currentline[6].concat(currentline[2]).concat(currentline[3]).concat(target_def).concat(target_tran).concat("<BR>");
+						dictionary3.dict[currentline[0]] = { jp_defs:dictionary3.dict[currentline[0]].jp_defs+"\n"+target_def, pos: dictionary3.dict[currentline[0]].pos+"|"+currentline[2], freq: dictionary3.dict[currentline[0]].freq+"|"+currentline[6], hanja: dictionary3.dict[currentline[0]].hanja+"|"+currentline[3],jp_trans:dictionary3.dict[currentline[0]].jp_trans+"\n"+target_tran, displaydef:dictionary3.dict[currentline[0]].displaydef , displaytran:dictionary3.dict[currentline[0]].displaytran}
+						let temp =  currentline[6].concat(currentline[2]).concat(currentline[3]).concat(target_def).concat("<BR>");
 						dictionary3.dict[currentline[0]].displaydef = dictionary3.dict[currentline[0]].displaydef +"\n" + temp
-						
+						dictionary3.dict[currentline[0]].displaytran = dictionary3.dict[currentline[0]].displaytran +"\n" + target_tran.concat("<BR>");
 	
 					}
 					else{
 						dictionary3.dict[currentline[0]] = { jp_defs:target_def, pos: currentline[2], hanja: currentline[3],jp_trans:target_tran,freq:currentline[6]}
-						dictionary3.dict[currentline[0]].displaydef = currentline[6].concat(currentline[2]).concat(currentline[3]).concat(target_def).concat(target_tran).concat("<BR>");	
+						dictionary3.dict[currentline[0]].displaydef = currentline[6].concat(currentline[2]).concat(currentline[3]).concat(target_def).concat("<BR>");	
+						dictionary3.dict[currentline[0]].displaytran = target_tran.concat("<BR>");
 					}
 				}
 
