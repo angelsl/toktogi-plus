@@ -119,7 +119,7 @@ dictionary.lookupWords = function(str) {
 		else if (firstcharbatchim == 'ᆷ'){
 			firstcharbatchim = 'ㅁ'
 		}
-		else if (firstcharbatchim == 'ᆸ'){
+		else if (firstcharbatchim == 'ᆸ' // use these for if 'NFD'[2]== 'etc' ){  
 			firstcharbatchim = 'ㅂ'
 		}
 		else{
@@ -137,7 +137,7 @@ dictionary.lookupWords = function(str) {
 	for (let i = 1; i < str.length + 1; i++) {
 		const word = str.substring(0, i);
 		//TODO: More fine criteria i.e. (str.charAt(i-1) =='을' ||  str.charAt(i-1) == '은') && str.charAt(i-2) exist && str.charAt(i-2) has batchim
-		if (['니','며','느','라','긴','렴','을','은','으','지','는','게','신','시','심','실','네','러','셨','잖','쇼','죠','고','듯','던','더','았','었','셔','기','십','되','면','려','길','냐'].includes(str.charAt(i-1)) || ['거나','거든','도록','세요'].includes(str.substring(i-1,i+1)) || (GreedyWordRecognition_Enabled && ['이'].includes(str.charAt(i-1))) ){
+		if (['니','며','느','라','긴','렴','을','은','으','지','는','게','신','시','심','실','네','러','셨','잖','쇼','죠','고','듯','던','더','았','었','셔','기','십','되','면','려','길','냐'].includes(str.charAt(i-1)) || ['거나','거든','도록','세요','구나'].includes(str.substring(i-1,i+1)) || (GreedyWordRecognition_Enabled && ['이'].includes(str.charAt(i-1))) ){
 			// to handle 	inquisitive present & past formal low '먹니' & '먹었니'
 			// 을 to handle st like 먹을게요 or ~(으)ㄹ게 
 			// if not already in list, push
@@ -155,7 +155,7 @@ dictionary.lookupWords = function(str) {
 				//console.log("@ word ending contains '니' || '을'. "+ word+" becomes :" + str.substring(0, i-1).concat('다'));
 			}
 		}
-		if (str.charAt(i-1).normalize('NFD')[1]=='ᅧ'){
+		if (str.charAt(i-1).normalize('NFD')[1]=='ᅧ' && ['ᆻ', 'ᆫ' ,'ᆯ', 'ᆷ','ᆸ',undefined ].includes( str.charAt(i-1).normalize('NFD')[2] )  ){
 			let char_with_replaced_vowel_no_batchim = str.charAt(i-1).normalize('NFD')[0].concat('ᅵ').normalize('NFC');
 			// Deals with i + eo =ᅧ Contraction.  i.e. 떠올렸 becomes > 떠올리다
 			if (!wordList.includes(str.substring(0, i-1).concat(char_with_replaced_vowel_no_batchim).concat('다'))){
@@ -173,7 +173,14 @@ dictionary.lookupWords = function(str) {
 				wordList.push(str.substring(0, i-1).concat(char_no_batchim).concat('다'));
 				//console.log("@ word ending contains 'ᆫ' || 'ᆻ' || 'ᆯ' ,  "+ word +" becomes :" + str.substring(0, i-1).concat(char_no_batchim).concat('다'));
 			}
-			if (GreedyWordRecognition_Enabled){
+
+			if(str.charAt(i-1).normalize('NFD')[2] == 'ᆫ' && str.charAt(i)=='데'){
+				// if current char has 'ᆫ' batchim, and next char = '데'. then remove ᆫ데.  >> 진짠데 will becomes 진짜
+				if (!wordList.includes(str.substring(0, i-1).concat(char_no_batchim))){
+					wordList.push(str.substring(0, i-1).concat(char_no_batchim));
+				}
+			}
+			else if (GreedyWordRecognition_Enabled){
 				if (!wordList.includes(str.substring(0, i-1).concat(char_no_batchim))){
 					wordList.push(str.substring(0, i-1).concat(char_no_batchim));
 					// 진짠데 will becomes 진짜
@@ -220,6 +227,16 @@ dictionary.lookupWords = function(str) {
 
 		}
 
+		if (['하여','하였'].includes(str.substring(i-1,i+1))){
+			if (!wordList.includes(str.substring(0, i-1).concat('하다'))){
+				wordList.push(str.substring(0, i-1).concat('하다'));
+			}
+		}
+		if (['스레'].includes(str.substring(i-1,i+1))){
+			if (!wordList.includes(str.substring(0, i-1).concat('스럽다'))){
+				wordList.push(str.substring(0, i-1).concat('스럽다'));
+			}
+		}
 		//HANDLES basic 르 irregular verbs. i.e. 짤라 & 타일렀다
 		
 		
