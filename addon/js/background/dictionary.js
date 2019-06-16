@@ -183,6 +183,14 @@ dictionary.lookupWords = function(str) {
 				//console.log("@ word ending contains 'ᆫ' || 'ᆻ' || 'ᆯ' ,  "+ word +" becomes :" + str.substring(0, i-1).concat(char_no_batchim).concat('다'));
 			}
 
+
+			if(str.charAt(i-1).normalize('NFD')[2] == 'ᆯ' && (str.charAt(i)=='까'|| GreedyWordRecognition_Enabled)){
+				// if current char has 'ㄹ' batchim, and next char = '까'. then remove ㄹ까.  >> 어째설까 will becomes 어째서
+				if (!wordList.includes(str.substring(0, i-1).concat(char_no_batchim))){
+					wordList.push(str.substring(0, i-1).concat(char_no_batchim));
+				}
+			}
+
 			if(str.charAt(i-1).normalize('NFD')[2] == 'ᆫ' && (str.charAt(i)=='데'|| GreedyWordRecognition_Enabled)){
 				// if current char has 'ᆫ' batchim, and next char = '데'. then remove ᆫ데.  >> 진짠데 will becomes 진짜
 				if (!wordList.includes(str.substring(0, i-1).concat(char_no_batchim))){
