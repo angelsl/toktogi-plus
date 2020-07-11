@@ -137,7 +137,7 @@ dictionary.lookupWords = function(str) {
 	for (let i = 1; i < str.length + 1; i++) {
 		const word = str.substring(0, i);
 		//TODO: More fine criteria i.e. (str.charAt(i-1) =='을' ||  str.charAt(i-1) == '은') && str.charAt(i-2) exist && str.charAt(i-2) has batchim
-		if (['니','며','느','군','라','단','긴','렴','을','은','으','지','는','게','신','시','심','실','네','러','셨','잖','쇼','죠','고','듯','던','더','았','었','셔','기','십','되','면','려','길','냐','왔','습'].includes(str.charAt(i-1)) || ['거나','거든','거라','도록','세요','구나'].includes(str.substring(i-1,i+1)) || (GreedyWordRecognition_Enabled && ['이'].includes(str.charAt(i-1))) ){
+		if (['니','며','느','군','라','단','긴','란','진','건','서','렴','을','은','으','지','는','게','어','신','시','든','심','실','네','러','셨','잖','쇼','죠','고','듯','던','더','았','었','셔','기','십','되','면','려','길','냐','왔','습','나'].includes(str.charAt(i-1)) || ['거나','거든','거라','도록','세요','구나'].includes(str.substring(i-1,i+1)) || (GreedyWordRecognition_Enabled && ['이'].includes(str.charAt(i-1))) ){
 			// to handle 	inquisitive present & past formal low '먹니' & '먹었니'
 			// 을 to handle st like 먹을게요 or ~(으)ㄹ게 
 			// if not already in list, push
@@ -184,14 +184,14 @@ dictionary.lookupWords = function(str) {
 			}
 
 
-			if(str.charAt(i-1).normalize('NFD')[2] == 'ᆯ' && (str.charAt(i)=='까'|| GreedyWordRecognition_Enabled)){
+			if(str.charAt(i-1).normalize('NFD')[2] == 'ᆯ' && (str.charAt(i)=='까' || GreedyWordRecognition_Enabled)){
 				// if current char has 'ㄹ' batchim, and next char = '까'. then remove ㄹ까.  >> 어째설까 will becomes 어째서
 				if (!wordList.includes(str.substring(0, i-1).concat(char_no_batchim))){
 					wordList.push(str.substring(0, i-1).concat(char_no_batchim));
 				}
 			}
 
-			if(str.charAt(i-1).normalize('NFD')[2] == 'ᆫ' && (str.charAt(i)=='데'|| GreedyWordRecognition_Enabled)){
+			if(str.charAt(i-1).normalize('NFD')[2] == 'ᆫ' && (str.charAt(i)=='데' || str.charAt(i)=='가'|| GreedyWordRecognition_Enabled)){
 				// if current char has 'ᆫ' batchim, and next char = '데'. then remove ᆫ데.  >> 진짠데 will becomes 진짜
 				if (!wordList.includes(str.substring(0, i-1).concat(char_no_batchim))){
 					wordList.push(str.substring(0, i-1).concat(char_no_batchim));
@@ -249,7 +249,14 @@ dictionary.lookupWords = function(str) {
 				wordList.push(str.substring(0, i-1).concat('들다'));
 			}
 		}
-		if (['하여','하였'].includes(str.substring(i-1,i+1))){
+		if (['듯이'].includes(str.substring(i-1,i+1))){
+			// 빠듯이 >> 빠듯하다
+			if (!wordList.includes(str.substring(0, i-1).concat('듯하다'))){
+				wordList.push(str.substring(0, i-1).concat('듯하다'));
+			}
+		}
+		if (['하여','하였','치않'].includes(str.substring(i-1,i+1))){
+			// because 치않다 == Shortened form of -하지 않다. 
 			if (!wordList.includes(str.substring(0, i-1).concat('하다'))){
 				wordList.push(str.substring(0, i-1).concat('하다'));
 			}
@@ -259,6 +266,12 @@ dictionary.lookupWords = function(str) {
 				wordList.push(str.substring(0, i-1).concat('스럽다'));
 			}
 		}
+		if (['로이'].includes(str.substring(i-1,i+1))){
+			if (!wordList.includes(str.substring(0, i-1).concat('럽다'))){
+				wordList.push(str.substring(0, i-1).concat('럽다'));
+			}
+		}
+		
 
 		//HANDLES Polite B ᆸ (Not complete, still missing past tense form)
 			//나옵니까 >>나오다 
@@ -310,7 +323,7 @@ dictionary.lookupWords = function(str) {
 			*/
 		}
 
-		if (['해','했'].includes(str.charAt(i-1))){
+		if (['해','했','히'].includes(str.charAt(i-1))){
 			// to handle -하다 vocab not in dict 1 (meaning no conjugation table)
 			// without this, 치사해요 will fail.
 
@@ -1049,6 +1062,24 @@ function TsvLineToObjectDict(tsv,dictNo){
 				if (currentline[0].charAt(0)=='-'){
 					// -대요	んですよ。そうですよ  > Becomes 대요	(-대요)んですよ。そうですよ
 					target_def = "("+ currentline[0] +")  ".concat(target_def)
+					currentline[0] = currentline[0].replace("-", "");
+				}
+
+				/* HANDLES Word redirection */	
+				// e.g. [word] == 내미-  && [kr_trans] == (내미는데, 내미니, 내민, 내미는, 내밀, 내밉니다)→ 내밀다
+				//
+				if (currentline[0].charAt(currentline[0].length -1)=='-' && currentline[5].includes(')→')){
+					// 내미-	(내미는데, 내미니, 내민, 내미는, 내밀, 내밉니다)→ 내밀다  > Becomes 내미	(내미는데, 내미니, 내민, 내미는, 내밀, 내밉니다)→ 내밀다
+
+					// also , sometimes have multiple entries . So we do a bit hacking
+					//터지-					(터지고, 터지는데, 터지니, 터지면, 터지는, 터진, 터질, 터집니다)→ 터지다1		터지-		
+					//터지-					(터지고, 터진데, 터지니, 터지면, 터진, 터질, 터집니다)→ 터지다2		터지-		
+
+					//more example
+					// 덥썩		「부사」			→ 덥석		덥썩
+
+					target_def = target_def.concat(currentline[5]).concat("<BR>");
+					target_tran = target_tran.concat("").concat("<BR>");
 					currentline[0] = currentline[0].replace("-", "");
 				}
 
