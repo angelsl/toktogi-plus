@@ -8,6 +8,17 @@ let OfflineDict_Mode;
 let DictLanguageMode;
 let KRDICT_API; //Either String with value , or Null, Or Empty String "" if submitted blank Value
 //converts List Array to HTML table
+
+//To implement
+let onlineDictFeedURL = {DictURLs:[{name:"Public_Dict Feed", url:"https://docs.google.com/spreadsheets/d/e/2PACX-1vRx3emMmjh07vucKBs5x_I3uwtF3ldPybucONoNsNk7-_ob5ML2uJNEs28vzv6t-zTMYqJW5ZSgKUjo/pub?gid=0&single=true&output=tsv"}], MnemonicURLs:[{name:"Public_Mnemonic Feed", url:"placeholderurl"}] }
+
+/*Structure
+onlineDictFeedURL == Obj  {  DictURLs: [{name, url}, {name, url}] ,MnemonicURLs: [{name, url}, {name, url}] }
+
+alert(onlineDictFeedURL["DictURLs"][0]["name"]);  //Public_Dict Feed
+alert(onlineDictFeedURL.DictURLs[0].name);      //Public_Dict Feed
+*/
+
 function ulify(mList){
     let mString = "<ul>\n";
     console.log("mString is :" + mString);

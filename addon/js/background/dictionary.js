@@ -275,12 +275,16 @@ dictionary.lookupWords = function(str) {
 
 		//HANDLES Polite B ᆸ (Not complete, still missing past tense form)
 			//나옵니까 >>나오다 
+			// Should also handle noun, i.e. 마찬가집니다 >> 마찬가지
 		if (str.charAt(i-1).normalize('NFD')[2]  == 'ᆸ'){
 		let next_char_isHanguel = isHanguel(str.charAt(i));
 		if (next_char_isHanguel && ['네','니' ,'디' ,'시','죠','지','셨'].includes(str.charAt(i))){
 			let current_char_no_batchim = str.charAt(i-1).normalize('NFD')[0].concat(str.charAt(i-1).normalize('NFD')[1]).normalize('NFC');
 			if (!wordList.includes(str.substring(0, i-1).concat(current_char_no_batchim+'다'))){
-					wordList.push(str.substring(0, i-1).concat(current_char_no_batchim+'다'));
+					wordList.push(str.substring(0, i-1).concat(current_char_no_batchim+'다')); //나옵니까 >>나오다
+				}
+			if (!wordList.includes(str.substring(0, i-1).concat(current_char_no_batchim))){
+				wordList.push(str.substring(0, i-1).concat(current_char_no_batchim)); // 마찬가집니다 >> 마찬가지
 				}
 			}
 		}
@@ -1029,13 +1033,30 @@ function TsvLineToObjectDict(tsv,dictNo){
 			//we want no white space. Otherwise dict like this "로스트 제너레이션" will be hard to catch if input without spacing
 			currentline[0] = currentline[0].replace(/\s/g, '');
 			if (dictNo == "dict2"){
+				//Handle input like 나이(가)들다 >>  나이가들다 && 나이들다
+				let c1 = currentline[0];
+				let c2;
+				if (currentline[0].includes('(')){
+					c1 = currentline[0].replace(/[()]/g, ""); //나이가들다
+					c2 = currentline[0].replace(/ *\([^)]*\) */g, ""); // 나이들다
+				}
 
-				if (dictionary2.dict[currentline[0]]) {
+				if (dictionary2.dict[c1]) {
 					// if entry already exist, append
-					dictionary2.dict[currentline[0]] = dictionary2.dict[currentline[0]] + currentline[1];
+					dictionary2.dict[c1] = dictionary2.dict[c1] + currentline[1];
 				}
 				else {
-					dictionary2.dict[currentline[0]] = currentline[1];	
+					dictionary2.dict[c1] = currentline[1];	
+				}
+				if (c2){
+					// only input with () will have c2. i.e. for 나이(가)들다, c2 == 나이들다
+					if (dictionary2.dict[c2]) {
+						// if entry already exist, append
+						dictionary2.dict[c2] = dictionary2.dict[c2] + currentline[1];
+					}
+					else {
+						dictionary2.dict[c2] = currentline[1];	
+					}
 				}
 			}
 			else if (dictNo == "dict3"){
@@ -1081,6 +1102,16 @@ function TsvLineToObjectDict(tsv,dictNo){
 					target_def = target_def.concat(currentline[5]).concat("<BR>");
 					target_tran = target_tran.concat("").concat("<BR>");
 					currentline[0] = currentline[0].replace("-", "");
+				}
+
+				/* HANDLES Word redirection Type B */	
+				// e.g. [word] == 제끼다  &&  target_def == null && [kr_trans] == → 젖히다1
+				//
+
+				if (target_def == '' && currentline[5].substring(0, 2)=='→ '){
+
+					target_def = target_def.concat(currentline[5]).concat("<BR>");
+					target_tran = target_tran.concat("").concat("<BR>");
 				}
 
 				if (dictionary3.dict[currentline[0]]){
