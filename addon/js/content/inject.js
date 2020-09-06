@@ -133,6 +133,20 @@ if (window.browser == null) {
 
 		
 	}
+
+	function onToggleMnemonic(event){
+		//place holder, not used
+		console.log("called (fx) onToggleMnemonic");
+
+		var x = document.getElementById("myDIV");
+		if (x.style.display === "none") {
+		  x.style.display = "block";
+		} else {
+		  x.style.display = "none";
+		}
+
+}
+	
 	function displayDef (defArray) {
 		// Finds longest word in array of results for highlighting
 		const longestMatch = defArray[defArray.length - 1].word;
@@ -255,6 +269,12 @@ if (window.browser == null) {
 			$dictInner.append($plus);
 			$openNaverLink = $("<a>", { href: 'https://endic.naver.com/search.nhn?sLn=en&query='+word+'&searchOption=all&preQuery=&forceRedirect=N', class: 'naverlink', target:"_blank" }).text("🔍").appendTo($dictInner);
 			
+			/*
+			might implement toggle Mnemonics button later
+			var $toggleMnemonics = $("<button>", { id: i }).text("Toggle Mnemo").appendTo($dict);
+			$toggleMnemonics.click({dataIndex: i}, onToggleMnemonic);
+			$dictInner.append($toggleMnemonics);*/
+
 			// Beautify Dictbox Entry, i.e. adding show/hide dict entries which has more that 4 lines , etc.
 			let offlinedict2_entry_counter = 0;
 			let offlinedict2_total_entry = 0;
@@ -264,7 +284,15 @@ if (window.browser == null) {
 				}
 			}
 			
-
+			if (defArray[i].mnemonics){
+				//if entry also has mnemonics
+				let $mnemonics = $("<details>", { class: 'dict-def mnemonics', id:word  });
+				$mnemonics.append("<summary>...(Show Mnemo)</summary>");
+				$dictInner.append($mnemonics);
+				for (let z = 0; z < defArray[i].mnemonics.length; z++) {
+					$mnemonics.append(	$("<span>", { class: 'dict-def mnemonics' }).text( defArray[i].mnemonics[z]));
+				}
+			}
 			for (let j = 0; j < defArray[i].defs.length; j++) {
 				if (defArray[i].defsDictType[j] =="offlinedict2"){
 					offlinedict2_entry_counter++;
@@ -655,13 +683,25 @@ if (window.browser == null) {
 	}
 
 	function turnOn() {
-		if (!$notification) return;
 
-		$notification.show();
-		setTimeout(function () {
-			$notification.hide();
-		}, 5000);
-		startListeners();
+		console.log("@Content inject.js turnOn(), $notification:", $notification);
+		if (!$notification){
+			//Bug: $notification = undefined 
+			// Happens when open previous firefox session & inject.js initialises faster than background.js 
+			// resulting in inject.js sending "injectedLoaded" msg before background.js runs addListener("injectedLoaded", sendScriptData);
+			// so now sendScriptData() isn't called, and injectedData msg isn't send to content script. 
+			// and so inject.js loadData() isn't called. and finally $notification isn't created and startListeners() isn't running.
+			// to fix this, we re-send injectedLoaded msg again (Which background.js missed) to re-kickstart the whole chain processes.
+			console.log("$notification is undefined, attempting to send injectedLoaded to background again");
+			browser.sendMessage({ name: "injectedLoaded" });
+		} 
+		else{
+			$notification.show();
+			setTimeout(function () {
+				$notification.hide();
+			}, 5000);
+			startListeners();
+		}
 	}
 
 	function stopListeners() {
@@ -765,6 +805,7 @@ if (window.browser == null) {
 			showUpdateNotification();
 		}
 
+		console.log("@Content inject.js loadData, isOn:" , isOn, "is_debugMode:", is_debugMode , "TSV_OR_AnkiConnect:", TSV_OR_AnkiConnect);
 		$dict = $("<div>", { id: 'dict' })
 			.addClass("card-panel grey lighten-4")
 			.appendTo("body");

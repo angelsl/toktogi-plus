@@ -49,8 +49,8 @@ if (window.browser == null) {
 	}
 
 	browser.initInject = function () {
+		console.log("@browser_tools.js browser.initInject()");
 		browser.runtime.onMessage.addListener(browser.messageListener);
-
 		browser.sendMessage({ name: "injectedLoaded" });
 	}
 

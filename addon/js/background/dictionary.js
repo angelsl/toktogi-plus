@@ -98,6 +98,7 @@ dictionary.lookupWords = function(str) {
 	let len_limited_str = str.length; //for Debug purpose
 	const dict = dictionary.dict;
 	const dict2 = dictionary2.dict;
+	const dictMnemo = dictionary2.mnemo;
 	const dict3 = dictionary3.dict;
 
 	let entryList = [];
@@ -524,6 +525,7 @@ dictionary.lookupWords = function(str) {
 					//console.log("word entry found in both dict1 & dict2 !:" + entryList[entryList.length-1].word + " totalDictKeyLookupCount:" + totalDictKeyLookupCount);
 					entryList[entryList.length-2].defs = entryList[entryList.length-2].defs.concat(entryList[entryList.length-1].defs);
 					entryList[entryList.length-2].defsDictType = entryList[entryList.length-2].defsDictType.concat(entryList[entryList.length-1].defsDictType); 
+					entryList[entryList.length-2].mnemonics = entryList[entryList.length-1].mnemonics; //because Dict1 never had mnemonics attribute to begin with
 					entryList.pop();
 				}
 			}
@@ -623,13 +625,28 @@ dictionary.lookupWords = function(str) {
 	
 	function lookupDict2(i){
 		//OfflineDict_Mode:"1" ==> Only check dict2 if dict1 entry not found.
-		let info = dict2[wordList[i]];
+		let info = dict2[wordList[i]]; //info == dict2 result
+		let mnemonics = dictMnemo[wordList[i]]; //mnemonics == mnemonics result
+		if (mnemonics){
+			mnemonics= mnemonics.split("<BR>")
+			//console.log("word has mnemonics", mnemonics);
+			//console.log("word has dict2 entry", info);
+		}
+
 		if (info) {
-				entryList.push({ word: wordList[i], defs: info.split("<BR>"), defsDictType: new Array(info.split("<BR>").length).fill("offlinedict2") });
-				// defsDictType: new Array( size of defs array).fill("offlinedict2") . Use in inject.js for populating dictbox entry with different color for offlinedict2
-				return true;
-		}	
-		return false;
+			entryList.push({ word: wordList[i], defs: info.split("<BR>"), mnemonics:mnemonics, defsDictType: new Array(info.split("<BR>").length).fill("offlinedict2") });
+			// defsDictType: new Array( size of defs array).fill("offlinedict2") . Use in inject.js for populating dictbox entry with different color for offlinedict2
+			return true;
+		}
+		else if (mnemonics && !info){
+			// if mnemonics exist but dict2 entry doesn't
+			entryList.push({ word: wordList[i], defs: "", mnemonics:mnemonics, defsDictType: "offlinedict2" });
+			return true;
+		}
+
+		else{
+			return false;
+		}
 	}
 
 	function lookupDict3(i){
@@ -1033,6 +1050,10 @@ function TsvLineToObjectDict(tsv,dictNo){
 			//we want no white space. Otherwise dict like this "로스트 제너레이션" will be hard to catch if input without spacing
 			currentline[0] = currentline[0].replace(/\s/g, '');
 			if (dictNo == "dict2"){
+				// Quick fix if the def field, a.k.a. currentline[1] doesn't end with <BR>  then adds it i.e.  "(Loan word) Idol" >> "(Loan word) Idol<BR>"
+				if (!currentline[1].endsWith("<BR>")){
+					currentline[1] = currentline[1].concat("<BR>");
+				}
 				//Handle input like 나이(가)들다 >>  나이가들다 && 나이들다
 				let c1 = currentline[0];
 				let c2;
@@ -1056,6 +1077,37 @@ function TsvLineToObjectDict(tsv,dictNo){
 					}
 					else {
 						dictionary2.dict[c2] = currentline[1];	
+					}
+				}
+			}
+			else if (dictNo == "dictMnemo"){
+				// Quick fix if the def field, a.k.a. currentline[1] doesn't end with <BR>  then adds it i.e.  "(Loan word) Idol" >> "(Loan word) Idol<BR>"
+				if (!currentline[1].endsWith("<BR>")){
+					currentline[1] = currentline[1].concat("<BR>");
+				}
+				//Handles Mnemonic
+				let c1 = currentline[0];
+				let c2;
+				if (currentline[0].includes('(')){
+					c1 = currentline[0].replace(/[()]/g, ""); //나이가들다
+					c2 = currentline[0].replace(/ *\([^)]*\) */g, ""); // 나이들다
+				}
+
+				if (dictionary2.mnemo[c1]) {
+					// if entry already exist, append
+					dictionary2.mnemo[c1] = dictionary2.mnemo[c1] + currentline[1];
+				}
+				else {
+					dictionary2.mnemo[c1] = currentline[1];	
+				}
+				if (c2){
+					// only input with () will have c2. i.e. for 나이(가)들다, c2 == 나이들다
+					if (dictionary2.mnemo[c2]) {
+						// if entry already exist, append
+						dictionary2.mnemo[c2] = dictionary2.mnemo[c2] + currentline[1];
+					}
+					else {
+						dictionary2.mnemo[c2] = currentline[1];	
 					}
 				}
 			}
@@ -1229,6 +1281,7 @@ dictionary.load = async function() {
 	dictionary.dict = await util.getDictJson();
 	//Important! Makesure TSV file does not have carriage return , otherwise the Saving vocab feature will break. Temp fix is to use \r to catch the and replace them in notepad++
 	dictionary2.dict = {};
+	dictionary2.mnemo = {};
 	dictionary2.dictstr = await util.getDictSpaceSlashSpaceDelimitedTSV();
 	TsvLineToObjectDict(dictionary2.dictstr,"dict2");
 	dictionary2.dictstr = null; //don't need dictstr anymore, use dictionary2.dict obj instead. fotmat dictionary2[Str of  'Dictentry'] = Str 'defs'
@@ -1243,7 +1296,7 @@ dictionary.load = async function() {
 
 dictionary.reloadFromGoogleSpreadSheet_TSV = async function() {
 	
-	dictionary2.dictstr2 = await util.getGoogleSpreadSheetTSVDict();
+	dictionary2.dictstr2 = await util.getGoogleSpreadSheetTSVDict('https://docs.google.com/spreadsheets/d/e/2PACX-1vRx3emMmjh07vucKBs5x_I3uwtF3ldPybucONoNsNk7-_ob5ML2uJNEs28vzv6t-zTMYqJW5ZSgKUjo/pub?gid=0&single=true&output=tsv');
 	
 	if (dictionary2.dictstr2){
 		//only if result not null.
@@ -1251,9 +1304,23 @@ dictionary.reloadFromGoogleSpreadSheet_TSV = async function() {
 		TsvLineToObjectDict(dictionary2.dictstr2,"dict2");
 	}
 	else{
-		console.log("Could not fetch data from google Spreadsheeet. No internet connection ?");
+		console.log("Could not fetch Dict data from google Spreadsheeet. No internet connection ?");
 	}
 	
+	dictionary2.dictstr2 = null; //don't need dictstr anymore, use dictionary2.dict obj instead. fotmat dictionary2[Str of  'Dictentry'] = Str 'defs'
+
+	// now for mnemonic url
+	dictionary2.dictstr2 = await util.getGoogleSpreadSheetTSVDict('https://docs.google.com/spreadsheets/d/e/2PACX-1vRx3emMmjh07vucKBs5x_I3uwtF3ldPybucONoNsNk7-_ob5ML2uJNEs28vzv6t-zTMYqJW5ZSgKUjo/pub?gid=1587620401&single=true&output=tsv');
+	
+	if (dictionary2.dictstr2){
+		//only if result not null.
+		console.log(dictionary2.dictstr2);
+		TsvLineToObjectDict(dictionary2.dictstr2,"dictMnemo");
+	}
+	else{
+		console.log("Could not fetch Mnemonic data from google Spreadsheeet. No internet connection ?");
+	}
+
 	dictionary2.dictstr2 = null; //don't need dictstr anymore, use dictionary2.dict obj instead. fotmat dictionary2[Str of  'Dictentry'] = Str 'defs'
 
 }

@@ -31,8 +31,13 @@ util.setVersion = function(version) {
 
 util.sendMessage = function(tab, data) {
 	// data is an object that includes 'name' and 'data' fields
+
 	if (tab && tab.id !== null) {
+		if (is_debugMode){
+			console.log("@util.sendMessage. tab:" ,tab, "  tab.id: ", tab.id, "  data: ", data)
+		}
 		browser.tabs.sendMessage(tab.id, data);
+		
 	} else {
 		browser.runtime.sendMessage(data);
 	}
@@ -48,9 +53,9 @@ util.getDictSpaceSlashSpaceDelimitedTSV = async function() {
 	return response.text();
 };
 
-util.getGoogleSpreadSheetTSVDict = async function() {
+util.getGoogleSpreadSheetTSVDict = async function(tsv_url) {
 	try {
-		let response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRx3emMmjh07vucKBs5x_I3uwtF3ldPybucONoNsNk7-_ob5ML2uJNEs28vzv6t-zTMYqJW5ZSgKUjo/pub?gid=0&single=true&output=tsv');
+		let response = await fetch(tsv_url);
 		return response.text();
 	}
 	catch(err) {

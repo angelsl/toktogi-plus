@@ -111,6 +111,7 @@ function handleLookup(tab, data) {
 
 function sendScriptData(tab, data) {
 	//refresh hotkey_Enabled before sending to be safe
+	console.log("@background.js sendScriptData(). received injectedLoaded msg. Sending injectedData msg")
 	hotkey_Enabled = localStorage.getItem('hotkey_Enabled') == null?  true :  JSON.parse(localStorage.getItem('hotkey_Enabled'));
 	util.sendMessage(tab, {
 		name: "injectedData",
