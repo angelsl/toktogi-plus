@@ -1,11 +1,11 @@
 {
-   "author": "Toktogi Plus team, Brad McDermott(Founder, whose add-on we based on),",
+   "author": "Toktogi Plus team, Brad McDermott",
    "background": {
       "scripts": [ "js/background/util.js", "js/background/dictionary.js", "js/background/background.js" ]
    },
    "applications": {
     "gecko": {
-       "id": "Toktogiplus@example.com"
+       "id": "toktogiplus-angelsl@xyz.abc"
     }
  },
    "browser_action": {
@@ -16,7 +16,7 @@
    },
    "content_scripts": [ {
       "css": [ "css/inject.css" ],
-      "js": [ "js/vendor/jquery-2.1.4.min.js", "js/content/browser_tools.js", "js/content/inject.js" ],
+      "js": [ "js/vendor/jquery-3.5.1.slim.min.js", "js/content/browser_tools.js", "js/content/inject.js" ],
       "matches": [ "<all_urls>" ],
       "run_at": "document_end"
    } ],
@@ -36,7 +36,7 @@
   },
 
    "manifest_version": 2,
-   "name": "Toktogi+:Korean Popup Dict",
+   "name": "Toktogi+: Korean Popup Dict",
    "options_ui": {
       "page": "options.html",
       "open_in_tab": true
